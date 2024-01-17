@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './shared/angular-material.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -13,10 +14,11 @@ import { AngularMaterialModule } from './shared/angular-material.module';
     HomeComponent
   ],
   imports: [
+    AngularMaterialModule, // all angular material modules in one place for readability
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule // all angular material modules in one place for readability
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
