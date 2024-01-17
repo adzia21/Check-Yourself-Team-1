@@ -1,7 +1,7 @@
 package com.example.quizmanagement.model.result;
 
-import com.example.quizmanagement.model.quiz.QuestionType;
-import com.example.quizmanagement.service.QuestionAndAnswer;
+import com.example.quizmanagement.enums.QuestionType;
+import com.example.quizmanagement.model.quiz.QuestionAndAnswer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,7 +1,8 @@
-package com.example.quizmanagement.model.quiz;
+package com.example.quizmanagement.model.quiz.types;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,12 +12,13 @@ import java.util.List;
 @Setter
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Sentence {
+public class MultipleChoiceAnswers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String question;
-    private String answer;
+    @NotNull
     @ElementCollection
-    private List<String> wrongAnswers;
+    private List<String> correct;
+    @ElementCollection
+    private List<String> incorrect;
 }

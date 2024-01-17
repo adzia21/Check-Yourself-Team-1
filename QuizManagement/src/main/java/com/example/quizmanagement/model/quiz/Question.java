@@ -1,5 +1,9 @@
 package com.example.quizmanagement.model.quiz;
 
+import com.example.quizmanagement.enums.QuestionType;
+import com.example.quizmanagement.model.quiz.types.Matches;
+import com.example.quizmanagement.model.quiz.types.MultipleChoiceAnswers;
+import com.example.quizmanagement.model.quiz.types.Sentence;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +26,7 @@ public class Question {
     @Enumerated(value = EnumType.STRING)
     private QuestionType type;
     private String code;
+    @NotNull
     private String question;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "answers_id")

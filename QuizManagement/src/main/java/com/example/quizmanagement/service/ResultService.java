@@ -1,8 +1,9 @@
 package com.example.quizmanagement.service;
 
 import com.example.quizmanagement.model.Result;
-import com.example.quizmanagement.model.quiz.QuestionType;
-import com.example.quizmanagement.model.quiz.Quiz;
+import com.example.quizmanagement.model.quiz.QuestionAndAnswer;
+import com.example.quizmanagement.enums.QuestionType;
+import com.example.quizmanagement.model.Quiz;
 import com.example.quizmanagement.model.result.QuestionAnswer;
 import com.example.quizmanagement.model.result.QuizAnswers;
 import com.example.quizmanagement.repository.QuizAnswersRepository;

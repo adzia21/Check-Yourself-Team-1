@@ -1,6 +1,5 @@
 package com.example.quizmanagement.model;
 
-import com.example.quizmanagement.model.quiz.Quiz;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.example.quizmanagement.model.quiz;
+package com.example.quizmanagement.enums;
 
 public enum QuestionType {
     MULTIPLE_CHOICE,
