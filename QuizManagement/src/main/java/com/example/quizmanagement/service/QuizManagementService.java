@@ -21,8 +21,9 @@ public class QuizManagementService {
         return quizManagementMapper.toResponse(quizRepository.save(quizManagementMapper.toEntity(quiz)));
     }
 
-
-    public Quiz getQuiz(long id){
-        return quizRepository.findById(id).orElseThrow(RuntimeException::new);
+    @Transactional
+    public QuizResponse getQuiz(long id){
+        Quiz quiz = quizRepository.findById(id).orElseThrow(RuntimeException::new);
+        return quizManagementMapper.toResponse(quiz);
     }
 }
