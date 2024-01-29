@@ -1,0 +1,30 @@
+@import 'src/app/shared/_variables.scss';
+
+.wrapper {
+    background-color: $bg-dark;
+    color: white;
+    min-height: 8vh;
+    padding: 0 0 2vh 0;
+}
+
+.logo-main {
+    margin: 1vh 0 -1vh 0;
+}
+
+.logo-sub {
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.icon {
+    
+    &-1 {
+        transform: scale(1.5);
+        margin: 2vh 1vh 0 0;
+    }
+    
+    &-2 {
+        transform: scale(2);
+        margin: 2vh 2vh 0 0;
+    }
+}
