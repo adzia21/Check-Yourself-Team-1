@@ -1,0 +1,17 @@
+@import 'variables';
+
+.wrapper {
+    background-color: $bg-dark;
+    color: $text-light;
+    font-weight: 300;
+    font-size: $font-size-small;
+}
+
+.title {
+    color: $primary-color;
+    padding: 5px 0 5px 0;
+}
+
+.text {
+    padding: 0 0 5px 0;
+}
