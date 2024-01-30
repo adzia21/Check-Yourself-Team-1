@@ -1,0 +1,16 @@
+<mat-drawer-container class="nav-container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="over" position="end" opened="false">
+      <p>Auto-resizing sidenav</p>
+      @if (showFiller) {
+        <p>Lorem, ipsum dolor sit amet consectetur.</p>
+      }
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+        Toggle extra text
+      </button>
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <ng-content></ng-content>
+    </mat-drawer-content>
+  
+  </mat-drawer-container>

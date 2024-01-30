@@ -2,4 +2,9 @@
 
 .app-content {
     min-height: calc(100vh - $header-height - $footer-height);
+    padding: 0;
+
+    &-inner {
+        padding: 0 12px 0 12px
+    }
 }

@@ -1,13 +1,19 @@
-<div class="row justify-content-center">
-  <div class="col-12 header">
+<div class="row">
+  <div class="col-12 app-header">
     <app-header></app-header>
   </div>
   <div class="col-12 app-content">
-    <!-- <app-navigation-menu> -->
+    <app-nav-menu>
+      <div class="app-content-inner">
         <router-outlet></router-outlet>
-    <!-- </app-navigation-menu> -->
+      </div>
+    </app-nav-menu>
+    <!-- <app-nav-menu></app-nav-menu> -->
   </div>
-  <div class="col-12 footer">
+  <!-- <div class="col-xl-1 app-content">
+    <app-nav-menu></app-nav-menu>
+  </div> -->
+  <div class="col-12 app-footer">
     <app-footer></app-footer>
   </div>
 </div>

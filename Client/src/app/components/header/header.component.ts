@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { AfterViewInit, Component } from "@angular/core"
 import { icons } from "../../shared/constants/constants"
 
 @Component({
@@ -6,6 +6,11 @@ import { icons } from "../../shared/constants/constants"
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements AfterViewInit {
   public logo: string = `${icons}/logo.svg`;
+
+  constructor() { }
+
+  ngAfterViewInit(): void {
+  }
 }
