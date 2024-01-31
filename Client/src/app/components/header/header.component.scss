@@ -3,11 +3,11 @@
 .wrapper {
     background-color: $bg-dark;
     color: $text-light;
-    padding: 0 0 5px 0;
+    padding: 0 0 .3rem 0;
 }
 
 .logo-main {
-    margin: 5px 0 -10px 0;
+    margin: .3rem 0 -.3rem 0;
 }
 
 .logo-sub {
@@ -26,5 +26,11 @@
     &-2 {
         transform: scale(2);
         margin: 15px 10px 0 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .logo-text {
+        display: none;
     }
 }

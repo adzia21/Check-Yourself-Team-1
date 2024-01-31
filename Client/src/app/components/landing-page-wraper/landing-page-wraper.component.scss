@@ -1,0 +1,49 @@
+@import 'variables';
+
+.wrapper-conatiner {
+    min-height: calc(100vh - $header-height - $footer-height);
+    background-image: url('/assets/icons/landing-page-bg.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-palcement {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 28rem;
+    height: 38rem;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+
+    &-text {
+        font-size: $font-size-small;
+        padding: .5rem 0 0 0;
+
+        &-alt {
+            font-size: $font-size-small;
+            color: $primary-color;
+            padding: .5rem 0 0 0;
+        }
+    }
+
+    .icon {
+        transform: scale(2);
+        padding: .25rem 0 0 0;
+    }
+}
+
+.content {
+    height: 100%;
+}
+
+.divider {
+    width: 90%;
+    align-self: center
+}

@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './components/header/header.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LandingPageWraperComponent } from './components/landing-page-wraper/landing-page-wraper.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FooterComponent } from './components/footer/footer.component';
     HomeComponent,
     NavMenuComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LandingPageWraperComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability
