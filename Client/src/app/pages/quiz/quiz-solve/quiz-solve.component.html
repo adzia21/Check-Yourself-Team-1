@@ -1,0 +1,46 @@
+<div class="row" *ngIf="!showResultScreen; else resultScreen">
+    <div class="col-12 header">
+        <span class="header-question"><span class="header-text">Question</span> {{questionNumber + 1}}/{{quiz.questions.length}}</span>
+        <span class="header-time"><mat-icon class="material-icons-outlined hourglass">hourglass_top</mat-icon>{{ellapsedTime}} / 5:00</span>
+    </div>
+    <div class="col-12 qustion" *ngIf="quiz.questions[questionNumber].type === 'multiple choice'">
+        <app-multi-choice-question
+            [colors]="colors"
+            [quiz]="quiz"
+            [questionNumber]="questionNumber"
+            [backgroundImages]="backgroundImages"
+            [questionImage]="questionImage"
+            (questionChanged)="onQuestionChanged($event)"
+        ></app-multi-choice-question>
+    </div> 
+    <div class="col-12 qustion" *ngIf="quiz.questions[questionNumber].type === 'finish sentence'">
+        <app-complete-sentence-question
+            [quiz]="quiz"
+            [questionNumber]="questionNumber"
+            (questionChanged)="onQuestionChanged($event)"
+        ></app-complete-sentence-question>
+    </div>
+</div>
+
+<ng-template #resultScreen>
+    <div class="header">
+        <span class="header-result">Result of Quiz {{quiz.title}}</span>
+    </div>
+    <div class="question">
+        <div class="result-main">
+            <mat-card class="main-card">
+                <mat-card-content class="result-content-1">
+                    <div>
+                        1
+                    </div>
+                </mat-card-content>
+                <mat-card-content class="result-content-2">
+                    <div>
+                        2
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    
+</ng-template>
