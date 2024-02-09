@@ -1,0 +1,45 @@
+@import 'variables';
+
+.text {
+    font-weight: 500;
+    font-size: $font-size-biger;
+    line-height: 3rem;
+    padding: 1.5rem 0 1.25rem 0;
+
+    .number {
+        color: #EB4335;
+    }
+}
+
+.text-secondary {
+    font-size: $font-size-big;
+    font-weight: 300;
+    line-height: 2rem;
+    color: $text-dark !important;
+
+    .number {
+        font-weight: 900;
+    }
+
+    .text-accent {
+        color: $primary-color;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .register {
+        margin: 1.75rem 0 0 0;
+    }
+}
+
+.register {
+
+    &-button {
+        background-color: $primary-color;
+        color: $text-light;
+        border: 0;
+        border-radius: .3rem;
+        height: 2.75rem;
+        width: 9rem;
+    }
+}

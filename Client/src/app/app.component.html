@@ -1,9 +1,15 @@
-<div>
-  <!-- <app-header></app-header> -->
-  <div>
-    <!-- <app-navigation-menu> -->
-        <router-outlet></router-outlet>
-    <!-- </app-navigation-menu> -->
+<div class="row">
+  <div class="col-12 app-header">
+    <app-header></app-header>
   </div>
-  <!-- <app-footer></app-footer> -->
+  <div class="col-12 app-content">
+    <app-nav-menu>
+      <div class="app-content-inner">
+        <router-outlet></router-outlet>
+      </div>
+    </app-nav-menu>
+  </div>
+  <div class="col-12 app-footer">
+    <app-footer></app-footer>
+  </div>
 </div>

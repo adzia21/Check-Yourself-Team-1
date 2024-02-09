@@ -1,0 +1,30 @@
+<div class="row align-content-center wrapper-conatiner">
+    <div class="col-xl-6">
+    </div>
+    <div class="col-xl-6 card-palcement">
+        <mat-card class="card">
+            <mat-card-header class="header">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div><img [src]="vectorIcon" alt="VectorIcon" /></div>
+                        <div class="header-text-alt">Zwiększ ilość odpowiedzi na CV</div>
+                    </div>
+                    <div class="col-4">
+                        <div><mat-icon class="icon">quiz</mat-icon></div>
+                        <div class="header-text">Sprawdź siebie</div>
+                    </div>
+                    <div class="col-4">
+                        <div>
+                            <mat-icon class="icon">search</mat-icon>
+                        </div>
+                        <div class="header-text">Znajdź pracownika</div>
+                    </div>
+                </div>
+            </mat-card-header>
+            <hr class="divider" />
+            <mat-card-content class="content">
+                <ng-content></ng-content>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
