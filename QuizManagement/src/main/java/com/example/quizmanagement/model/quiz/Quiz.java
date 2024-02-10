@@ -1,6 +1,5 @@
-package com.example.quizmanagement.model;
+package com.example.quizmanagement.model.quiz;
 
-import com.example.quizmanagement.model.quiz.Question;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Getter;

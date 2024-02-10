@@ -1,11 +1,9 @@
 package com.example.quizmanagement.model.quiz;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -17,22 +15,22 @@ public class QuestionAndAnswer {
     @NonNull
     private String question;
     @NonNull
-    private String answer;
+    @ElementCollection
+    private List<String> answer;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        QuestionAndAnswer that = (QuestionAndAnswer) o;
-        return Objects.equals(question, that.question) &&
-                Objects.equals(answer, that.answer);
+        if (!(o instanceof QuestionAndAnswer that)) return false;
+        return getQuestion().equals(that.getQuestion()) && getAnswer().equals(that.getAnswer()) && Objects.equals(getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(question, answer);
+        return Objects.hash(getQuestion(), getAnswer(), getId());
     }
 }

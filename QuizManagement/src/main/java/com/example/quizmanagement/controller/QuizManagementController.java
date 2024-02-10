@@ -1,7 +1,8 @@
 package com.example.quizmanagement.controller;
 
-import com.example.quizmanagement.dto.quiz.request.CreateQuizRequest;
-import com.example.quizmanagement.dto.quiz.response.QuizResponse;
+import com.example.quizmanagement.dto.request.QuizRequest;
+import com.example.quizmanagement.dto.response.QuizResponse;
+import com.example.quizmanagement.dto.response.QuizResponseWithAnswers;
 import com.example.quizmanagement.service.QuizManagementService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +15,18 @@ public class QuizManagementController {
     private final QuizManagementService quizManagementService;
 
     @PostMapping
-    public QuizResponse createQuiz(@Valid @RequestBody CreateQuizRequest quiz) {
+    public QuizResponseWithAnswers createQuiz(@Valid @RequestBody QuizRequest quiz) {
         return quizManagementService.save(quiz);
     }
 
+    @GetMapping("/answers/{id}")
+    public QuizResponseWithAnswers getQuizWithAnswers(@PathVariable long id) {
+        return quizManagementService.getQuizWithAnswers(id);
+    }
+
     @GetMapping("/{id}")
-    public QuizResponse getQuiz(@PathVariable long id) {
-        return quizManagementService.getQuiz(id);
+    public QuizResponse getQuizWithoutAnswers(@PathVariable long id) {
+        return quizManagementService.getQuizWithoutAnswers(id);
     }
 
 }
