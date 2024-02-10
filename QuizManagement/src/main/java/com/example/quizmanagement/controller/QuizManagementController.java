@@ -29,4 +29,14 @@ public class QuizManagementController {
         return quizManagementService.getQuizWithoutAnswers(id);
     }
 
+    @PutMapping("/{id}")
+    public QuizResponseWithAnswers editQuiz(@RequestBody QuizRequest request, @PathVariable long id) {
+        return quizManagementService.editQuiz(request, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteQuiz(@PathVariable long id) {
+        quizManagementService.deleteQuiz(id);
+    }
+
 }

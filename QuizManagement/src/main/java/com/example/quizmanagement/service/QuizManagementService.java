@@ -53,4 +53,22 @@ public class QuizManagementService {
 
         return quizManagementMapper.toFullResponseWithoutAnswers(quiz, questionResponses);
     }
+
+    @Transactional
+    public QuizResponseWithAnswers editQuiz(QuizRequest request, long id) {
+        Quiz quiz = quizRepository.findById(id).orElseThrow(() -> new BadRequestException(messageSource
+                .getMessage("QUIZ_NOT_FOUND", null, Locale.getDefault())));
+
+        quiz.setTechnology(request.technology());
+        quiz.setTitle(request.title());
+        Quiz savedEntity = quizRepository.save(quiz);
+        return quizManagementMapper.toResponseWithAnswers(savedEntity);
+    }
+
+    @Transactional
+    public void deleteQuiz(long id) {
+        Quiz quiz = quizRepository.findById(id).orElseThrow(() -> new BadRequestException(messageSource
+                .getMessage("QUIZ_NOT_FOUND", null, Locale.getDefault())));
+        quizRepository.delete(quiz);
+    }
 }
