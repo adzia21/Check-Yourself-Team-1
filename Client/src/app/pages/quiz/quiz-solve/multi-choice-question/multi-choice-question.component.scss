@@ -8,14 +8,21 @@
 }
 
 .card {
-    min-width: 200px;
-    // width: 60%;
-    background-color: #313843;
+    min-width: 14rem;
+    max-width: 18rem;
+    min-height: 8rem;
+    background-color: $bg-grey;
     cursor: pointer;
+    margin: 30px 0 0 0;
+}
+
+.list {
+    margin: 20px 0 30px 0;
 }
 
 .card-selected {
-    border: 5px solid $accent-color;
+    margin: 20px 0 0 0;
+    border: 5px solid $primary-color;
     border-radius: 10px;
 }
 
@@ -24,20 +31,20 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    min-height: 60px;
+    min-height: 8rem;
     text-align: center;
     justify-content: center;
-    padding-top: 50px !important;
+    padding-top: 3.5rem !important;
     border-radius: 5px;
-    color: white;
+    color: $text-light;
 }
 
 .question-text {
-    background-color: #00A993;
+    background-color: $primary-color;
     text-align: center;
     padding: 10px;
     margin-top: 40px;
-    color: white;
+    color: $text-light;
 }
 
 .question-content {
@@ -47,34 +54,26 @@
     align-items: center;
 }
 
-.list {
-    display: flex;
-}
-
-.grid-tile {
-//  background-color: bisque;
-display: flex;
-}
-
 .main-card {
     border-radius: 45px;
-    // background-color: aqua;
-    min-width: 850px;
 }
 
 
 
 .next-question {
-    text-align: right;
-    // background-color: aqua;
-    margin: 0 50px 0 0;
     &-button {
         border-radius: 5px;
         height: 44px;
         width: 158px;
-        color: white;
-        background-color: #00A993;
+        color: $text-light;
+        background-color: $primary-color;
         border-color: transparent;
         cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .quiz-main {
+        padding: 20px 20px;
     }
 }

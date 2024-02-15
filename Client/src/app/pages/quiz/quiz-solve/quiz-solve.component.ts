@@ -58,7 +58,9 @@ export class QuizSolveComponent {
               correct: [
                   "dziabu",
                   "dabix",
-                  "dziop"
+                  "dziop",
+                  "dziop2",
+                  "dziop3"
               ],
               incorrect: [
                   "smuteg",

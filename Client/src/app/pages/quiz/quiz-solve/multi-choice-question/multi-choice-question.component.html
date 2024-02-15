@@ -1,38 +1,47 @@
-<div class="quiz-main" #scrollTo>
+<div class="row quiz-main" #scrollTo>
     <form>
-        <div *ngFor="let question of quiz.questions; let i = index">
-            <mat-card *ngIf="question.type === 'multiple choice' && i === questionNumber" class="main-card">
-                <div class="question-text"  >
+        @for (question of quiz.questions; track $index;) {
+            <mat-card *ngIf="question.type === 'multiple choice' && $index === questionNumber" class="main-card">
+                <div class="col-12 question-text">
                     Question
                 </div>
-                    <mat-card-content class="question-content">
-                            <h2>{{question.question}}</h2>
-                        <div>
-                            {{question?.code}}
-                        </div>
-                        <div>
-                            {{question?.picture}}
-                        </div>
-                        <div>
-                            {{question?.film}}
-                        </div>
-                    </mat-card-content>
-                    <mat-card-content>
-                        <mat-grid-list cols="4" rowHeight="200px" class="list">
-                            <mat-grid-tile *ngFor="let choice of options(question); let ii = index" class="grid-tile">
+                <mat-card-content class="col-12 question-content">
+                        <h2>{{question.question}}</h2>
+                    <div>
+                        {{question?.code}}
+                    </div>
+                    <div>
+                        {{question?.picture}}
+                    </div>
+                    <div>
+                        {{question?.film}}
+                    </div>
+                </mat-card-content>
+                <mat-card-content>
+                    <div class="row list">
+                        @for (choice of options(question); track $index) {
+                            <div class="col-xl-3">
                                 <mat-card class="card" (click)="toggleChoice(choice)" [class.card-selected]="isSelected(choice)">
-                                    <mat-card-content class="card-content" [style.background-color]="colors[ii % colors.length]" [style.background-image]="backgroundImages[(ii % colors.length) % 8]">
+                                    <mat-card-content 
+                                        class="card-content" 
+                                        [style.background-color]="colors[$index % colors.length]"
+                                        [style.background-image]="backgroundImages[($index % colors.length) % 8]"
+                                    >
                                         {{choice}}
                                     </mat-card-content>
                                 </mat-card>
-                            </mat-grid-tile>
-                        </mat-grid-list>
-                        <div class="next-question">
+                            </div>
+                        }
+                    </div>
+                    <div class="col-12">
+                        <div class="float-end">
                             <button type="button" class="next-question-button" (click)="nextQuestion(question)">Next Question</button>
                         </div>
-                    </mat-card-content>
+                    </div>
+                </mat-card-content>
             </mat-card>
-        </div>
+          } @empty {
+            Problem with questions
+          }
     </form>
 </div>
-

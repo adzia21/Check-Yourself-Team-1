@@ -23,24 +23,13 @@
 </div>
 
 <ng-template #resultScreen>
-    <div class="header">
-        <span class="header-result">Result of Quiz {{quiz.title}}</span>
-    </div>
-    <div class="question">
-        <div class="result-main">
-            <mat-card class="main-card">
-                <mat-card-content class="result-content-1">
-                    <div>
-                        1
-                    </div>
-                </mat-card-content>
-                <mat-card-content class="result-content-2">
-                    <div>
-                        2
-                    </div>
-                </mat-card-content>
-            </mat-card>
+    <div class="row">
+        <div class="col-12 header">
+            <span class="header-question"><span class="header-text">Question</span> {{questionNumber + 1}}/{{quiz.questions.length}}</span>
+            <span class="header-time"><mat-icon class="material-icons-outlined hourglass">hourglass_top</mat-icon>{{ellapsedTime}} / 5:00</span>
         </div>
+        <div class="col-12 qustion">
+            XD
+        </div> 
     </div>
-    
 </ng-template>
