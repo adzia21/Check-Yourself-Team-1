@@ -3,28 +3,99 @@
     </div>
     <div class="col-xl-6 card-palcement">
         <mat-card class="card">
-            <mat-card-header class="header">
-                <div class="row text-center">
-                    <div class="col-4">
-                        <div><img [src]="vectorIcon" alt="VectorIcon" /></div>
-                        <div class="header-text-alt">Zwiększ ilość odpowiedzi na CV</div>
-                    </div>
-                    <div class="col-4">
-                        <div><mat-icon class="icon">quiz</mat-icon></div>
-                        <div class="header-text">Sprawdź siebie</div>
-                    </div>
-                    <div class="col-4">
-                        <div>
-                            <mat-icon class="icon">search</mat-icon>
+            @if(!showRegisterForm) {
+                <mat-card-header class="header">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div><img [src]="vectorIcon" alt="VectorIcon" /></div>
+                            <div class="header-text-alt">Zwiększ ilość odpowiedzi na CV</div>
                         </div>
-                        <div class="header-text">Znajdź pracownika</div>
+                        <div class="col-4">
+                            <div><mat-icon class="icon">quiz</mat-icon></div>
+                            <div class="header-text">Sprawdź siebie</div>
+                        </div>
+                        <div class="col-4">
+                            <div>
+                                <mat-icon class="icon">search</mat-icon>
+                            </div>
+                            <div class="header-text">Znajdź pracownika</div>
+                        </div>
                     </div>
-                </div>
-            </mat-card-header>
-            <hr class="divider" />
-            <mat-card-content class="content">
-                <ng-content></ng-content>
-            </mat-card-content>
+                </mat-card-header>
+                <hr class="divider" />
+                <mat-card-content class="content">
+                    <ng-content></ng-content>
+                </mat-card-content>
+            } @else {
+                <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
+                    <div class="row justify-content-center input-first">
+                        <div class="col-auto">
+                            <mat-form-field>
+                                <mat-label>Name</mat-label>
+                                <input matInput formControlName="name" type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <mat-form-field>
+                                <mat-label>Surname</mat-label>
+                                <input matInput formControlName="surname" type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <mat-form-field>
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="email" type="email" placeholder="Ex. pat@example.com">
+                                @if (registerForm.get('email')?.getError('email')) {
+                                    <mat-error>Please enter a valid email address</mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <mat-form-field>
+                                <mat-label>Password</mat-label>
+                                <input matInput formControlName="password" type="password">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <mat-form-field>
+                                <mat-label>Confirm Password</mat-label>
+                                <input matInput formControlName="passwordConfirm" type="password">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto input-checkbox">
+                            <mat-checkbox formControlName="checkbox">Akceptuję <span class="login-text-color">regulamin</span> 
+                                wraz z <span class="login-text-color">polityką ochrony danych osobowych</span></mat-checkbox>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto register">
+                            <button type="submit" class="btn btn-success register-button">Zarejestruj się</button>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto login-text">
+                            Posiadasz już konto? <span class="login-text-color">Zaloguj się</span> 
+                        </div>
+                    </div>
+                </form>
+            }
+            <div class="row justify-content-center">
+                @if (!showRegisterForm) {
+                    <div class="col-auto register">
+                        <button type="button" class="btn btn-success register-button" (click)="register()">Zarejestruj się</button>
+                    </div>
+                }
+            </div>
         </mat-card>
     </div>
 </div>

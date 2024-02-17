@@ -13,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LandingPageWraperComponent } from './components/landing-page-wraper/landing-page-wraper.component';
 import { QuizModule } from './modules/quiz-module/quiz.module';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     NgbModule,
     QuizModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
