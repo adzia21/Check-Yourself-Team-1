@@ -1,0 +1,56 @@
+@import 'variables';
+
+.quiz-main {
+    background-color: $bg-grey;
+    padding: 40px 70px;
+    height: auto;
+    min-height: calc(100vh - $header-height - $footer-height);
+}
+
+.main-card {
+    border-radius: 45px;
+}
+
+.question-text {
+    background-color: $primary-color;
+    text-align: center;
+    padding: 10px;
+    margin-top: 40px;
+    color: $text-light;
+}
+
+.question-content {
+    margin-top: 40px;
+    padding: 0 30px 0 30px;
+    display: flex;
+
+    &-text {
+        padding: 15px 10px 0 0;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 19px;
+    }
+}
+
+
+
+
+
+.next-question {
+    &-button {
+        border-radius: 5px;
+        height: 44px;
+        width: 158px;
+        margin: 0 2rem 1rem 0;
+        color: $text-light;
+        background-color: $primary-color;
+        border-color: transparent;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .quiz-main {
+        padding: 20px 20px;
+    }
+}

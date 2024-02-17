@@ -6,6 +6,12 @@ const routes: Routes = [
   {
     path: '', component: HomeComponent,
   },
+  {
+    path: 'quiz', loadChildren: () => import('./modules/quiz-module/quiz.module').then(module => module.QuizModule),
+  },
+  {
+    path: '**', redirectTo: '',
+  }
 ];
 
 @NgModule({

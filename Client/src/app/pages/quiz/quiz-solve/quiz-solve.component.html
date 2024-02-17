@@ -1,0 +1,36 @@
+<div class="row" *ngIf="!showResultScreen; else resultScreen">
+    <div class="col-12 header">
+        <span class="header-question"><span class="header-text">Question</span> {{questionNumber + 1}}/{{quiz.questions.length}}</span>
+        <span class="header-time"><mat-icon class="material-icons-outlined hourglass">hourglass_top</mat-icon>{{ellapsedTime}} / 5:00</span>
+    </div>
+    <div class="col-12 qustion" *ngIf="quiz.questions[questionNumber].type === 'multiple choice'">
+        <app-multi-choice-question
+            [colors]="colors"
+            [quiz]="quiz"
+            [questionNumber]="questionNumber"
+            [isLastQuestion]="isLastQuestion"
+            [backgroundImages]="backgroundImages"
+            [questionImage]="questionImage"
+            (questionChanged)="onQuestionChanged($event)"
+        ></app-multi-choice-question>
+    </div> 
+    <div class="col-12 qustion" *ngIf="quiz.questions[questionNumber].type === 'finish sentence'">
+        <app-complete-sentence-question
+            [quiz]="quiz"
+            [questionNumber]="questionNumber"
+            [isLastQuestion]="isLastQuestion"
+            (questionChanged)="onQuestionChanged($event)"
+        ></app-complete-sentence-question>
+    </div>
+</div>
+
+<ng-template #resultScreen>
+    <div class="row">
+        <div class="col-12 header">
+            <span class="header-question"><span class="header-text">Wynik testu: {{quiz.title}}</span></span>
+        </div>
+        <div class="col-12 question">
+            <app-quiz-result [timeTaken]="timeTaken"></app-quiz-result>
+        </div>
+    </div>
+</ng-template>

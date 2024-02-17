@@ -1,0 +1,37 @@
+<main class="row quiz-main" #scrollTo>
+    <form>
+        @for (question of quiz.questions; track $index) {
+            <mat-card *ngIf="question.type === 'finish sentence' && $index === questionNumber" class="main-card">
+                <div class="col-12 question-text">
+                    Complete Sentence
+                </div>
+                @for (sentence of question.sentences; track $index) {
+                    <mat-card-content class="row question-content">
+                        <span class="col-auto question-content-text">
+                            {{sentence.question}}
+                        </span>
+                        <span class="col-auto">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Odpowiedź</mat-label>
+                                <mat-select>
+                                    @for (answer of options(sentence); track $index) {
+                                        <mat-option [value]="answer" (click)="optionChosen($index, answer)">{{answer}}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                        </span>
+                    </mat-card-content>
+                }
+                <div class="col-12">
+                    <div class="float-end">
+                        <button type="button" class="next-question-button" (click)="nextQuestion(question)">{{isLastQuestion ? 'Finish' : 'Next Question'}}</button>
+                    </div>
+                </div>
+            </mat-card>
+        } @empty {
+            Problem with questions
+          }
+    </form>
+</main>
+
+

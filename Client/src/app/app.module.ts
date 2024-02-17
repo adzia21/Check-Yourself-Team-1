@@ -11,6 +11,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LandingPageWraperComponent } from './components/landing-page-wraper/landing-page-wraper.component';
+import { QuizModule } from './modules/quiz-module/quiz.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { LandingPageWraperComponent } from './components/landing-page-wraper/lan
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    QuizModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
