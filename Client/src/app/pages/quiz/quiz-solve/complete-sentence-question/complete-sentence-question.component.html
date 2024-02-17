@@ -1,28 +1,36 @@
-<main class="quiz-main" #scrollTo>
+<main class="row quiz-main" #scrollTo>
     <form>
-        <div *ngFor="let question of quiz.questions; let i = index">
-            <mat-card *ngIf="question.type === 'finish sentence' && i === questionNumber" class="main-card">
-                <div class="question-text">
+        @for (question of quiz.questions; track $index) {
+            <mat-card *ngIf="question.type === 'finish sentence' && $index === questionNumber" class="main-card">
+                <div class="col-12 question-text">
                     Complete Sentence
                 </div>
-                <mat-card-content *ngFor="let sentence of question.sentences; let i = index" class="question-content">
-                        <span class="question-content-text">
+                @for (sentence of question.sentences; track $index) {
+                    <mat-card-content class="row question-content">
+                        <span class="col-auto question-content-text">
                             {{sentence.question}}
                         </span>
-                        <span>
+                        <span class="col-auto">
                             <mat-form-field appearance="outline">
                                 <mat-label>Odpowiedź</mat-label>
                                 <mat-select>
-                                    <mat-option *ngFor="let answer of options(sentence)" [value]="answer" (click)="optionChosen(i, answer)">{{answer}}</mat-option>
+                                    @for (answer of options(sentence); track $index) {
+                                        <mat-option [value]="answer" (click)="optionChosen($index, answer)">{{answer}}</mat-option>
+                                    }
                                 </mat-select>
                             </mat-form-field>
                         </span>
-                </mat-card-content>
-                <div class="next-question">
-                    <button type="button" class="next-question-button" (click)="nextQuestion(question)">Next Question</button>
+                    </mat-card-content>
+                }
+                <div class="col-12">
+                    <div class="float-end">
+                        <button type="button" class="next-question-button" (click)="nextQuestion(question)">{{isLastQuestion ? 'Finish' : 'Next Question'}}</button>
+                    </div>
                 </div>
             </mat-card>
-        </div>
+        } @empty {
+            Problem with questions
+          }
     </form>
 </main>
 

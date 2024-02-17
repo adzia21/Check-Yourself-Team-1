@@ -42,6 +42,8 @@ export class QuizSolveComponent {
   private timer: any = null;
   public quiz!: QuizModel;
   public showResultScreen: boolean = false;
+  public timeTaken: string = '00:00';
+  public isLastQuestion: boolean = false;
 
   constructor() { 
 
@@ -165,7 +167,6 @@ export class QuizSolveComponent {
 
 
     this.startTime = new Date();
-    this.ellapsedTime = '00:00';
     this.timer = setInterval(() => {
       this.tick();
     }, 1000);
@@ -188,12 +189,16 @@ export class QuizSolveComponent {
     return `${mins}:${secs}`;
   }
 
-  onQuestionChanged(incorrectQuestion: boolean) {
+  public onQuestionChanged(incorrectQuestion: boolean) {
     this.areCorrectQuestions.push(incorrectQuestion)
-    this.quiz.questions.length === this.questionNumber + 1 ? this.showResultScreen = true : this.questionNumber += 1
+    this.quiz.questions.length === this.questionNumber + 1 ? this.resultScreen() : this.questionNumber += 1
     console.log(this.areCorrectQuestions) 
-    
-      
+    this.isLastQuestion = this.quiz.questions.length === this.questionNumber + 1;
+  }
+
+  private resultScreen() {
+    this.showResultScreen = true;
+    this.timeTaken = this.ellapsedTime;
   }
 
 }

@@ -7,6 +7,8 @@ import { QuizSolveComponent } from 'src/app/pages/quiz/quiz-solve/quiz-solve.com
 import { MultiChoiceQuestionComponent } from 'src/app/pages/quiz/quiz-solve/multi-choice-question/multi-choice-question.component';
 import { CompleteSentenceQuestionComponent } from 'src/app/pages/quiz/quiz-solve/complete-sentence-question/complete-sentence-question.component';
 import { CommonModule } from '@angular/common';
+import { QuizResultComponent } from 'src/app/pages/quiz/quiz-solve/quiz-result/quiz-result.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 
@@ -14,13 +16,15 @@ import { CommonModule } from '@angular/common';
   declarations: [
     QuizSolveComponent,
     MultiChoiceQuestionComponent,
-    CompleteSentenceQuestionComponent
+    CompleteSentenceQuestionComponent,
+    QuizResultComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability
     QuizRoutingModule,
     NgbModule,
-    CommonModule
+    CommonModule,
+    NgChartsModule
   ],
   providers: []
 })

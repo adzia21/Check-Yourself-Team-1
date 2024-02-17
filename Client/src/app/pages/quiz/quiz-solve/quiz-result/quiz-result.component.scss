@@ -1,0 +1,88 @@
+@import 'variables';
+
+.result-main {
+    background-color: $bg-grey;
+    padding: 40px 70px;
+    height: auto;
+    min-height: calc(100vh - $header-height - $footer-height);
+    align-items: center;
+}
+
+.main-card {
+    border-radius: 45px;
+    justify-content: center;
+    height: fit-content;
+}
+
+.result-text {
+    font-size: $font-size-biger;
+    line-height: 2rem;
+    text-align: center;
+
+    &-color {
+        color: $error;
+    }
+}
+
+.text {
+    text-align: center;
+
+    &-bold {
+        font-weight: 700;
+    }
+
+    &-style {
+        margin: 1rem 0 0 0;
+
+        &-last {
+            margin: 2rem 0 0 0;
+        }
+    }
+}
+
+.return {
+    &-button {
+        border-radius: 5px;
+        height: 44px;
+        width: 158px;
+        margin: 0 2rem 1rem 0;
+        color: $text-light;
+        background-color: $primary-color;
+        border-color: transparent;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .chart-block, .text-block {
+        margin: 2rem 0 0 0;
+    }
+    .result-text {
+        margin: 2rem 0 0 0;
+    }
+    .result-main {
+        padding: 20px 20px;
+    }
+    .text {
+        text-align: center;
+    
+        &-bold {
+            font-weight: 700;
+        }
+    
+        &-style {
+            margin: 0.5rem 0 0 0;
+    
+            &-last {
+                margin: 1rem 0 0 0;
+            }
+        }
+    }
+
+    .return {
+        &-button {
+            margin-top: 1rem;
+        }
+    }
+}
+

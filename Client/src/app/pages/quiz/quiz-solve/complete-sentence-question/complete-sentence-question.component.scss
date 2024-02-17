@@ -1,16 +1,14 @@
 @import 'variables';
 
 .quiz-main {
-    background-color: $bg-dark;
+    background-color: $bg-grey;
     padding: 40px 70px;
     height: auto;
-    min-height: 100vh;
+    min-height: calc(100vh - $header-height - $footer-height);
 }
 
 .main-card {
     border-radius: 45px;
-    // background-color: aqua;
-    min-width: 850px;
 }
 
 .question-text {
@@ -39,15 +37,20 @@
 
 
 .next-question {
-    text-align: right;
-    margin: 0 50px 20px 0;
     &-button {
         border-radius: 5px;
         height: 44px;
         width: 158px;
-        color: white;
-        background-color: #00A993;
+        margin: 0 2rem 1rem 0;
+        color: $text-light;
+        background-color: $primary-color;
         border-color: transparent;
         cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .quiz-main {
+        padding: 20px 20px;
     }
 }

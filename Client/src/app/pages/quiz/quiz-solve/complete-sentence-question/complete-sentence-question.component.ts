@@ -10,6 +10,7 @@ import { QuizModel } from 'src/app/shared/models/quiz.model';
 export class CompleteSentenceQuestionComponent implements AfterViewInit, OnChanges {
 
   @Input() questionNumber!: number;
+  @Input() isLastQuestion: boolean = false;
   @Input() quiz!: QuizModel;
 
   @Output() questionChanged: EventEmitter<boolean> = new EventEmitter<boolean>();

@@ -13,6 +13,7 @@ export class MultiChoiceQuestionComponent implements OnInit, AfterViewInit {
   @Input() backgroundImages!: string[];
   @Input() quiz!: QuizModel;
   @Input() questionNumber!: number;
+  @Input() isLastQuestion: boolean = false;
   @Input() questionImage: string = `${images}/mockQuestion.png`;
   imgPlaceholder: string = `${images}/mockQuestion.png`;
 
