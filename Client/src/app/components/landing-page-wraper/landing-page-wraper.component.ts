@@ -9,6 +9,7 @@ import { icons } from "src/app/shared/constants/constants";
 })
 export class LandingPageWraperComponent {
     public vectorIcon: string = `${icons}/landing-page-vector.svg`;
+    public logo: string = `${icons}/logo_black.svg`;
     public showRegisterForm: boolean = false;
 
     public registerForm = new FormGroup({

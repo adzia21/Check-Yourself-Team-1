@@ -1,0 +1,41 @@
+@import 'variables';
+
+.login {
+    &-button {
+        background-color: $primary-color;
+        color: $text-light;
+        border: 0;
+        border-radius: .3rem;
+        height: 2.75rem;
+        width: 210px;
+        margin: 0 0 1.75rem 0;
+    }
+}
+
+.text {
+
+    &-top {
+        margin: 0 0 1rem 0;
+        font-size: $font-size-medium;
+        font-weight: 300;
+    }
+    &-bottom {
+        margin: 0 10px 0 0;
+        font-size: $font-size-medium;
+        font-weight: 300;
+        color: $primary-color;
+    }
+    &-header {
+        color: $text-dark
+    }
+}
+
+.input {
+    &-email {
+        width: 248px;
+    }
+}
+
+.error-hint {
+    color: $error;
+}

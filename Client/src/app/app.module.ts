@@ -14,6 +14,7 @@ import { LandingPageWraperComponent } from './components/landing-page-wraper/lan
 import { QuizModule } from './modules/quiz-module/quiz.module';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginDialogComponent } from './components/dialog/login-dialog/login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavMenuComponent,
     HeaderComponent,
     FooterComponent,
-    LandingPageWraperComponent
+    LandingPageWraperComponent,
+    LoginDialogComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability
