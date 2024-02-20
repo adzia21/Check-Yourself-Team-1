@@ -4,6 +4,7 @@ import com.example.quizmanagement.dto.request.QuizRequest;
 import com.example.quizmanagement.dto.response.*;
 import com.example.quizmanagement.model.quiz.Question;
 import com.example.quizmanagement.model.quiz.Quiz;
+import com.example.quizmanagement.model.result.UserResult;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -33,12 +34,12 @@ public interface QuizManagementMapper {
 
     @Mapping(source = "quiz.id", target = "quizId")
     @Mapping(source = "quiz.title", target = "quizName")
-    @Mapping(source = "amountOfGoodPoints", target = "correctAnswer")
-    @Mapping(source = "amountOfBadPoints", target = "incorrectAnswer")
-    @Mapping(source = "isPassed", target = "isPassed")
-    @Mapping(source = "percentOfGoodAnswers", target = "percentOfCorrectAnswers")
-    ResultForUserResponse toResponseWithResult(Quiz quiz, int amountOfGoodPoints,
-                                               int amountOfBadPoints,
-                                               double percentOfGoodAnswers, boolean isPassed);
+    @Mapping(source = "userResult.correctAnswer", target = "correctAnswer")
+    @Mapping(source = "userResult.incorrectAnswer", target = "incorrectAnswer")
+    @Mapping(source = "userResult.passed", target = "isPassed")
+    @Mapping(source = "userResult.percentOfCorrectAnswers", target = "percentOfCorrectAnswers")
+    ResultForUserResponse toResponseWithResult(Quiz quiz, UserResult userResult);
+
+    SimpleQuizResponse toSimpleResponse(Quiz quiz);
 
 }

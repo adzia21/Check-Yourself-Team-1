@@ -3,10 +3,13 @@ package com.example.quizmanagement.controller;
 import com.example.quizmanagement.dto.request.QuizRequest;
 import com.example.quizmanagement.dto.response.QuizResponse;
 import com.example.quizmanagement.dto.response.QuizResponseWithAnswers;
+import com.example.quizmanagement.dto.response.SimpleQuizResponse;
 import com.example.quizmanagement.service.QuizManagementService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -37,6 +40,11 @@ public class QuizManagementController {
     @DeleteMapping("/{id}")
     public void deleteQuiz(@PathVariable long id) {
         quizManagementService.deleteQuiz(id);
+    }
+
+    @GetMapping("/get-all")
+    public List<SimpleQuizResponse> getAllQuizByCompany() {
+        return quizManagementService.getAllQuizByCompany();
     }
 
 }

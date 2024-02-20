@@ -3,15 +3,18 @@ package com.example.quizmanagement.service;
 import com.example.quizmanagement.dto.request.ResultFromUserRequest;
 import com.example.quizmanagement.dto.response.ResultForUserResponse;
 import com.example.quizmanagement.exceptions.BadRequestException;
+import com.example.quizmanagement.jwt.UserDetailsImpl;
 import com.example.quizmanagement.mapper.QuizManagementMapper;
 import com.example.quizmanagement.model.quiz.Question;
 import com.example.quizmanagement.model.quiz.Quiz;
+import com.example.quizmanagement.model.result.UserResult;
 import com.example.quizmanagement.repository.QuestionRepository;
 import com.example.quizmanagement.repository.QuizRepository;
 import com.example.quizmanagement.repository.ResultRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ResultService {
     private final QuizRepository quizRepository;
     private final QuestionRepository questionRepository;
+    private final ResultRepository resultRepository;
     private final MessageSource messageSource;
     private final QuizManagementMapper mapper;
 
@@ -34,15 +38,19 @@ public class ResultService {
         Quiz quiz = quizRepository.findById(quizId).orElseThrow(() -> new BadRequestException(messageSource
                 .getMessage("QUIZ_NOT_FOUND", null, Locale.getDefault())));
 
-        AtomicInteger amountOfGoodPoints = new AtomicInteger();
-        AtomicInteger amountOfBadPoints = new AtomicInteger();
+
+        UserDetailsImpl loggedUser = (UserDetailsImpl) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+
+        AtomicInteger correctAnswerPoints = new AtomicInteger();
+        AtomicInteger incorrectAnswerPoints = new AtomicInteger();
 
         request.forEach(resultFromUserRequest -> {
 
             Question question = questionRepository
                     .findByQuizIdAndId(quizId, resultFromUserRequest.questionId())
                     .orElseThrow(() -> new BadRequestException(messageSource
-                            .getMessage("Lama", null, Locale.getDefault())));
+                            .getMessage("QUESTION_NOT_FOUND", null, Locale.getDefault())));
 
             List<String> correctAnswers = question.getCorrectAnswers();
 
@@ -50,18 +58,28 @@ public class ResultService {
 
             boolean areAllCorrectAnswers = userAnswers.equals(correctAnswers);
             if (areAllCorrectAnswers) {
-                amountOfGoodPoints.getAndIncrement();
+                correctAnswerPoints.getAndIncrement();
             } else {
-                amountOfBadPoints.getAndIncrement();
+                incorrectAnswerPoints.getAndIncrement();
             }
         });
 
-        double percentOfGoodAnswers = (double) amountOfGoodPoints.get() / request.size() * 100;
+        double percentOfCorrectAnswers = (double) correctAnswerPoints.get() / request.size() * 100;
 
-        boolean isPassed = percentOfGoodAnswers > 70;
+        boolean isPassed = percentOfCorrectAnswers > quiz.getPercentageNeededToPass();
 
-        return mapper.toResponseWithResult(quiz, amountOfGoodPoints.get(), amountOfBadPoints.get(),
-                percentOfGoodAnswers, isPassed);
+        UserResult userResult = UserResult.builder()
+                .userId(loggedUser.getId())
+                .percentOfCorrectAnswers(percentOfCorrectAnswers)
+                .incorrectAnswer(incorrectAnswerPoints.get())
+                .correctAnswer(correctAnswerPoints.get())
+                .quiz(quiz)
+                .passed(isPassed)
+                .build();
+
+        UserResult savedEntity = resultRepository.save(userResult);
+
+        return mapper.toResponseWithResult(quiz, savedEntity);
     }
 }
 

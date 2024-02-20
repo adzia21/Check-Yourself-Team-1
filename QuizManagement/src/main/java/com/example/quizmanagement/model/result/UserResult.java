@@ -15,10 +15,10 @@ public class UserResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
-    private boolean isPassed;
     @ManyToOne(cascade = CascadeType.ALL)
     private Quiz quiz;
     private double percentOfCorrectAnswers;
-    private int correctAnswerNumber;
-    private int incorrectAnswerNumber;
+    private boolean passed;
+    private int correctAnswer;
+    private int incorrectAnswer;
 }

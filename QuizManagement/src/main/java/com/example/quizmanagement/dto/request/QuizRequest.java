@@ -6,5 +6,6 @@ import java.util.List;
 
 public record QuizRequest(@NotNull String technology,
                           @NotNull String title,
-                          @NotNull List<QuestionRequest> questions) {
+                          @NotNull int time,
+                          List<QuestionRequest> questions) {
 }
