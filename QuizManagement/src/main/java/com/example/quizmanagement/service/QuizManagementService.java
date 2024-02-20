@@ -28,6 +28,9 @@ public class QuizManagementService {
     @Transactional
     public QuizResponseWithAnswers save(QuizRequest quiz) {
         Quiz entity = quizRepository.save(quizManagementMapper.toEntity(quiz));
+
+        entity.getQuestions().forEach(q -> q.setQuiz(entity));
+
         return quizManagementMapper.toResponseWithAnswers(entity);
     }
 

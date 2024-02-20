@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record QuestionRequest(@NotNull QuestionType type,
-                              @NotNull String question,
+                              @NotNull String questionName,
                               String code,
                               List<String> correctAnswers,
                               List<String> incorrectAnswers) {

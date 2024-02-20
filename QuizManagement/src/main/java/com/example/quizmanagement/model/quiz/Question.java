@@ -24,9 +24,11 @@ public class Question {
     private QuestionType type;
     private String code;
     @NotNull
-    private String question;
+    private String questionName;
     @ElementCollection
     private List<String> correctAnswers;
     @ElementCollection
     private List<String> incorrectAnswers;
+    @ManyToOne
+    private Quiz quiz;
 }

@@ -1,12 +1,9 @@
 package com.example.quizmanagement.mapper;
 
 import com.example.quizmanagement.dto.request.QuizRequest;
-import com.example.quizmanagement.dto.response.QuestionResponse;
-import com.example.quizmanagement.dto.response.QuestionResponseWithAnswers;
-import com.example.quizmanagement.dto.response.QuizResponse;
-import com.example.quizmanagement.dto.response.QuizResponseWithAnswers;
-import com.example.quizmanagement.model.quiz.Quiz;
+import com.example.quizmanagement.dto.response.*;
 import com.example.quizmanagement.model.quiz.Question;
+import com.example.quizmanagement.model.quiz.Quiz;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -16,10 +13,8 @@ import java.util.List;
 public interface QuizManagementMapper {
     Quiz toEntity(QuizRequest request);
 
-    // CREATE QUIZ - FROM REQUEST TO ENTITY - WITH ANSWERS
     QuizResponseWithAnswers toResponseWithAnswers(Quiz entity);
 
-    // CREATE QUIZ - FROM REQUEST TO ENTITY - WITH ANSWERS
     QuestionResponseWithAnswers toQuestionResponseWithAnswers(Question entity);
 
     // RESOLVE QUIZ - GET QUIZ TO RESOLVE FOR USER
@@ -32,7 +27,18 @@ public interface QuizManagementMapper {
     @Mapping(source = "entity.id", target = "questionId")
     @Mapping(source = "entity.type", target = "type")
     @Mapping(source = "entity.code", target = "code")
-    @Mapping(source = "entity.question", target = "question")
+    @Mapping(source = "entity.questionName", target = "question")
     @Mapping(source = "answers", target = "answers")
     QuestionResponse toResponseWithoutAnswers(Question entity, List<String> answers);
+
+    @Mapping(source = "quiz.id", target = "quizId")
+    @Mapping(source = "quiz.title", target = "quizName")
+    @Mapping(source = "amountOfGoodPoints", target = "correctAnswer")
+    @Mapping(source = "amountOfBadPoints", target = "incorrectAnswer")
+    @Mapping(source = "isPassed", target = "isPassed")
+    @Mapping(source = "percentOfGoodAnswers", target = "percentOfCorrectAnswers")
+    ResultForUserResponse toResponseWithResult(Quiz quiz, int amountOfGoodPoints,
+                                               int amountOfBadPoints,
+                                               double percentOfGoodAnswers, boolean isPassed);
+
 }

@@ -1,93 +1,67 @@
 package com.example.quizmanagement.service;
 
-import com.example.quizmanagement.enums.QuestionType;
-import com.example.quizmanagement.model.Result;
+import com.example.quizmanagement.dto.request.ResultFromUserRequest;
+import com.example.quizmanagement.dto.response.ResultForUserResponse;
+import com.example.quizmanagement.exceptions.BadRequestException;
+import com.example.quizmanagement.mapper.QuizManagementMapper;
+import com.example.quizmanagement.model.quiz.Question;
 import com.example.quizmanagement.model.quiz.Quiz;
-import com.example.quizmanagement.model.result.QuestionAnswer;
-import com.example.quizmanagement.model.result.QuizAnswers;
-import com.example.quizmanagement.repository.QuizAnswersRepository;
+import com.example.quizmanagement.repository.QuestionRepository;
 import com.example.quizmanagement.repository.QuizRepository;
 import com.example.quizmanagement.repository.ResultRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 @Service
 @RequiredArgsConstructor
 public class ResultService {
     private final QuizRepository quizRepository;
-    private final ResultRepository resultRepository;
-    private final QuizAnswersRepository quizAnswersRepository;
+    private final QuestionRepository questionRepository;
+    private final MessageSource messageSource;
+    private final QuizManagementMapper mapper;
 
-    public List<Result> findByUser(Long userId) {
-        return resultRepository.findAllByUserId(userId);
-    }
 
-    public Result calculateResults(QuizAnswers quizAnswers) {
-        quizAnswersRepository.save(quizAnswers);
+    @Transactional
+    public ResultForUserResponse calculateResultsForUser(@Valid List<ResultFromUserRequest> request, Long quizId) {
+        Quiz quiz = quizRepository.findById(quizId).orElseThrow(() -> new BadRequestException(messageSource
+                .getMessage("QUIZ_NOT_FOUND", null, Locale.getDefault())));
 
-        List<QuestionAnswer> answers = quizAnswers.getAnswers();
+        AtomicInteger amountOfGoodPoints = new AtomicInteger();
+        AtomicInteger amountOfBadPoints = new AtomicInteger();
 
-        Quiz quiz = quizRepository.findById(quizAnswers.getQuizId()).orElseThrow();
-        int maxPoints = quiz.getQuestions().size();
+        request.forEach(resultFromUserRequest -> {
 
-        Integer receivedPoints = quiz.getQuestions().stream().map(question -> {
-            if (question.getType().equals(QuestionType.MULTIPLE_CHOICE)) {
-                Optional<QuestionAnswer> multipleAnswersOptional = answers.stream().filter(questionAnswer -> questionAnswer.getQuestionId().equals(question.getId())).findFirst();
+            Question question = questionRepository
+                    .findByQuizIdAndId(quizId, resultFromUserRequest.questionId())
+                    .orElseThrow(() -> new BadRequestException(messageSource
+                            .getMessage("Lama", null, Locale.getDefault())));
 
-                if (multipleAnswersOptional.isEmpty()) {
-                    return 0;
-                }
+            List<String> correctAnswers = question.getCorrectAnswers();
 
-                QuestionAnswer multipleAnswers = multipleAnswersOptional.get();
+            List<String> userAnswers = resultFromUserRequest.answers();
 
-                List<String> chosenAnswers = multipleAnswers.getChosenMultipleAnswers().stream().sorted().toList();
-//                List<String> correctAnswers = question.getMultipleChoiceAnswer().getCorrect().stream().sorted().toList();
-//
-//                if (chosenAnswers.equals(correctAnswers)) {
-//                    return 1;
-//                }
+            boolean areAllCorrectAnswers = userAnswers.equals(correctAnswers);
+            if (areAllCorrectAnswers) {
+                amountOfGoodPoints.getAndIncrement();
+            } else {
+                amountOfBadPoints.getAndIncrement();
             }
-            if (question.getType().equals(QuestionType.MATCH)) {
-                Optional<QuestionAnswer> matchAnswerOptional = answers.stream().filter(questionAnswer -> questionAnswer.getQuestionId().equals(question.getId())).findFirst();
+        });
 
-                if (matchAnswerOptional.isEmpty()) {
-                    return 0;
-                }
-                QuestionAnswer matchAnswer = matchAnswerOptional.get();
+        double percentOfGoodAnswers = (double) amountOfGoodPoints.get() / request.size() * 100;
 
-//                List<QuestionAndAnswer> chosenAnswers = matchAnswer.getQuestionAndAnswer();
-//                List<QuestionAndAnswer> correctAnswers = question.getMatches().stream().map(matches -> new QuestionAndAnswer(matches.getQuestion(), matches.getAnswer())).toList();
+        boolean isPassed = percentOfGoodAnswers > 70;
 
-//                if (chosenAnswers.size() == correctAnswers.size() && new HashSet<>(chosenAnswers).containsAll(correctAnswers)) {
-//                    return 1;
-            }
-//            }
-            if (question.getType().equals(QuestionType.FINISH_SENTENCE)) {
-                Optional<QuestionAnswer> matchAnswerOptional = answers.stream().filter(questionAnswer -> questionAnswer.getQuestionId().equals(question.getId())).findFirst();
-
-                if (matchAnswerOptional.isEmpty()) {
-                    return 0;
-                }
-
-                QuestionAnswer matchAnswer = matchAnswerOptional.get();
-
-//                List<QuestionAndAnswer> chosenAnswers = matchAnswer.getQuestionAndAnswer();
-//                List<QuestionAndAnswer> correctAnswers = question.getSentences().stream().map(matches -> new QuestionAndAnswer(matches.getQuestion(), matches.getAnswer())).toList();
-
-//                if (chosenAnswers.size() == correctAnswers.size() && new HashSet<>(chosenAnswers).containsAll(correctAnswers)) {
-//                    return 1;
-//                }
-            }
-            return 0;
-        }).reduce(0, Integer::sum);
-
-
-        Result finalResult = new Result(quiz, quizAnswers.getUserId(), quiz.getTechnology(), quiz.getTechnology(), maxPoints, receivedPoints);
-
-        return resultRepository.save(finalResult);
+        return mapper.toResponseWithResult(quiz, amountOfGoodPoints.get(), amountOfBadPoints.get(),
+                percentOfGoodAnswers, isPassed);
     }
 }
 

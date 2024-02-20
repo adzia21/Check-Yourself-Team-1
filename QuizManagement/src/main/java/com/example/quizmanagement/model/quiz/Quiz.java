@@ -18,6 +18,8 @@ public class Quiz {
     private String technology;
     private String title;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "question_to_quiz", joinColumns = @JoinColumn(name = "question"), inverseJoinColumns = @JoinColumn(name = "quiz"))
+    @JoinTable(name = "question_to_quiz",
+            joinColumns = @JoinColumn(name = "quiz", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
     private List<Question> questions;
 }
