@@ -1,0 +1,41 @@
+@import 'variables';
+
+.user {
+
+    &-main {
+        min-height: calc(100vh - $header-height - $footer-height);
+        padding: 0;
+        background-image: url('/assets/icons/quiz-header-bg.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: $bg-grey;
+    }
+
+    &-card {
+        margin: 30px 200px 0 200px;
+    }
+
+    &-avatar-empty {
+        border-radius: 90px;
+        width: 100px;
+        height: 100px;
+        background-color: $bg-light-grey;
+    }
+
+    &-avatar {
+
+    }
+}
+
+.input {
+
+    &-block {
+        margin: 20px 0 0 0;
+    }
+
+    &-field {
+        width: 300px;
+        margin: 0 25px 0 25px;
+    }
+}

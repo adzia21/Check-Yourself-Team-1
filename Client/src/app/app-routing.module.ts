@@ -10,6 +10,9 @@ const routes: Routes = [
     path: 'quiz', loadChildren: () => import('./modules/quiz-module/quiz.module').then(module => module.QuizModule),
   },
   {
+    path: 'user', loadChildren: () => import('./modules/user-module/user.module').then(module => module.UserModule),
+  },
+  {
     path: '**', redirectTo: '',
   }
 ];

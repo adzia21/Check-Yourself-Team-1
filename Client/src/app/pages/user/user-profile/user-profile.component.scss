@@ -1,0 +1,93 @@
+@import 'variables';
+
+.user {
+
+    &-main {
+        min-height: calc(100vh - $header-height - $footer-height);
+        padding: 0;
+        background-image: url('/assets/icons/quiz-header-bg.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: $bg-grey;
+    }
+
+    &-card {
+        margin: 5vh 5vw 5vh 5vw;
+        min-width: 400px;
+        max-width: 1300px;
+    }
+
+    &-avatar-empty {
+        border-radius: 90px;
+        width: 100px;
+        height: 100px;
+        background-color: $bg-light-grey;
+    }
+
+    &-avatar {
+
+    }
+}
+
+.text {
+
+    &-block {
+        margin: 2rem 0 0 0;
+        min-width: 60vw;
+        font-size: $font-size-medium;
+    }
+
+    &-field {
+        //margin: 0 5vw 0 5vw;
+        //background-color: antiquewhite;
+    }
+
+    &-name {
+        margin: 2rem 0 4rem 0;
+        font-size: $font-size-biger;
+    }
+
+    
+    &-header {
+        margin: 0 0 .75rem 0;
+    }
+    
+    &-aligment {
+        margin: 3px 0 0 0;
+    }
+
+    &-exp-edu-cert {
+        font-size: $font-size-small;
+    }
+}
+
+.vertical-line {
+    border-left: 2px solid $black;
+    margin: 0 0 0 22px;
+}
+
+.progress-bar {
+    width: auto;
+    margin: 7px 0 0 0;
+    background-color: $bg-light-grey;
+}
+
+@media screen and (max-width: 500px) {
+    .user {
+        &-card {
+            margin: 3vh 5vw 3vh 5vw;
+            min-width: 200px;
+        }
+    }
+
+    .text {
+        &-block {
+            min-width: 10vw;
+        }
+
+        &-field {
+            margin: 0;
+        }
+    }
+}

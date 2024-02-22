@@ -31,3 +31,18 @@ export interface QuizSentences {
 export interface QuizMatches {
     matches: Options[]
 }
+
+export interface CreateQuiz {
+    technology: string,
+    title: string,
+    time: number,
+    questions: QuizCreateQuestionsModel[]
+}
+
+export interface QuizCreateQuestionsModel {
+    type: string,
+    code: string,
+    questionName: string,
+    correctAnswers: string[]
+    incorrectAnswers: string[]
+}

@@ -9,6 +9,10 @@ import { CompleteSentenceQuestionComponent } from 'src/app/pages/quiz/quiz-solve
 import { CommonModule } from '@angular/common';
 import { QuizResultComponent } from 'src/app/pages/quiz/quiz-solve/quiz-result/quiz-result.component';
 import { NgChartsModule } from 'ng2-charts';
+import { QuizCreateComponent } from 'src/app/pages/quiz/quiz-create/quiz-create.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from 'src/app/helpers/interceptors/bearer.interceprot';
 
 
 
@@ -17,15 +21,21 @@ import { NgChartsModule } from 'ng2-charts';
     QuizSolveComponent,
     MultiChoiceQuestionComponent,
     CompleteSentenceQuestionComponent,
-    QuizResultComponent
+    QuizResultComponent,
+    QuizCreateComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability
     QuizRoutingModule,
     NgbModule,
     CommonModule,
-    NgChartsModule
+    NgChartsModule,
+    ReactiveFormsModule
   ],
-  providers: []
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
+    },
+  ]
 })
 export class QuizModule { }

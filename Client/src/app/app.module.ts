@@ -15,6 +15,9 @@ import { QuizModule } from './modules/quiz-module/quiz.module';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginDialogComponent } from './components/dialog/login-dialog/login-dialog.component';
+import { UserModule } from './modules/user-module/user.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './helpers/interceptors/bearer.interceprot';
 
 @NgModule({
   declarations: [
@@ -33,10 +36,16 @@ import { LoginDialogComponent } from './components/dialog/login-dialog/login-dia
     BrowserAnimationsModule,
     NgbModule,
     QuizModule,
+    UserModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

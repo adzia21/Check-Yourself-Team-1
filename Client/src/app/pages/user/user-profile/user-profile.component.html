@@ -1,0 +1,395 @@
+<main class="row user-main">
+    <form class="form" [formGroup]="userForm">
+        <div class="row justify-content-center">
+            <mat-card class="col user-card">
+                <mat-card-content>
+                    <!-- Profile picture -->
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            @if (true) {
+                                <div class="row user-avatar-empty">
+                                    <img class="user-avatar" alt="avatar" [src]="image">
+                                </div>
+                            } @else {
+                                <img class="user-avatar" alt="avatar" [src]="image">
+                            }
+                        </div>
+                    </div>
+                    <!-- Name and Surname -->
+                    <div class="row justify-content-center text-name">
+                        <div class="col-auto">
+                            Adam
+                        </div>
+                        <div class="col-auto">
+                            Badam
+                        </div>
+                    </div>
+                    <!-- Location, Phone, Salary -->
+                    <div class="row text-block">
+                        <div class="col-12">
+                            <div class="row justify-content-start">
+                                <div class="col-lg-4 text-field">
+                                    Warszawa, Mazowieckie
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    123 123 123
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    Do Negocjacji
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Email, Date of Birth, Job time -->
+                    <div class="row text-block">
+                        <div class="col-12">
+                            <div class="row justify-content-start">
+                                <div class="col-lg-4 text-field">
+                                    {{'adam.badam@gmail.com'}}
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    10 Marca 1999
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    Pełen Etat
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Github, Page, Contract Type -->
+                    <div class="row text-block">
+                        <div class="col-12">
+                            <div class="row justify-content-start">
+                                <div class="col-lg-4 text-field">
+                                    github.com/aambadam
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    aambaam.com
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    Umowa o Pracę
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- About me -->
+                    <div class="row justify-content-start text-block">
+                        <div class="col-12 text-header">
+                            O mnie:
+                        </div>
+                        <div class="col-lg-auto">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </div>
+                    </div>
+                    <!-- Skills -->
+                    <div class="row justify-content-start text-block">
+                        <div class="col-12 text-header">
+                            Umiejętności:
+                        </div>
+                        <div class="col-lg-6 text-about-me-body">
+                            <div class="row justify-content-start">
+                                <div class="col-12 text-header">
+                                    Technologie Frontend:
+                                </div>
+                                <div class="col-12 text-header">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            JavaScript
+                                        </div>
+                                        <div class="col-6">
+                                            <mat-progress-bar class="progress-bar" mode="determinate" value="63" color="accent"></mat-progress-bar>
+                                        </div>
+                                        <div class="col-auto">
+                                            63%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-header">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            HTML
+                                        </div>
+                                        <div class="col-6">
+                                            <mat-progress-bar class="progress-bar" mode="determinate" value="12" color="warn"></mat-progress-bar>
+                                        </div>
+                                        <div class="col-auto">
+                                            12%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-header">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            CSS
+                                        </div>
+                                        <div class="col-6">
+                                            <mat-progress-bar class="progress-bar" mode="determinate" value="90" color="primary"></mat-progress-bar>
+                                        </div>
+                                        <div class="col-auto">
+                                            90%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-about-me-body">
+                            <div class="row justify-content-start">
+                                <div class="col-12 text-header">
+                                    Technologie Backend:
+                                </div>
+                                <div class="col-12 text-header">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Java
+                                        </div>
+                                        <div class="col-6">
+                                            <mat-progress-bar class="progress-bar" mode="determinate" value="60" color="accent"></mat-progress-bar>
+                                        </div>
+                                        <div class="col-auto">
+                                            60%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-header">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Spring
+                                        </div>
+                                        <div class="col-6">
+                                            <mat-progress-bar class="progress-bar" mode="determinate" value="20" color="warn"></mat-progress-bar>
+                                        </div>
+                                        <div class="col-auto">
+                                            20%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-header">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Python
+                                        </div>
+                                        <div class="col-6">
+                                            <mat-progress-bar class="progress-bar" mode="determinate" value="60" color="primary"></mat-progress-bar>
+                                        </div>
+                                        <div class="col-auto">
+                                            80%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Foreign Languages -->
+                    <div class="row justify-content-start text-block">
+                        <div class="col-12 text-header">
+                            Języki obce:
+                        </div>
+                        <div class="col-lg-6 text-about-me-body">
+                            <div class="row justify-content-start">
+                                <div class="col-12 text-header">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Polski
+                                        </div>
+                                        <div class="col-6">
+                                            <mat-progress-bar class="progress-bar" mode="determinate" value="100" color="primary"></mat-progress-bar>
+                                        </div>
+                                        <div class="col-auto">
+                                            100% (ojczysty)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-header">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Angielski
+                                        </div>
+                                        <div class="col-6">
+                                            <mat-progress-bar class="progress-bar" mode="determinate" value="80" color="warn"></mat-progress-bar>
+                                        </div>
+                                        <div class="col-auto">
+                                            80% (B2)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Experiance, education, certyficates -->
+                    <div class="row justify-content-start text-block">
+                        <div class="col-md-4 text-header">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-symbols-outlined">work_outline</mat-icon>
+                                </div>
+                                <div class="col-auto text-aligment">
+                                    Doświadczenie:
+                                </div>
+                            </div>
+                            <div class="row text-exp-edu-cert">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon class="material-symbols-outlined">toll</mat-icon>
+                                        </div>
+                                        <div class="col-auto text-aligment">
+                                            Tester Manualny
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 vertical-line">
+                                    <ul>
+                                        <li>
+                                            awdawd awdas
+                                        </li>
+                                        <li>
+                                            awidmninni
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <mat-icon class="material-symbols-outlined">toll</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-header">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-symbols-outlined">school</mat-icon>
+                                </div>
+                                <div class="col-auto text-aligment">
+                                    Wykształcenie:
+                                </div>
+                            </div>
+                            <div class="row text-exp-edu-cert">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon class="material-symbols-outlined">toll</mat-icon>
+                                        </div>
+                                        <div class="col-auto text-aligment">
+                                            Informatyk-Inż.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row vertical-line">
+                                    <div class="col-12">
+                                        2019-2024
+                                    </div>
+                                    <div class="col-12">
+                                        Uniwersytet im. Adama Mickiewicza
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <mat-icon class="material-symbols-outlined">toll</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-header">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-symbols-outlined">insert_drive_file</mat-icon>
+                                </div>
+                                <div class="col-auto text-aligment">
+                                    Kursy i certyfikaty:
+                                </div>
+                            </div>
+                            <div class="row text-exp-edu-cert">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon class="material-symbols-outlined">toll</mat-icon>
+                                        </div>
+                                        <div class="col-auto text-aligment">
+                                            Murarz. rynkarz, akrobata
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row vertical-line">
+                                    <div class="col-12">
+                                        numer certyfikatu: 213sd
+                                    </div>
+                                    <div class="col-12">
+                                        18 czerwca 2023, Udemy Sp. z o. o.
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <mat-icon class="material-symbols-outlined">toll</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Hobby, Soft Skills, organizations -->
+                    <div class="row justify-content-start text-block">
+                        <div class="col-md-4 text-header">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-symbols-outlined">hourglass_empty</mat-icon>
+                                </div>
+                                <div class="col-auto text-aligment">
+                                    Organizację i stowarzyszenia:
+                                </div>
+                            </div>
+                            <div class="row text-exp-edu-cert">
+                                <div class="col-12">
+                                    <ul>
+                                        <li>
+                                            awdawd awdas
+                                        </li>
+                                        <li>
+                                            awidmninni
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-header">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-symbols-outlined">tag_faces</mat-icon>
+                                </div>
+                                <div class="col-auto text-aligment">
+                                    Umiejętności Miękkie:
+                                </div>
+                            </div>
+                            <div class="row text-exp-edu-cert">
+                                <div class="col-12">
+                                    <ul>
+                                        <li>
+                                            awdawd awdas
+                                        </li>
+                                        <li>
+                                            awidmninni
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-header">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-symbols-outlined">fitness_center</mat-icon>
+                                </div>
+                                <div class="col-auto text-aligment">
+                                    Hobby:
+                                </div>
+                            </div>
+                            <div class="row text-exp-edu-cert">
+                                <div class="col-12">
+                                    <ul>
+                                        <li>
+                                            awdawd awdas
+                                        </li>
+                                        <li>
+                                            awidmninni
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>
