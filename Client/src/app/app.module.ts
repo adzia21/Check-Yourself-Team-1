@@ -18,6 +18,8 @@ import { LoginDialogComponent } from './components/dialog/login-dialog/login-dia
 import { UserModule } from './modules/user-module/user.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './helpers/interceptors/bearer.interceprot';
+import { RegisterFormComponent } from './components/dialog/register-form/register-form.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { JwtInterceptor } from './helpers/interceptors/bearer.interceprot';
     HeaderComponent,
     FooterComponent,
     LandingPageWraperComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    RegisterFormComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability
@@ -39,7 +42,8 @@ import { JwtInterceptor } from './helpers/interceptors/bearer.interceprot';
     UserModule,
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {

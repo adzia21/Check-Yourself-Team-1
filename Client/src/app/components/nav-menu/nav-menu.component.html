@@ -1,12 +1,28 @@
 <mat-drawer-container class="nav-container" autosize>
     <mat-drawer #drawer class="sidenav" mode="over" position="end" opened="false">
-      <p>Auto-resizing sidenav</p>
-      @if (showFiller) {
-        <p>Lorem, ipsum dolor sit amet consectetur.</p>
-      }
-      <button (click)="showFiller = !showFiller" mat-raised-button>
-        Toggle extra text
-      </button>
+      <div class="row main justify-content-center">
+        <div class="col-12 row-style">
+          <div class="row">
+            <div class="col-auto"><mat-icon class="material-icons-outlined icon">account_circle</mat-icon></div>
+            <div class="col text" (click)="navigate('user/1')">User</div>
+          </div>
+        </div>
+        <div class="col-12 row-style" (click)="activateDropdown()">
+          <div class="row">
+            <div class="col-auto"><mat-icon class="material-icons-outlined icon">{{getArrow()}}</mat-icon></div>
+            <div class="col text">Quiz</div>
+          </div>
+          @if (this.isQuizDropdownActive) {
+            <div class="row">
+              <div class="col text-dropdown" (click)="navigate('quiz')">Dodaj Quiz</div>
+            </div>
+          }
+        </div>
+        <div class="col-auto logout" (click)="logout()">
+          Wyloguj się
+        </div>
+      </div>
+      
     </mat-drawer>
 
     <mat-drawer-content>

@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserEditComponent } from 'src/app/pages/user/user-edit/user-edit.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from 'src/app/helpers/interceptors/bearer.interceprot';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -24,7 +25,8 @@ import { JwtInterceptor } from 'src/app/helpers/interceptors/bearer.interceprot'
     NgbModule,
     CommonModule,
     NgChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {
