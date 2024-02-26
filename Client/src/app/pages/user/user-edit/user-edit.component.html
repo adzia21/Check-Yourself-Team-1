@@ -1,35 +1,14 @@
-<main class="row user-main">
-    <form [formGroup]="userForm">
-        <mat-card class="user-card">
-            <mat-card-content>
-                <div class="row justify-content-center">
-                    <div class="col-auto">
-                        @if (true) {
-                            <div class="row user-avatar-empty">
-                                <img class="user-avatar" alt="avatar" [src]="image">
-                            </div>
-                        } @else {
-                            <img class="user-avatar" alt="avatar" [src]="image">
-                        }
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row justify-content-center input-block">
-                        <mat-form-field class="col-4 input-field">
-                            <mat-label>Localizacja</mat-label>
-                            <input matInput type="text" formControlName="localization">
-                        </mat-form-field>
-                        <mat-form-field class="col-4 input-field">
-                            <mat-label>Numer Telefonu</mat-label>
-                            <input matInput type="phone" formControlName="phone">
-                        </mat-form-field>
-                        <mat-form-field class="col-4 input-field">
-                            <mat-label>Email</mat-label>
-                            <input matInput type="email" formControlName="email">
-                        </mat-form-field>
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </form>
-</main>
+<mat-horizontal-stepper class="row user-main">
+<!-- <mat-step>
+    <ng-template matStepLabel><span class="step-label">Podstawowe informację</span></ng-template>
+    <app-basic-info></app-basic-info>
+</mat-step> -->
+<!-- <mat-step>
+    <ng-template matStepLabel><span class="step-label">O mnie, Umiejętności</span></ng-template>
+    <app-about-skills></app-about-skills>
+</mat-step> -->
+<mat-step>
+    <ng-template matStepLabel><span class="step-label">Szczegóły</span></ng-template>
+    <app-details></app-details>
+</mat-step>
+</mat-horizontal-stepper>

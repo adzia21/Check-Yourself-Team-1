@@ -1,0 +1,130 @@
+<main class="row">
+    <form class="form" [formGroup]="userBasicInfoForm">
+        <div class="row justify-content-center">
+            <mat-card class="col user-card">
+                <mat-card-content>
+                    <!-- Profile picture -->
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            @if (dummyBool) {
+                                <div class="row user-avatar-empty">
+                                    <img class="user-avatar" alt="avatar" [src]="image">
+                                </div>
+                            } @else {
+                                <img class="user-avatar" alt="avatar" [src]="image">
+                            }
+                        </div>
+                        <div class="col-12 input-file">
+                            <input type="file" accept=".jpg, .png" (change)="selectAvatar($event)"  formControlName="profilePic"/>
+                        </div>
+                    </div>
+                    <!-- Name and Surname -->
+                    <div class="row justify-content-center text-name">
+                        <div class="col-auto">
+                            <mat-form-field class="input-field">
+                                <mat-label>Imię</mat-label>
+                                <input matInput type="text" formControlName="name">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-auto">
+                            <mat-form-field class="input-field">
+                                <mat-label>Nazwisko</mat-label>
+                                <input matInput type="text" formControlName="surname">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- Location, Phone, Salary -->
+                    <div class="row text-block">
+                        <div class="col-12">
+                            <div class="row justify-content-start">
+                                <div class="col-lg-4 text-field">
+                                    <div class="col-auto">
+                                        <mat-form-field class="input-field">
+                                            <mat-label>Lokalizacja</mat-label>
+                                            <input matInput type="text" formControlName="localization">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Numer</mat-label>
+                                        <input matInput type="text" formControlName="phone">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Wynagrodzenia</mat-label>
+                                        <input matInput type="text" formControlName="pay">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Email, Date of Birth, Job time -->
+                    <div class="row text-block">
+                        <div class="col-12">
+                            <div class="row justify-content-start">
+                                <div class="col-lg-4 text-field">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput type="text" formControlName="email">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    <mat-form-field class="input-date">
+                                        <mat-label>Data Urodzenia</mat-label>
+                                        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                      </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Etat</mat-label>
+                                        <input matInput type="text" formControlName="workTime">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Github, Page, Contract Type -->
+                    <div class="row text-block">
+                        <div class="col-12">
+                            <div class="row justify-content-start">
+                                <div class="col-lg-4 text-field">
+                                    <div class="col-lg-4 text-field">
+                                        <mat-form-field class="input-field">
+                                            <mat-label>GitHub/LinkedIn</mat-label>
+                                            <input matInput type="text" formControlName="socialMedia">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    <div class="col-lg-4 text-field">
+                                        <mat-form-field class="input-field">
+                                            <mat-label>Portfolio</mat-label>
+                                            <input matInput type="text" formControlName="page">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 text-field">
+                                    <div class="col-lg-4 text-field">
+                                        <mat-form-field class="input-field">
+                                            <mat-label>Typ umowy</mat-label>
+                                            <input matInput type="text" formControlName="contractType">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-auto">
+                            <button mat-button matStepperNext class="button">Następny</button>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>

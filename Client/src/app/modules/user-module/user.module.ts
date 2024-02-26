@@ -11,13 +11,19 @@ import { UserEditComponent } from 'src/app/pages/user/user-edit/user-edit.compon
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from 'src/app/helpers/interceptors/bearer.interceprot';
 import { ToastrModule } from 'ngx-toastr';
+import { UserBasicInfoComponent } from 'src/app/pages/user/user-edit/edit-steps/basic-info/basic-info.component';
+import { UserAboutSkillsComponent } from 'src/app/pages/user/user-edit/edit-steps/about-skills/about-skills.component';
+import { UserDetailsComponent } from 'src/app/pages/user/user-edit/edit-steps/details/details.component';
 
 
 
 @NgModule({
   declarations: [
     UserProfileComponent,
-    UserEditComponent
+    UserEditComponent,
+    UserBasicInfoComponent,
+    UserAboutSkillsComponent,
+    UserDetailsComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability

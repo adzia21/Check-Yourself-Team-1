@@ -1,15 +1,19 @@
-import { Component } from "@angular/core"
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ToastrService } from "ngx-toastr";
-import { icons } from "src/app/shared/constants/constants";
+import { Component } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { icons } from 'src/app/shared/constants/constants';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  selector: 'app-basic-info',
+  templateUrl: './basic-info.component.html',
+  styleUrls: ['./basic-info.component.scss', '../../user-edit.component.scss'],
 })
-export class UserEditComponent {
-
+export class UserBasicInfoComponent {
   public userBasicInfoForm = new FormGroup({
     profilePic: new FormControl(null, []),
     name: new FormControl('', []),
@@ -28,12 +32,9 @@ export class UserEditComponent {
   public image: string = `${icons}/no-pfp.svg`;
   public dummyBool: boolean = true;
 
-  constructor(private fb: FormBuilder, private toastrService: ToastrService) { }
+  constructor(private fb: FormBuilder, private toastrService: ToastrService) {}
 
-
-  public xd() {
-    
-  }
+  public xd() {}
 
   selectAvatar(event: any) {
     if (event.target.files) {
@@ -43,7 +44,7 @@ export class UserEditComponent {
         this.toastrService.warning('Zdjęcie załadowane');
         this.image = event.target.result;
         this.dummyBool = false;
-      }
+      };
     }
   }
 }

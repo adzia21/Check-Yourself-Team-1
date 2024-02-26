@@ -13,7 +13,9 @@
     }
 
     &-card {
-        margin: 30px 200px 0 200px;
+        margin: 5vh 5vw 5vh 5vw;
+        min-width: 400px;
+        max-width: 1300px;
     }
 
     &-avatar-empty {
@@ -24,18 +26,133 @@
     }
 
     &-avatar {
+        width: 100px;
+        height: 100px;
+    }
+}
 
+.text {
+
+    &-block {
+        margin: 2rem 0 0 0;
+        min-width: 60vw;
+        font-size: $font-size-medium;
+    }
+
+    &-name {
+        margin: 2rem 0 4rem 0;
+        font-size: $font-size-biger;
+    }
+
+    
+    &-header {
+        margin: 0 0 .75rem 0;
+    }
+    
+    &-aligment {
+        margin: 3px 0 0 0;
+    }
+
+    &-exp-edu-cert {
+        font-size: $font-size-small;
+    }
+}
+
+.vertical-line {
+    border-left: 2px solid $black;
+    margin: 0 0 0 22px;
+}
+
+.progress-bar {
+    width: auto;
+    margin: 7px 0 0 0;
+    background-color: $bg-light-grey;
+}
+
+.icon {
+
+    &-edit {
+        cursor: pointer;
     }
 }
 
 .input {
 
-    &-block {
-        margin: 20px 0 0 0;
+    &-file {
+        margin: 1rem 0 0 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
     }
 
-    &-field {
-        width: 300px;
-        margin: 0 25px 0 25px;
+    &-date {
+        width: 212px;
+    }
+
+    &-about {
+        width: 100%;
+    }
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: $primary-color !important; 
+}
+
+::ng-deep .mat-step-header .mat-step-icon-state-number {
+    color: $white;
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+    background-color: $accent-color;
+}
+
+::ng-deep .mat-stepper-horizontal-line {
+    border-top-color: $white;
+}
+
+::ng-deep .mat-stepper-vertical-line::before {
+    border-left-color: $white;
+}
+
+.step-label {
+    color: $white
+}
+
+.button {
+    background-color: $primary-color;
+    color: $text-light !important;
+    border: 0;
+    border-radius: .3rem;
+    height: 2.75rem;
+    width: 9rem;
+    margin: 2rem 0 1rem 0;
+}
+
+@media screen and (max-width: 500px) {
+    .user {
+        &-card {
+            margin: 3vh 5vw 3vh 5vw;
+            min-width: 300px;
+        }
+    }
+
+    .text {
+        &-block {
+            min-width: 10vw;
+        }
+
+        &-field {
+            margin: 0;
+        }
+    }
+
+    .mobile-view {
+        display: none;
+    }
+
+    .button {
+        height: 2.5rem;
+        width: 6rem;
+        margin: 2rem 0 1rem 0;
     }
 }

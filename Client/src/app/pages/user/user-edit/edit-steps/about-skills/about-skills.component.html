@@ -1,0 +1,89 @@
+<main class="row">
+    <form class="form" [formGroup]="userAboutSkillsForm">
+        <div class="row justify-content-center">
+            <mat-card class="col user-card">
+                <mat-card-content>
+                    <!-- About me -->
+                    <div class="row justify-content-start text-block">
+                        <div class="col-12 text-header">
+                            O mnie:
+                        </div>
+                        <div class="col-lg-10">
+                            <mat-form-field class="input-about">
+                                <mat-label>Powiedz coś o sobie...</mat-label>
+                                <textarea matInput #aboutMe type="text" maxlength="1000" formControlName="aboutMe"
+                                    class="deep" rows="8" cols="50"></textarea>
+                                <mat-hint align="end">{{aboutMe.value.length}}/1000</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- Skills -->
+                    <div class="row justify-content-start text-block">
+                        <div class="col-12 text-header">
+                            Umiejętności:
+                        </div>
+                        <div class="col-lg-6 text-about-me-body" *ngFor="let skillType of skillTypes">
+                            <div class="row justify-content-start">
+                                <div class="col-12 text-header">
+                                    {{getName(skillType, true)}}:
+                                </div>
+                                <div class="col-md-12 text-header" [formArrayName]="skillType"
+                                    *ngFor="let skill of getControls(skillType) | keyvalue; let i = index">
+                                    <div class="row" [formGroupName]="i">
+                                        <div class="col-auto">
+                                            <mat-form-field class="input-field">
+                                                <mat-label>{{getName(skillType, false)}}</mat-label>
+                                                <input matInput type="text" formControlName="skill">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="row slider-align">
+                                                        <div class="col-auto text-align">
+                                                            <mat-label>Poziom:</mat-label>
+                                                            <span>
+                                                                {{getLevelValue(skillType, i)}}%
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <mat-icon class="material-symbols-outlined icon-add"
+                                                                (click)="removeAtIndex(skillType, i)">delete_outline
+                                                            </mat-icon>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <mat-slider min="0" max="100" step="5" class="slider">
+                                                        <input matSliderThumb formControlName="level">
+                                                    </mat-slider>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="row justify-content-center">
+                                        <div class="col-auto">
+                                            <mat-icon class="material-symbols-outlined icon-add"
+                                                (click)="addNewSkill(skillType)">add_circle_outline
+                                            </mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                                <button mat-button matStepperPrevious class="button">Poprzedni</button>
+                        </div>
+                        <div class="col-auto">
+                            <button mat-button matStepperNext class="button">Następny</button>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>

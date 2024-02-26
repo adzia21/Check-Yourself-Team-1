@@ -38,11 +38,6 @@
         font-size: $font-size-medium;
     }
 
-    &-field {
-        //margin: 0 5vw 0 5vw;
-        //background-color: antiquewhite;
-    }
-
     &-name {
         margin: 2rem 0 4rem 0;
         font-size: $font-size-biger;
@@ -71,6 +66,13 @@
     width: auto;
     margin: 7px 0 0 0;
     background-color: $bg-light-grey;
+}
+
+.icon {
+
+    &-edit {
+        cursor: pointer;
+    }
 }
 
 @media screen and (max-width: 500px) {
