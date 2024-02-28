@@ -1,1 +1,35 @@
 @import 'variables';
+
+.daterange-picker {
+    width: fit-content;
+}
+
+.height {
+    margin: 0 0 -30px 0;
+}
+
+.width {
+    width: auto;
+}
+
+.card {
+    margin: 20px 0 0 20px;
+    width: 350px;
+    outline: solid 1px $bg-light-grey;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.add {
+    margin: 10px 0 0 0;
+}
+
+@media screen and (max-width: 500px) {
+    .card {
+        margin: 0 0 0 0;
+        min-width: 250px;
+    }
+}

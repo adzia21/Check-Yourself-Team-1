@@ -1,11 +1,11 @@
 <main class="row">
-    <form class="form" [formGroup]="userForm">
+    <form class="form" [formGroup]="userDetailsForm">
         <div class="row justify-content-center">
             <mat-card class="col user-card">
                 <mat-card-content>
                     <!-- Experiance, education, certyficates -->
                     <div class="row justify-content-start text-block">
-                        <div class="col-md-4 text-header">
+                        <div class="col-xl-4 text-header">
                             <div class="row">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">work_outline</mat-icon>
@@ -13,34 +13,107 @@
                                 <div class="col-auto text-aligment">
                                     Doświadczenie:
                                 </div>
-                            </div>
-                            <div class="row text-exp-edu-cert">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <mat-icon class="material-symbols-outlined">toll</mat-icon>
-                                        </div>
-                                        <div class="col-auto text-aligment">
-                                            Tester Manualny
+                                <div class="col-xl">
+                                    <div class="row text-exp-edu-cert" formArrayName="experiences"
+                                        *ngFor="let experiance of experiences.controls | keyvalue; let i = index">
+                                        <mat-card [formGroupName]="i" class="card">
+                                            <mat-card-content>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <mat-icon
+                                                            class="material-symbols-outlined icon-toll">toll</mat-icon>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <mat-icon class="material-symbols-outlined icon-click"
+                                                            (click)="removeAtIndex('experiences', i)">delete_outline</mat-icon>
+                                                    </div>
+                                                    <div class="col-12 vertical-line">
+                                                        <div class="row">
+                                                            <div class="col-auto text-aligment">
+                                                                <mat-form-field class="question-input-field width">
+                                                                    <mat-label>Nazwa stanowiska</mat-label>
+                                                                    <input matInput type="text"
+                                                                        formControlName="position">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 vertical-line">
+                                                        <mat-form-field class="daterange-picker width width-date">
+                                                            <mat-label>Data od - do</mat-label>
+                                                            <mat-date-range-input class="daterange-picker"
+                                                                [rangePicker]="pickerExp">
+                                                                <input matStartDate formControlName="startDate"
+                                                                    placeholder="Start date">
+                                                                <input matEndDate formControlName="endDate"
+                                                                    placeholder="End date">
+                                                            </mat-date-range-input>
+                                                            <mat-datepicker-toggle matIconSuffix
+                                                                [for]="pickerExp"></mat-datepicker-toggle>
+                                                            <mat-date-range-picker #pickerExp></mat-date-range-picker>
+
+                                                            <mat-error
+                                                                *ngIf="rangeExp.controls.startDate.hasError('matStartDateInvalid')">Invalid
+                                                                start date
+                                                            </mat-error>
+                                                            <mat-error
+                                                                *ngIf="rangeExp.controls.endDate.hasError('matEndDateInvalid')">Invalid
+                                                                end date
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-12 vertical-line">
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-12">
+                                                                <div class="row" formArrayName="tasks"
+                                                                    *ngFor="let task of tasks(i).controls | keyvalue; let ii = index">
+                                                                    <div class="col height width-task">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <span [formGroupName]="ii">
+                                                                                    <mat-form-field
+                                                                                        class="question-input-field width">
+                                                                                        <mat-label>Obowiązek #{{ii +
+                                                                                            1}}</mat-label>
+                                                                                        <input matInput type="text"
+                                                                                            formControlName="task">
+                                                                                    </mat-form-field>
+                                                                                </span>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="col-auto align-self-center">
+                                                                        <mat-icon
+                                                                            class="material-symbols-outlined icon-click"
+                                                                            (click)="removeAtIndex('task', i, ii)">delete_outline</mat-icon>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <mat-icon class="material-symbols-outlined icon-click"
+                                                                    (click)="addTask(i)">add_circle_outline</mat-icon>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <mat-icon
+                                                            class="material-symbols-outlined icon-toll">toll</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-auto">
+                                            <mat-icon class="material-symbols-outlined icon-click add"
+                                                (click)="addNewDetail('experiences')">add_circle_outline</mat-icon>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 vertical-line">
-                                    <ul>
-                                        <li>
-                                            awdawd awdas
-                                        </li>
-                                        <li>
-                                            awidmninni
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-12">
-                                    <mat-icon class="material-symbols-outlined">toll</mat-icon>
-                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4 text-header">
+                        <div class="col-xl-4 text-header">
                             <div class="row">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">school</mat-icon>
@@ -48,32 +121,89 @@
                                 <div class="col-auto text-aligment">
                                     Wykształcenie:
                                 </div>
-                            </div>
-                            <div class="row text-exp-edu-cert">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <mat-icon class="material-symbols-outlined">toll</mat-icon>
+                                <div class="col-xl">
+                                    <div class="row text-exp-edu-cert" formArrayName="educations"
+                                        *ngFor="let education of educations.controls | keyvalue; let i = index">
+                                        <mat-card [formGroupName]="i" class="card">
+                                            <mat-card-content>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <mat-icon
+                                                            class="material-symbols-outlined icon-toll">toll</mat-icon>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <mat-icon class="material-symbols-outlined icon-click"
+                                                            (click)="removeAtIndex('educations', i)">delete_outline</mat-icon>
+                                                    </div>
+                                                    <div class="col-12 vertical-line">
+                                                        <div class="row">
+                                                            <div class="col-auto text-aligment">
+                                                                <mat-form-field class="question-input-field width">
+                                                                    <mat-label>Kierunek</mat-label>
+                                                                    <input matInput type="text" formControlName="major">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-auto text-aligment">
+                                                                <mat-form-field class="question-input-field width">
+                                                                    <mat-label>Nazwa Uczelni</mat-label>
+                                                                    <input matInput type="text"
+                                                                        formControlName="universityName">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-auto text-aligment">
+                                                                <mat-form-field class="question-input-field width">
+                                                                    <mat-label>Tytuł</mat-label>
+                                                                    <input matInput type="text" formControlName="title">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 vertical-line">
+                                                        <mat-form-field class="daterange-picker width">
+                                                            <mat-label>Data od - do</mat-label>
+                                                            <mat-date-range-input class="daterange-picker"
+                                                                [rangePicker]="pickerEdu">
+                                                                <input matStartDate formControlName="startDate"
+                                                                    placeholder="Start date">
+                                                                <input matEndDate formControlName="endDate"
+                                                                    placeholder="End date">
+                                                            </mat-date-range-input>
+                                                            <mat-datepicker-toggle matIconSuffix
+                                                                [for]="pickerEdu"></mat-datepicker-toggle>
+                                                            <mat-date-range-picker #pickerEdu></mat-date-range-picker>
+
+                                                            <mat-error
+                                                                *ngIf="rangeExp.controls.startDate.hasError('matStartDateInvalid')">Invalid
+                                                                start date
+                                                            </mat-error>
+                                                            <mat-error
+                                                                *ngIf="rangeExp.controls.endDate.hasError('matEndDateInvalid')">Invalid
+                                                                end date
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <mat-icon
+                                                            class="material-symbols-outlined icon-toll">toll</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-auto">
+                                            <mat-icon class="material-symbols-outlined icon-click add"
+                                                (click)="addNewDetail('educations')">add_circle_outline</mat-icon>
                                         </div>
-                                        <div class="col-auto text-aligment">
-                                            Informatyk-Inż.
-                                        </div>
                                     </div>
-                                </div>
-                                <div class="row vertical-line">
-                                    <div class="col-12">
-                                        2019-2024
-                                    </div>
-                                    <div class="col-12">
-                                        Uniwersytet im. Adama Mickiewicza
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <mat-icon class="material-symbols-outlined">toll</mat-icon>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 text-header">
+                        <div class="col-xl-4 text-header">
                             <div class="row">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">insert_drive_file</mat-icon>
@@ -81,97 +211,114 @@
                                 <div class="col-auto text-aligment">
                                     Kursy i certyfikaty:
                                 </div>
-                            </div>
-                            <div class="row text-exp-edu-cert">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-auto">
-                                            <mat-icon class="material-symbols-outlined">toll</mat-icon>
+                                <div class="col-xl">
+                                    <div class="row text-exp-edu-cert" formArrayName="certyficates"
+                                        *ngFor="let certyficate of certyficates.controls | keyvalue; let i = index">
+                                        <mat-card [formGroupName]="i" class="card">
+                                            <mat-card-content>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <mat-icon
+                                                            class="material-symbols-outlined icon-toll">toll</mat-icon>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <mat-icon class="material-symbols-outlined icon-click"
+                                                            (click)="removeAtIndex('certyficates', i)">delete_outline</mat-icon>
+                                                    </div>
+                                                    <div class="col-12 vertical-line">
+                                                        <div class="row">
+                                                            <div class="col-auto text-aligment">
+                                                                <mat-form-field class="question-input-field width">
+                                                                    <mat-label>Nazwa certyfikatu</mat-label>
+                                                                    <input matInput type="text"
+                                                                        formControlName="certName">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-auto text-aligment">
+                                                                <mat-form-field class="question-input-field width">
+                                                                    <mat-label>Numer certyfikatu</mat-label>
+                                                                    <input matInput type="text"
+                                                                        formControlName="certNumber">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-auto text-aligment">
+                                                                <mat-form-field class="question-input-field width">
+                                                                    <mat-label>Organizacja wydająca</mat-label>
+                                                                    <input matInput type="text"
+                                                                        formControlName="organization">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-auto text-aligment">
+                                                                <mat-form-field class="question-input-field width">
+                                                                    <mat-label>Data wydania</mat-label>
+                                                                    <input matInput id="pickerHandDate"
+                                                                        [matDatepicker]="pickerHandDate"
+                                                                        formControlName="date">
+                                                                    <mat-datepicker-toggle matIconSuffix
+                                                                        [for]="pickerHandDate"></mat-datepicker-toggle>
+                                                                    <mat-datepicker #pickerHandDate></mat-datepicker>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <mat-icon
+                                                            class="material-symbols-outlined icon-toll">toll</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-auto">
+                                            <mat-icon class="material-symbols-outlined icon-click add"
+                                                (click)="addNewDetail('certyficates')">add_circle_outline</mat-icon>
                                         </div>
-                                        <div class="col-auto text-aligment">
-                                            Murarz. rynkarz, akrobata
-                                        </div>
                                     </div>
-                                </div>
-                                <div class="row vertical-line">
-                                    <div class="col-12">
-                                        numer certyfikatu: 213sd
-                                    </div>
-                                    <div class="col-12">
-                                        18 czerwca 2023, Udemy Sp. z o. o.
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <mat-icon class="material-symbols-outlined">toll</mat-icon>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Hobby, Soft Skills, organizations -->
                     <div class="row justify-content-start text-block">
-                        <div class="col-md-4 text-header">
+                        <div *ngFor="let additionalDetail of additionalFields" class="col-md-4 text-header">
                             <div class="row">
                                 <div class="col-auto">
-                                    <mat-icon class="material-symbols-outlined">hourglass_empty</mat-icon>
+                                    <mat-icon class="material-symbols-outlined">{{getIcon(additionalDetail)}}</mat-icon>
                                 </div>
                                 <div class="col-auto text-aligment">
-                                    Organizację i stowarzyszenia:
+                                    {{getName(additionalDetail)}}:
                                 </div>
                             </div>
-                            <div class="row text-exp-edu-cert">
-                                <div class="col-12">
-                                    <ul>
+                            <div class="row align-items-center text-exp-edu-cert" [formArrayName]="additionalDetail"
+                            *ngFor="let control of getControls(additionalDetail) | keyvalue; let i = index">
+                            <div class="col-auto">
+                                <mat-icon class="material-symbols-outlined icon-click"
+                                    (click)="removeAtIndex(additionalDetail, i)">delete_outline</mat-icon>
+                            </div>
+                                <div class="col-auto" >
+                                    <ul [formGroupName]="i">
                                         <li>
-                                            awdawd awdas
-                                        </li>
-                                        <li>
-                                            awidmninni
+                                            <mat-form-field class="question-input-field width">
+                                                <mat-label>...</mat-label>
+                                                <input matInput type="text"
+                                                    formControlName="field">
+                                            </mat-form-field>
                                         </li>
                                     </ul>
                                 </div>
+                                
                             </div>
-                        </div>
-                        <div class="col-md-4 text-header">
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 <div class="col-auto">
-                                    <mat-icon class="material-symbols-outlined">tag_faces</mat-icon>
-                                </div>
-                                <div class="col-auto text-aligment">
-                                    Umiejętności Miękkie:
-                                </div>
-                            </div>
-                            <div class="row text-exp-edu-cert">
-                                <div class="col-12">
-                                    <ul>
-                                        <li>
-                                            awdawd awdas
-                                        </li>
-                                        <li>
-                                            awidmninni
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-header">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <mat-icon class="material-symbols-outlined">fitness_center</mat-icon>
-                                </div>
-                                <div class="col-auto text-aligment">
-                                    Hobby:
-                                </div>
-                            </div>
-                            <div class="row text-exp-edu-cert">
-                                <div class="col-12">
-                                    <ul>
-                                        <li>
-                                            awdawd awdas
-                                        </li>
-                                        <li>
-                                            awidmninni
-                                        </li>
-                                    </ul>
+                                    <mat-icon class="material-symbols-outlined icon-click"
+                                        (click)="addNewDetail(additionalDetail)">add_circle_outline</mat-icon>
                                 </div>
                             </div>
                         </div>

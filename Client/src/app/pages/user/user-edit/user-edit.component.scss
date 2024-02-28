@@ -9,6 +9,7 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        background-attachment: fixed;
         background-color: $bg-grey;
     }
 
@@ -73,6 +74,10 @@
 
     &-edit {
         cursor: pointer;
+    }
+
+    &-click {
+        cursor: pointer
     }
 }
 
@@ -154,5 +159,17 @@
         height: 2.5rem;
         width: 6rem;
         margin: 2rem 0 1rem 0;
+    }
+
+    .vertical-line {
+        border-left: 2px solid $black;
+        margin: 0 0 0 0;
+    }
+
+    .icon {
+
+        &-toll {
+            margin: 0 0 0 -20px;
+        }
     }
 }
