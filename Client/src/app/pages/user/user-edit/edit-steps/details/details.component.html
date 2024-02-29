@@ -3,6 +3,11 @@
         <div class="row justify-content-center">
             <mat-card class="col user-card">
                 <mat-card-content>
+                    <div class="row">
+                        <div class="col">
+                                <button mat-button matStepperPrevious class="button-top">Poprzedni</button>
+                        </div>
+                    </div>
                     <!-- Experiance, education, certyficates -->
                     <div class="row justify-content-start text-block">
                         <div class="col-xl-4 text-header">
@@ -321,6 +326,14 @@
                                         (click)="addNewDetail(additionalDetail)">add_circle_outline</mat-icon>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                                <button mat-button class="button" (click)="cancel()">Anuluj</button>
+                        </div>
+                        <div class="col-auto">
+                            <button mat-button class="button" (click)="save()">Zapisz</button>
                         </div>
                     </div>
                 </mat-card-content>

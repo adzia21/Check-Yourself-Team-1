@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -15,7 +15,11 @@ import { icons } from 'src/app/shared/constants/constants';
   styleUrls: ['./details.component.scss', '../../user-edit.component.scss'],
 })
 export class UserDetailsComponent implements AfterViewInit {
-  public userDetailsForm: FormGroup;
+  @Output() saveEvent = new EventEmitter<null>();
+  @Output() cancelEvent = new EventEmitter<null>();
+  @Input() userDetailsForm!: FormGroup;
+
+  //public userDetailsForm: FormGroup;
   public experienceForm: FormGroup;
   public tasksArray: FormGroup;
   public educationForm: FormGroup;
@@ -69,20 +73,35 @@ export class UserDetailsComponent implements AfterViewInit {
       field: new FormControl(''),
     });
 
-    this.userDetailsForm = this.fb.group({
-      experiences: this.fb.array([this.experienceForm]),
-      educations: this.fb.array([this.educationForm]),
-      certyficates: this.fb.array([this.certForm]),
-      organizations: this.fb.array([this.additionalArray]),
-      softSkills: this.fb.array([this.additionalArray]),
-      hobbies: this.fb.array([this.additionalArray]),
-    });
+    // this.userDetailsForm = this.fb.group({
+    //   experiences: this.fb.array([this.experienceForm]),
+    //   educations: this.fb.array([this.educationForm]),
+    //   certyficates: this.fb.array([this.certForm]),
+    //   organizations: this.fb.array([this.additionalArray]),
+    //   softSkills: this.fb.array([this.additionalArray]),
+    //   hobbies: this.fb.array([this.additionalArray]),
+    // });
   }
 
   ngAfterViewInit(): void {
+    this.addNewDetail('experiences');
+    this.addNewDetail('educations');
+    this.addNewDetail('certyficates');
+    this.addNewDetail('organizations');
+    this.addNewDetail('softSkills');
+    this.addNewDetail('hobbies');
     this.addTask(0);
     this.ref.detectChanges();
   }
+
+  public save() {
+    this.saveEvent.emit();
+  }
+
+  public cancel() {
+    this.cancelEvent.emit();
+  }
+
   //#region
   public get experiences() {
     return this.userDetailsForm.get('experiences') as FormArray;

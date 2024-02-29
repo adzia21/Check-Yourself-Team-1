@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -18,7 +18,11 @@ import { icons } from 'src/app/shared/constants/constants';
   ],
 })
 export class UserAboutSkillsComponent implements AfterViewInit {
-  public userAboutSkillsForm: FormGroup;
+  @Output() saveEvent = new EventEmitter<null>();
+  @Output() cancelEvent = new EventEmitter<null>();
+  @Input() userAboutSkillsForm!: FormGroup;
+
+  // public userAboutSkillsForm: FormGroup;
   public skillArray: FormGroup;
   public skillTypes = ['skillsFE', 'skillsBE', 'skillsLanguage', 'skillsOther']
 
@@ -28,13 +32,13 @@ export class UserAboutSkillsComponent implements AfterViewInit {
       level: new FormControl(0),
     });
 
-    this.userAboutSkillsForm = this.fb.group({
-      aboutMe: new FormControl('', []),
-      skillsFE: this.fb.array([]),
-      skillsBE: this.fb.array([]),
-      skillsLanguage: this.fb.array([]),
-      skillsOther: this.fb.array([]),
-    });
+    // this.userAboutSkillsForm = this.fb.group({
+    //   aboutMe: new FormControl('', []),
+    //   skillsFE: this.fb.array([]),
+    //   skillsBE: this.fb.array([]),
+    //   skillsLanguage: this.fb.array([]),
+    //   skillsOther: this.fb.array([]),
+    // });
   }
 
   ngAfterViewInit(): void {
@@ -169,5 +173,13 @@ export class UserAboutSkillsComponent implements AfterViewInit {
       default:
         return;
     }
+  }
+
+  public save() {
+    this.saveEvent.emit();
+  }
+
+  public cancel() {
+    this.cancelEvent.emit();
   }
 }

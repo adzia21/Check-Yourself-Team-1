@@ -3,10 +3,25 @@
         <div class="row justify-content-center">
             <mat-card class="col user-card">
                 <mat-card-content>
+                    <div class="row">
+                        <div class="col">
+                                <button mat-button matStepperPrevious class="button-top">Poprzedni</button>
+                        </div>
+                        <div class="col-auto">
+                            <button mat-button matStepperNext class="button-top">Następny</button>
+                        </div>
+                    </div>
                     <!-- About me -->
                     <div class="row justify-content-start text-block">
                         <div class="col-12 text-header">
-                            O mnie:
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-symbols-outlined">account_circle</mat-icon>
+                                </div>
+                                <div class="col main-text">
+                                    O mnie:
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-10">
                             <mat-form-field class="input-about">
@@ -20,7 +35,14 @@
                     <!-- Skills -->
                     <div class="row justify-content-start text-block">
                         <div class="col-12 text-header">
-                            Umiejętności:
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-symbols-outlined">stay_current_landscape</mat-icon>
+                                </div>
+                                <div class="col main-text">
+                                    Umiejętności:
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-6 text-about-me-body" *ngFor="let skillType of skillTypes">
                             <div class="row justify-content-start">
@@ -76,10 +98,10 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                                <button mat-button matStepperPrevious class="button">Poprzedni</button>
+                                <button mat-button class="button" (click)="cancel()">Anuluj</button>
                         </div>
                         <div class="col-auto">
-                            <button mat-button matStepperNext class="button">Następny</button>
+                            <button mat-button class="button" (click)="save()">Zapisz</button>
                         </div>
                     </div>
                 </mat-card-content>

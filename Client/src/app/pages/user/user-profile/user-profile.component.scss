@@ -55,6 +55,11 @@
     &-exp-edu-cert {
         font-size: $font-size-small;
     }
+
+    &-main {
+        font-size: $font-size-big;
+        font-weight: 500;
+    }
 }
 
 .vertical-line {
@@ -72,6 +77,10 @@
 
     &-edit {
         cursor: pointer;
+    }
+
+    &-align {
+        margin: 3px 0 0 0;
     }
 }
 

@@ -79,6 +79,10 @@
     &-click {
         cursor: pointer
     }
+    
+    &-align {
+        margin: 0 0 15px 0;
+    }
 }
 
 .input {
@@ -131,6 +135,15 @@
     height: 2.75rem;
     width: 9rem;
     margin: 2rem 0 1rem 0;
+
+    &-top {
+        background-color: $primary-color;
+        color: $text-light !important;
+        border: 0;
+        border-radius: .3rem;
+        height: 2.75rem;
+        width: 9rem;
+    }
 }
 
 @media screen and (max-width: 500px) {
