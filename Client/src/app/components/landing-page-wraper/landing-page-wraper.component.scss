@@ -60,35 +60,3 @@
         margin: 0 0 1.75rem 0;
     }
 }
-
-.input {
-    &-first {
-        margin: 24px 0 0 0;
-    }
-    &-checkbox {
-        font-size: $font-size-medium;
-        width: 22rem;
-    }
-}
-
-.login-text {
-    font-size: $font-size-medium;
-    &-color {
-        color: $primary-color;
-        cursor: pointer;
-    }
-}
-
-.image {
-    scale: (1.5)
-}
-
-.top-text {
-    margin: 1rem 0 -1.25rem 0;
-}
-
-@media screen and (min-width: 500px) {
-    .register {
-        margin: 1.75rem 0 0 0;
-    }
-}

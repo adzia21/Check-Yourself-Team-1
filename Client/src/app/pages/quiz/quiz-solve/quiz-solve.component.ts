@@ -190,9 +190,8 @@ export class QuizSolveComponent {
   }
 
   public onQuestionChanged(incorrectQuestion: boolean) {
-    this.areCorrectQuestions.push(incorrectQuestion)
-    this.quiz.questions.length === this.questionNumber + 1 ? this.resultScreen() : this.questionNumber += 1
-    console.log(this.areCorrectQuestions) 
+    this.areCorrectQuestions.push(incorrectQuestion);
+    this.quiz.questions.length === this.questionNumber + 1 ? this.resultScreen() : this.questionNumber += 1;
     this.isLastQuestion = this.quiz.questions.length === this.questionNumber + 1;
   }
 

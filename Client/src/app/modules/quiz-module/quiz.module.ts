@@ -13,6 +13,7 @@ import { QuizCreateComponent } from 'src/app/pages/quiz/quiz-create/quiz-create.
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from 'src/app/helpers/interceptors/bearer.interceprot';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -30,7 +31,8 @@ import { JwtInterceptor } from 'src/app/helpers/interceptors/bearer.interceprot'
     NgbModule,
     CommonModule,
     NgChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {

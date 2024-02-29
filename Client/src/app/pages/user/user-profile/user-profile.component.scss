@@ -38,11 +38,6 @@
         font-size: $font-size-medium;
     }
 
-    &-field {
-        //margin: 0 5vw 0 5vw;
-        //background-color: antiquewhite;
-    }
-
     &-name {
         margin: 2rem 0 4rem 0;
         font-size: $font-size-biger;
@@ -60,6 +55,11 @@
     &-exp-edu-cert {
         font-size: $font-size-small;
     }
+
+    &-main {
+        font-size: $font-size-big;
+        font-weight: 500;
+    }
 }
 
 .vertical-line {
@@ -71,6 +71,17 @@
     width: auto;
     margin: 7px 0 0 0;
     background-color: $bg-light-grey;
+}
+
+.icon {
+
+    &-edit {
+        cursor: pointer;
+    }
+
+    &-align {
+        margin: 3px 0 0 0;
+    }
 }
 
 @media screen and (max-width: 500px) {

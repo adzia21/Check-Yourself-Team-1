@@ -19,21 +19,9 @@ export class HeaderComponent implements AfterViewInit {
   ngAfterViewInit(): void {
   }
 
-  openLoginDialog(): void {
-    const dialogRef = this.dialog.open(LoginDialogComponent);
-
-    dialogRef.afterClosed().subscribe((result: FormGroup) => {
-      console.log('The dialog was closed');
-      console.log(result.value)
-      let value = result.value;
-      let model: LoginUser = {
-        username: value.email,
-        password: value.password
-      }
-      this.authService.loginUser(model).subscribe(res => {
-        console.log(res)
-        localStorage.setItem("token", res.token)
-      });
+  public openLoginDialog(): void {
+    this.dialog.open(LoginDialogComponent, {
+      backdropClass: 'userLoginDialog'
     });
   }
 }

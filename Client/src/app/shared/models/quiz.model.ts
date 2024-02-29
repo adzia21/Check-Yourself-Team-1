@@ -41,7 +41,6 @@ export interface CreateQuiz {
 
 export interface QuizCreateQuestionsModel {
     type: string,
-    code: string,
     questionName: string,
     correctAnswers: string[]
     incorrectAnswers: string[]

@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { QuizService } from 'src/app/services/quiz.service';
 
 @Component({
   selector: 'app-quiz-create',
@@ -20,7 +21,7 @@ export class QuizCreateComponent implements AfterViewInit {
 
   public quizTypes = ['MULTIPLE_CHOICE', 'FINISH_SENTANCE'];
 
-  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef, private quizService: QuizService) {
     this.incorrectAnswerArray = this.fb.group({
       incorrectAnswer: new FormControl('', [Validators.required]),
     });
@@ -31,9 +32,7 @@ export class QuizCreateComponent implements AfterViewInit {
 
     this.questionForm = this.fb.group({
       type: new FormControl('', []),
-      code: new FormControl('', []),
       questionName: new FormControl('', []),
-      sentence: this.fb.array([]),
       correctAnswers: this.fb.array([]),
       incorrectAnswers: this.fb.array([]),
     });
@@ -109,5 +108,9 @@ export class QuizCreateComponent implements AfterViewInit {
       case 'question':
         return this.questions.removeAt(questionIndex);
     }
+  }
+
+  public save() {
+    this.quizService.creataQuiz(this.quizCreationForm.value).subscribe(res => console.log(res))
   }
 }
