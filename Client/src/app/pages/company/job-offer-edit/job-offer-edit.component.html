@@ -1,0 +1,228 @@
+<main class="row joboffer-main">
+    <form class="form" [formGroup]="jobOfferForm">
+        <div class="row justify-content-center">
+            <mat-card class="col joboffer-card">
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col">
+                            <button mat-button class="joboffer-button" (click)="cancel()">Anuluj</button>
+                        </div>
+                        <div class="col-auto">
+                            <button mat-button class="joboffer-button" (click)="save()">Zapisz</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col-12">
+                                    @if (dummyBool) {
+                                    <div class="row joboffer-logo-empty">
+                                        <img class="joboffer-logo" alt="logo" [src]="image">
+                                    </div>
+                                    } @else {
+                                    <img class="joboffer-logo" alt="logo" [src]="image">
+                                    }
+                                </div>
+                                <div class="col-12">
+                                    <input class="joboffer-logo-input" type="file" accept=".jpg, .png"
+                                        (change)="selectLogo($event)" formControlName="logo" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field class="input-field">
+                                                <mat-label>Nazwa Stanowisk</mat-label>
+                                                <input matInput type="text" formControlName="position">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field class="input-field">
+                                                <mat-label>Nazwa firmy</mat-label>
+                                                <input matInput type="text" formControlName="companyName">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-auto icon-align">
+                                                    <mat-icon class="material-icons-outlined">pin_drop</mat-icon>
+                                                </div>
+                                                <div class="col">
+                                                    <mat-form-field class="input-field">
+                                                        <mat-label>Lokacja firmy</mat-label>
+                                                        <input matInput type="text" formControlName="location">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-auto icon-align">
+                                                    <mat-icon class="material-icons-outlined">work_outline</mat-icon>
+                                                </div>
+                                                <div class="col">
+                                                    <mat-form-field class="input-field">
+                                                        <mat-label>Forma zatrudnienia</mat-label>
+                                                        <input matInput type="text" formControlName="employmentForm">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-auto icon-align">
+                                                    <mat-icon class="material-icons-outlined">calendar_today</mat-icon>
+                                                </div>
+                                                <div class="col">
+                                                    <mat-form-field class="question-input-field width">
+                                                        <mat-label>Data wydania</mat-label>
+                                                        <input matInput id="pickerHandDate"
+                                                            [matDatepicker]="pickerHandDate"
+                                                            formControlName="endDate">
+                                                        <mat-datepicker-toggle matIconSuffix
+                                                            [for]="pickerHandDate"></mat-datepicker-toggle>
+                                                        <mat-datepicker #pickerHandDate></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 joboffer-text-about-header">
+                            Opis oferty
+                        </div>
+                        <div class="col-12 joboffer-text-about">
+                            <mat-form-field class="joboffer-text-about-field">
+                                <mat-label>Opisz ofertę...</mat-label>
+                                <textarea matInput #description type="text" maxlength="1000"
+                                    formControlName="description" class="deep" rows="8" cols="50"></textarea>
+                                <mat-hint align="end">{{description.value.length}}/1000</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row separate" *ngFor="let segment of segments; let segmentIndex = index">
+                        <div class="col-12 joboffer-text-about-header">
+                            {{getName(segment)}}:
+                        </div>
+                        <div [formArrayName]="segment" class="col-6 joboffer-technology" *ngFor="let item of getControls(segment) | keyvalue; let i = index">
+                            <div [formGroupName]="i" class="row justify-content-center align-items-center">
+                                <div class="col joboffer-technology-text">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>Wymóg</mat-label>
+                                                    @switch (segment) {
+                                                        
+                                                        @case ('technologies') {
+                                                            <mat-select formControlName="requirement">
+                                                            @for (technology of technologiesArray; track technology) {
+                                                                <mat-option [value]="technology">{{getTechnologyName(technology)}}</mat-option>
+                                                            }
+                                                            </mat-select>
+                                                        }
+                                                        @case ('tools') {
+                                                            <mat-select formControlName="requirement">
+                                                                @for (tool of toolsArray; track tool) {
+                                                                    <mat-option [value]="tool">{{getToolName(tool)}}</mat-option>
+                                                                }
+                                                            </mat-select>
+                                                        }
+                                                        @case ('platforms') {
+                                                            <mat-select formControlName="requirement">
+                                                                @for (platform of platformsArray; track platform) {
+                                                                    <mat-option [value]="platform">{{getPlatformName(platform)}}</mat-option>
+                                                                }
+                                                            </mat-select>
+                                                        }
+                                                        @case ('languages') {
+                                                            <input matInput type="text" formControlName="requirement">
+                                                        }
+                                                    }
+                                                
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field>
+                                                <mat-label>Doświadczenie</mat-label>
+                                                <mat-select formControlName="experience">
+                                                    @for (level of levels; track level) {
+                                                    <mat-option [value]="level">{{level | titlecase}}</mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-auto">
+                                            <mat-icon class="material-symbols-outlined icon-click"
+                                            (click)="removeAtIndex(segment, i)">delete_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row justify-content-center">
+                                <div class="col-auto">
+                                    <mat-icon class="material-symbols-outlined icon-click add"
+                                    (click)="addNew(segment)">add_circle_outline</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col-6" *ngFor="let segment2 of segments2">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon>{{getIcon(segment2)}}</mat-icon>
+                                        </div>
+                                        <div class="col joboffer-text-align joboffer-text">
+                                            {{getName(segment2)}}:
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul [formArrayName]="segment2" *ngFor="let item of getControls(segment2) | keyvalue; let i = index">
+                                        <li [formGroupName]="i">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <mat-form-field class="input-field">
+                                                        <mat-label>...</mat-label>
+                                                        <input matInput type="text" formControlName="field">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col">
+                                                    <mat-icon class="material-symbols-outlined icon-click"
+                                                        (click)="removeAtIndex(segment2, i)">delete_outline</mat-icon>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row justify-content-center">
+                                        <div class="col-auto">
+                                            <mat-icon class="material-symbols-outlined icon-click add"
+                                                (click)="addNew(segment2)">add_circle_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>

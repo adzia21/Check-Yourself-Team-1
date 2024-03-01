@@ -11,13 +11,17 @@ import { ToastrModule } from 'ngx-toastr';
 import { CompanyRoutingModule } from './company-routing.module';
 import { CompanyProfileComponent } from 'src/app/pages/company/company-profile/company-profile.component';
 import { CompanyEditComponent } from 'src/app/pages/company/company-edit/company-edit.component';
+import { JobOfferComponent } from 'src/app/pages/company/job-offer/job-offer.component';
+import { JobOfferEditComponent } from 'src/app/pages/company/job-offer-edit/job-offer-edit.component';
 
 
 
 @NgModule({
   declarations: [
     CompanyProfileComponent,
-    CompanyEditComponent
+    CompanyEditComponent,
+    JobOfferComponent,
+    JobOfferEditComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability

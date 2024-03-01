@@ -1,0 +1,339 @@
+<main class="row joboffer-main">
+    <!-- [formGroup]="userForm" -->
+    <form class="form">
+        <div class="row justify-content-center">
+            <mat-card class="col joboffer-card">
+                <mat-card-content>
+                    <div class="row justify-content-end">
+                        <div class="col-auto">
+                            @if (isCompany) {
+                                <button type="button" class="joboffer-apply">
+                                    Aplikuj na ofertę pracy
+                                </button>
+                            } @else {
+                                <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit">edit</mat-icon>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-auto joboffer-logo-align">
+                                    <img class="joboffer-logo" alt="logo" [src]="image">
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col joboffer-text-header-other">
+                                            Junior Fullstack Developer
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col joboffer-text-header">
+                                            Check Yourself sp. z o. o.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row justify-content-end">
+                                <div class="col-auto">
+                                    <div class="row justify-content-end">
+                                        <div class="col-auto">
+                                            <mat-icon>pin_drop</mat-icon>
+                                        </div>
+                                        <div class="col-auto joboffer-text-align joboffer-text">
+                                            Warszawa
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="row justify-content-end">
+                                        <div class="col-auto">
+                                            <mat-icon>work_outline</mat-icon>
+                                        </div>
+                                        <div class="col-auto joboffer-text-align joboffer-text">
+                                            B2B
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-auto">
+                                    <div class="row justify-content-end">
+                                        <div class="col-auto disable-mobile">
+                                            <mat-icon>calendar_today</mat-icon>
+                                        </div>
+                                        <div class="col-auto joboffer-text-align joboffer-text">
+                                            Oferta ważna do 03.06.2024
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 joboffer-text-about-header">
+                            Opis oferty
+                        </div>
+                        <div class="col-12 joboffer-text-about">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore laudantium ullam voluptatum enim veniam consectetur velit laborum magni delectus unde.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quis ab numquam alias nesciunt obcaecati! Praesentium quae sapiente culpa ea.
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem, similique sequi. Cupiditate ipsum saepe eos amet minima esse placeat illum!
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro aliquam cupiditate voluptates molestiae necessitatibus nobis beatae excepturi itaque voluptatum eius.
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col-12 joboffer-text-about-header">
+                            Technologie:
+                        </div>
+                        <div class="col-6 joboffer-technology">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-auto">
+                                    <img alt="technology-{{'angular.svg'}}" src="{{icons}}/technologies/{{'angular.svg'}}">
+                                </div>
+                                <div class="col-4 joboffer-technology-text">
+                                    {{getTechnologyName('angular.svg')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 joboffer-technology">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-auto">
+                                    <div class="row align-items-center">
+                                        <img alt="technology-{{'java.svg'}}" src="{{icons}}/technologies/{{'java.svg'}}">
+                                    </div>
+                                </div>
+                                <div class="col-4 joboffer-technology-text">
+                                    {{getTechnologyName('java.svg')}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col-12 joboffer-text-about-header">
+                            Narzędzia:
+                        </div>
+                        <div class="col-6 joboffer-technology">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-auto">
+                                    <img alt="technology-{{'git.svg'}}" src="{{icons}}/tools/{{'git.svg'}}">
+                                </div>
+                                <div class="col-4 joboffer-technology-text">
+                                    {{getToolName('git.svg')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 joboffer-technology">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-auto">
+                                    <img alt="technology-{{'jira.svg'}}" src="{{icons}}/tools/{{'jira.svg'}}">
+                                </div>
+                                <div class="col-4 joboffer-technology-text">
+                                    {{getToolName('jira.svg')}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col-12 joboffer-text-about-header">
+                            Platformy:
+                        </div>
+                        <div class="col-6 joboffer-technology">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-auto">
+                                    <img alt="technology-{{'windows.svg'}}" src="{{icons}}/platforms/{{'windows.svg'}}">
+                                </div>
+                                <div class="col-4 joboffer-technology-text">
+                                    {{getPlatformName('windows.svg')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 joboffer-technology">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-auto">
+                                    <img alt="technology-{{'linux.svg'}}" src="{{icons}}/platforms/{{'linux.svg'}}">
+                                </div>
+                                <div class="col-4 joboffer-technology-text">
+                                    {{getPlatformName('linux.svg')}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col-12 joboffer-text-about-header">
+                            Języki:
+                        </div>
+                        <div class="col-6 joboffer-technology">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-5 joboffer-technology-text">
+                                    Polski
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 joboffer-technology">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-5 joboffer-technology-text">
+                                    Angielski
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon>change_history</mat-icon>
+                                        </div>
+                                        <div class="col joboffer-text-align joboffer-text">
+                                            Główne zadania:
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li>
+                                            awd
+                                        </li>
+                                        <li>
+                                            awd2
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon>card_membership</mat-icon>
+                                        </div>
+                                        <div class="col joboffer-text-align joboffer-text">
+                                            Co szczególnie cenimy w kandydacie?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li>
+                                            aww
+                                        </li>
+                                        <li>
+                                            aww2
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon>trending_up</mat-icon>
+                                </div>
+                                <div class="col joboffer-text joboffer-text-align header">
+                                    Organizacja pracy:
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-2" *ngFor="let item of array; let i = index">
+                                    <span class="job-organization" 
+                                        [style.background-color]="i % 2 ? '#067BC2' : '#00A993'"
+                                        [style.border-color]="i % 2 ? '#067BC2' : '#00A993'"
+                                        >
+                                        {{item | titlecase}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon>tag_faces</mat-icon>
+                                </div>
+                                <div class="col joboffer-text joboffer-text-align header">
+                                    Benefity
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-2" *ngFor="let item of array2; let i = index">
+                                    <span class="job-organization" 
+                                        [style.background-color]="i % 2 ? '#00A993' : '#067BC2'"
+                                        [style.border-color]="i % 2 ? '#00A993' : '#067BC2'"
+                                        >
+                                        {{item | titlecase}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon>style</mat-icon>
+                                        </div>
+                                        <div class="col joboffer-text-align joboffer-text">
+                                            Narzędzia do pracy, które zapewniamy:
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li>
+                                            awd
+                                        </li>
+                                        <li>
+                                            awd2
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon>vignette</mat-icon>
+                                        </div>
+                                        <div class="col joboffer-text-align joboffer-text">
+                                            Dodatkowe informację:
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li>
+                                            aww
+                                        </li>
+                                        <li>
+                                            aww2
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col-12 joboffer-text-about-header">
+                            Inne ofery tego pracodawcy:
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>
