@@ -20,6 +20,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './helpers/interceptors/bearer.interceprot';
 import { RegisterFormComponent } from './components/dialog/register-form/register-form.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CompanyModule } from './modules/company-module/company.module';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ToastrModule } from 'ngx-toastr';
     NgbModule,
     QuizModule,
     UserModule,
+    CompanyModule,
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,

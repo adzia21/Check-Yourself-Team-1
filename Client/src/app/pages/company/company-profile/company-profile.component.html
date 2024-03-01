@@ -1,0 +1,171 @@
+<main class="row company-main">
+    <!-- [formGroup]="userForm" -->
+    <form class="form">
+        <div class="row justify-content-center">
+            <mat-card class="col company-card">
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-auto">
+                            <img class="company-logo" alt="logo" [src]="image">
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-auto company-name">Check Yourself sp. z o. o.</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <a href="url">
+                                        <img alt="facebook" [src]="facebook">
+                                    </a>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="">
+                                        <img alt="twitter" [src]="twitter">
+                                    </a>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="">
+                                        <img alt="instagram" [src]="instagram">
+                                    </a>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="">
+                                        <img alt="linkedin" [src]="linkedin">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-icons-outlined">pin_drop</mat-icon>
+                                </div>
+                                <div class="col company-location">
+                                    Poznań
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-icons-outlined person-icon">person</mat-icon>
+                                </div>
+                                <div class="col company-personel">
+                                    50+
+                                </div>
+                                <div class="col">
+                                    <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit">edit</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row company-description">
+                        <div class="col">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua.
+                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo consequat.
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                            pariatur.
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                            anim id est laborum.
+                        </div>
+                    </div>
+                    <div class="row company-details">
+                        <div class="col-12">
+                            Technologie:
+                        </div>
+                        <div class="col-1 company-details-item" *ngFor="let technology of technologies">
+                            <img alt="technology-{{technology}}" src="{{icons}}/technologies/{{technology}}">
+                        </div>
+                    </div>
+                    <div class="row company-details">
+                        <div class="col-12">
+                            Narzędzia:
+                        </div>
+                        <div class="col-auto company-details-item" *ngFor="let tool of tools">
+                            <img alt="tool-{{tool}}" src="{{icons}}/tools/{{tool}}">
+                        </div>
+                    </div>
+                    <div class="row company-details">
+                        <div class="col-12">
+                            Platformy:
+                        </div>
+                        <div class="col-auto company-details-item" *ngFor="let platrofm of platforms">
+                            <img alt="tool-{{platrofm}}" src="{{icons}}/platforms/{{platrofm}}">
+                        </div>
+                    </div>
+                    <div class="row company-details">
+                        <div class="col-12 company-joboffers">
+                            Oferty pracy
+                        </div>
+                    </div>
+                    <div class="row company-joboffers-tiles">
+                        <div class="col">
+                            <mat-card class="company-joboffers-tiles-card">
+                                <mat-card-content>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <img class="offer-logo" alt="logo" [src]="image">
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="row">
+                                                <div calss="col-12 offer-position-mobile">
+                                                    <span class="offer-position">
+                                                        Junior Fullstack Developer
+                                                    </span>
+                                                </div>
+                                                <div calss="col-12">
+                                                    Check Yourself sp. z o. o.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="row">
+                                                <div class="col-auto offer-technology-align">
+                                                    <span class="offer-technology">
+                                                        HTML
+                                                    </span>
+                                                </div>
+                                                <div class="col-auto offer-technology-align">
+                                                    <span class="offer-technology">
+                                                        CSS
+                                                    </span>
+                                                </div>
+                                                <div class="col-auto offer-technology-align">
+                                                    <span class="offer-technology">
+                                                        JAVA
+                                                    </span>
+                                                </div>
+                                                <div class="col-auto offer-technology-align">
+                                                    <span class="offer-technology">
+                                                        ANGULAR
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col"></div>
+                                        <div class="col-auto offer-end">
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 offer-last-row">
+                                                    <span class="offer-location">
+                                                        Poznań
+                                                    </span>
+                                                </div>
+                                                <div class="col-12 offer-last-row">
+                                                    <button type="button" class="offer-apply">
+                                                        Aplikuj
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>
