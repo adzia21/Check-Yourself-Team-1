@@ -1,7 +1,7 @@
 <div class="row quiz-main" #scrollTo>
     <form>
         @for (question of quiz.questions; track $index;) {
-            <mat-card *ngIf="question.type === 'multiple choice' && $index === questionNumber" class="main-card">
+            <mat-card *ngIf="question.type === 'MULTIPLE_CHOICE' && $index === questionNumber" class="main-card">
                 <div class="col-12 question-text">
                     Question
                 </div>

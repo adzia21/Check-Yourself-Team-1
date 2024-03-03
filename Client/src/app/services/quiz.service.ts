@@ -38,9 +38,9 @@ export class QuizService {
       );
   }
 
-  public resolveQuiz(model: QuizResolve[]): Observable<QuizResult> {
+  public resolveQuiz(id: number, model: QuizResolve[]): Observable<QuizResult> {
     return this.http
-      .post<QuizResult>(`${quizUrl}/${this.resolveController}`, model)
+      .post<QuizResult>(`${quizUrl}/${this.resolveController}/${id}`, model)
       .pipe(
         map((response: QuizResult) => {
           return response;

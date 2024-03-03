@@ -7,7 +7,7 @@ export interface SimplifiedJobOffer {
 }
 
 export interface FullJobOffer {
-    id: number,
+    id?: number,
     companyName: string,
     title: string,
     localization: string,

@@ -1,9 +1,9 @@
-<div class="row" *ngIf="!showResultScreen; else resultScreen">
+<div class="row" *ngIf="!showResultScreen && quiz; else resultScreen">
     <div class="col-12 header">
         <span class="header-question"><span class="header-text">Question</span> {{questionNumber + 1}}/{{quiz.questions.length}}</span>
         <span class="header-time"><mat-icon class="material-icons-outlined hourglass">hourglass_top</mat-icon>{{ellapsedTime}} / {{quiz.time}}:00</span>
     </div>
-    <div class="col-12 qustion" *ngIf="quiz.questions[questionNumber].type === 'multiple choice'">
+    <div class="col-12 qustion" *ngIf="quiz.questions[questionNumber].type === 'MULTIPLE_CHOICE'">
         <app-multi-choice-question
             [colors]="colors"
             [quiz]="quiz"
@@ -14,7 +14,7 @@
             (questionChanged)="onQuestionChanged($event)"
         ></app-multi-choice-question>
     </div> 
-    <div class="col-12 qustion" *ngIf="quiz.questions[questionNumber].type === 'finish sentence'">
+    <div class="col-12 qustion" *ngIf="quiz.questions[questionNumber].type === 'FINISH_SENTENCE'">
         <app-complete-sentence-question
             [quiz]="quiz"
             [questionNumber]="questionNumber"
@@ -25,7 +25,7 @@
 </div>
 
 <ng-template #resultScreen>
-    <div class="row">
+    <div class="row" *ngIf="quiz">
         <div class="col-12 header">
             <span class="header-question"><span class="header-text">Wynik testu: {{quiz.title}}</span></span>
         </div>

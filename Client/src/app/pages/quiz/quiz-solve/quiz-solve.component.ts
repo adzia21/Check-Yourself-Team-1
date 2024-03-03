@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { QuizService } from 'src/app/services/quiz.service';
 import { images } from 'src/app/shared/constants/constants';
 import { QuizResolve, QuizResult, QuizSolve } from 'src/app/shared/models/quiz.model';
@@ -46,9 +47,11 @@ export class QuizSolveComponent {
   public showResultScreen: boolean = false;
   public timeTaken: string = '00:00';
   public isLastQuestion: boolean = false;
+  public urlID: number = 0;
 
-  constructor(private quizService: QuizService) {
-    this.quizService.getQuiz(1).subscribe((res: QuizSolve) => this.quiz = res)
+  constructor(private quizService: QuizService, private route: ActivatedRoute) {
+    this.urlID = Number(this.route.snapshot.paramMap.get('id'));
+    this.quizService.getQuiz(this.urlID).subscribe((res: QuizSolve) => this.quiz = res)
     // this.quiz = {
     //   quizId: 1,
     //   technology: 'Super Techno',
@@ -161,13 +164,13 @@ export class QuizSolveComponent {
       }
       console.log(this.quizAnsweres)
       this.timeTaken = String(this.quiz.time);
-      this.quizService.resolveQuiz(this.quizAnsweres).subscribe((res: QuizResult) => {
+      this.quizService.resolveQuiz(this.urlID, this.quizAnsweres).subscribe((res: QuizResult) => {
       this.result = res;
       this.showResultScreen = true;
     });
     } else {
       this.timeTaken = this.ellapsedTime;
-      this.quizService.resolveQuiz(this.quizAnsweres).subscribe((res: QuizResult) => {
+      this.quizService.resolveQuiz(this.urlID, this.quizAnsweres).subscribe((res: QuizResult) => {
         this.result = res;
         this.showResultScreen = true;
       });

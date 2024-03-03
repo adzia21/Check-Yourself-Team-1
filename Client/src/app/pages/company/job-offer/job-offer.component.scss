@@ -88,8 +88,26 @@
     margin: 0 0 1.5rem 0;
 }
 
+.icon {
+
+    &-edit {
+        cursor: pointer;
+    }
+
+    &-align {
+        margin: 10px 0 0 0;
+    }
+    
+}
+
 @media screen and (max-width: 500px) {
     .disable-mobile {
         display: none;
+    }
+
+    .job-organization {
+        &-mob {
+            margin: 0 0 0 1.5rem;
+        }
     }
 }

@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-6 joboffer-technology" *ngFor="let technology of data.technologies">
                             <div class="row justify-content-center align-items-center">
-                                <div class="col-auto">
+                                <div class="col-auto icon-align">
                                     <img alt="technology-{{technology}}" src="{{icons}}/technologies/{{technology}}">
                                 </div>
                                 <div class="col-4 joboffer-technology-text">
@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-6 joboffer-technology" *ngFor="let tool of data.tools">
                             <div class="row justify-content-center align-items-center">
-                                <div class="col-auto">
+                                <div class="col-auto icon-align">
                                     <img alt="technology-{{tool}}" src="{{icons}}/tools/{{tool}}">
                                 </div>
                                 <div class="col-4 joboffer-technology-text">
@@ -116,7 +116,7 @@
                         </div>
                         <div class="col-6 joboffer-technology" *ngFor="let platform of platforms">
                             <div class="row justify-content-center align-items-center">
-                                <div class="col-auto">
+                                <div class="col-auto icon-align">
                                     <img alt="technology-{{platform}}" src="{{icons}}/platforms/{{platform}}">
                                 </div>
                                 <div class="col-4 joboffer-technology-text">
@@ -219,7 +219,7 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-2" *ngFor="let item of data.benefits; let i = index">
-                                    <span class="job-organization" 
+                                    <span class="job-organization" [ngClass]="i != 0 ? 'job-organization-mob' : ''"
                                         [style.background-color]="i % 2 ? '#00A993' : '#067BC2'"
                                         [style.border-color]="i % 2 ? '#00A993' : '#067BC2'"
                                         >

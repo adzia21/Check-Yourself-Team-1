@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CompanyService } from 'src/app/services/company.service';
 import { JobOfferService } from 'src/app/services/job-offer.service';
 import { platforms, technologies, tools } from 'src/app/shared/constants/company-profile.constants';
 import { icons } from 'src/app/shared/constants/constants';
@@ -20,25 +22,35 @@ export class JobOfferComponent implements OnInit {
   public tools = tools;
   public platforms = platforms;
   public isCompany = true;
+  public offerID: number = 0;
+  public companyID: number = 0;
 
   public data!: FullJobOffer;
   public jobOffers:  SimplifiedJobOffer[] = [];
 
-  constructor(private jobOfferService: JobOfferService) {}
+  constructor(private jobOfferService: JobOfferService, private route: ActivatedRoute, private companyService: CompanyService) {}
 
   ngOnInit(): void {
+    this.companyID = Number(this.route.snapshot.paramMap.get('id'));
+    this.offerID = Number(this.route.snapshot.paramMap.get('offerId'));
+
     this.jobOfferService.getLoggedUser().subscribe(res => {
       this.isCompany = res.company;
+
+      if (this.isCompany) {
+        this.companyService.getCompany().subscribe(res => {
+          this.jobOfferService.getCompanyJobOffers(res.id).subscribe(res => {
+            this.jobOffers = res;
+            this.jobOffers = this.jobOffers.filter(offer => offer.id !== this.offerID)
+          });
+        });
+      }
     });
 
-    this.jobOfferService.getJobOffer(1).subscribe(res => {
-      console.log(res)
+    this.jobOfferService.getJobOffer(this.offerID).subscribe(res => {
       this.data = res;
     });
-
-    this.jobOfferService.getCompanyOtherJobOffers(5).subscribe(res => {
-      this.jobOffers = res;
-    });
+    
   }
 
   public getTechnologyName(technology: string) {

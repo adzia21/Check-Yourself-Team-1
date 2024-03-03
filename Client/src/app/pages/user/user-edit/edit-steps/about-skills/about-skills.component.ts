@@ -183,3 +183,70 @@ export class UserAboutSkillsComponent implements AfterViewInit {
     this.cancelEvent.emit();
   }
 }
+
+
+// {
+//   "title": "Senior Software Developer",
+//   "localization": "Warszawa, Polska",
+//   "githubUrl": "https://github.com/exampleuser",
+//   "phoneNumber": "+48 123 456 789",
+//   "dateOfBirth": "1990-05-15",
+//   "siteUrl": "https://www.example.com",
+//   "cashRequirements": "Do negocjacji",
+//   "timeRequirements": "Pełny etat",
+//   "typeOfContract": "Umowa o pracę",
+//   "aboutMe": "Jestem doświadczonym programistą z ponad 7-letnim doświadczeniem w branży IT. Posiadam umiejętności w zakresie Java, Python i JavaScript. Jestem zdeterminowany, aby doskonalić swoje umiejętności i przyczyniać się do sukcesu projektów, w których uczestniczę.",
+//   "experience": {
+//       "name": "Software House XYZ",
+//       "startedDate": "2017-01-01",
+//       "finishedDate": null,
+//       "tasks": [
+//           "Rozwój i utrzymanie aplikacji internetowych w technologii Java Spring",
+//           "Współpraca z zespołem w celu zapewnienia wysokiej jakości oprogramowania",
+//           "Optymalizacja wydajności i skalowalności aplikacji"
+//       ]
+//   },
+//   "education": {
+//       "name": "Politechnika Warszawska",
+//       "localization": "Warszawa, Polska",
+//       "startedDate": "2010-09-01",
+//       "finishedDate": "2015-06-30",
+//       "tasks": [
+//           "Studia magisterskie na kierunku Informatyka",
+//           "Specjalizacja: Inżynieria Oprogramowania"
+//       ]
+//   },
+//   "qualification": {
+//       "name": "Oracle Certified Professional, Java SE 8 Programmer",
+//       "certificateName": "OCPJP",
+//       "date": "2016-07-15"
+//   },
+//   "skills": {
+//       "Technologie frontend": {
+//           "JavaScript": 80,
+//           "React": 100
+//       },
+//       "Technologie backend": {
+//           "Java": 40,
+//           "C++": 10
+//       },
+//       "DevOps": {
+//           "Docker": 4,
+//           "Linux": 44
+//       }
+//   },
+//   "organizations": [
+//       "IEEE Student Branch",
+//       "Stowarzyszenie Programistów Polskich"
+//   ],
+//   "softSkills": [
+//       "Komunikatywność",
+//       "Umiejętność pracy w zespole",
+//       "Kreatywność"
+//   ],
+//   "hobbies": [
+//       "Gra na gitarze",
+//       "Podróże",
+//       "Sporty ekstremalne"
+//   ]
+// }

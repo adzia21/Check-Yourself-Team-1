@@ -24,17 +24,7 @@ export class JobOfferService {
     );
   }
 
-  public getCompanyJobOffers(): Observable<SimplifiedJobOffer[]> {
-    return this.http
-      .get<SimplifiedJobOffer[]>(`${flowUrl}/${this.controller}`)
-      .pipe(
-        map((response: SimplifiedJobOffer[]) => {
-          return response;
-        })
-    );
-  }
-
-  public getCompanyOtherJobOffers(id: number): Observable<SimplifiedJobOffer[]> {
+  public getCompanyJobOffers(id: number): Observable<SimplifiedJobOffer[]> {
     return this.http
       .get<SimplifiedJobOffer[]>(`${flowUrl}/${this.controller}/company/${id}`)
       .pipe(

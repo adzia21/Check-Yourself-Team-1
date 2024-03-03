@@ -16,6 +16,9 @@ const routes: Routes = [
     path: ':id/job-offer/:offerId', component: JobOfferComponent,
   },
   {
+    path: ':id/job-offer', component: JobOfferEditComponent,
+  },
+  {
     path: ':id/job-offer/:offerId/edit', component: JobOfferEditComponent,
   }
 ];

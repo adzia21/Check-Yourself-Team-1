@@ -1,7 +1,7 @@
 <main class="row quiz-main" #scrollTo>
     <form>
         @for (question of quiz.questions; track $index) {
-            <mat-card *ngIf="question.type === 'finish sentence' && $index === questionNumber" class="main-card">
+            <mat-card *ngIf="question.type === 'FINISH_SENTENCE' && $index === questionNumber" class="main-card">
                 <div class="col-12 question-text">
                     Complete Sentence
                 </div>

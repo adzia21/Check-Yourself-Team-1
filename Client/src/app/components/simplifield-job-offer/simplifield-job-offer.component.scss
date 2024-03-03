@@ -29,9 +29,18 @@
         color: $accent-color;
         padding: .25rem;
         font-weight: 500;
+        margin: 0 10px 0 10px;
 
         &-align {
             margin: 10px 0 0 0;
+        }
+
+        &-c {
+            border: 2px solid $accent-color;
+            color: $accent-color;
+            padding: .25rem .5rem;
+            font-weight: 500;
+            margin: 0 10px 0 10px;
         }
     }
 

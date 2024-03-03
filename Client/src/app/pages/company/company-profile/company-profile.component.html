@@ -51,9 +51,9 @@
                                     <mat-icon class="material-icons-outlined person-icon">person</mat-icon>
                                 </div>
                                 <div class="col company-personel" *ngIf="data?.hiredPeople">
-                                    {{data.hiredPeople}}
+                                    {{data.hiredPeople}}+
                                 </div>
-                                <div class="col">
+                                <div class="col" *ngIf="isCompany">
                                     <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit">edit</mat-icon>
                                 </div>
                             </div>
@@ -88,12 +88,25 @@
                             <img alt="tool-{{platrofm}}" src="{{icons}}/platforms/{{platrofm}}">
                         </div>
                     </div>
-                    <div class="row company-details" *ngIf="jobOffers">
-                        <div class="col-12 company-joboffers" *ngIf="jobOffers.length != 0">
+                    <div class="row company-details">
+                        <div class="col company-joboffers">
                             Oferty pracy
                         </div>
+                        <div class="col-auto">
+                            <button type="button" class="button" routerLink="job-offer">
+                                Dodaj ofertę
+                            </button>
+                        </div>
                     </div>
-                    <app-simplifield-job-offer [jobOffers]="jobOffers"></app-simplifield-job-offer>
+                    @if (jobOffers.length != 0) {
+                        <app-simplifield-job-offer [jobOffers]="jobOffers" [isPorfile]="true" [companyId]="data.userId"></app-simplifield-job-offer>
+                    } @else {
+                        <div class="row justify-content-center">
+                            <div class="col-auto company-joboffers">
+                                Twoja firma nie posiada jeszcze żadnej oferty pracy
+                            </div>
+                        </div>
+                    }
                 </mat-card-content>
             </mat-card>
         </div>

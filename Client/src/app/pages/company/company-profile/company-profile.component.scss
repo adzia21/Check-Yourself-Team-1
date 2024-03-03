@@ -42,6 +42,11 @@
         }
     }
 
+    &-joboffers {
+        font-size: $font-size-big;
+        font-weight: 500;
+    }
+
     &-personel {
         font-size: $font-size-big;
         font-weight: 500;
@@ -58,6 +63,16 @@
         font-size: $font-size-big;
         font-weight: 500;
     }
+}
+
+.button {
+    background-color: $accent-color;
+    color: $text-light;
+    border: 0;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
 }
 
 .icon-edit {

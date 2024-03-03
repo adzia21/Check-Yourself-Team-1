@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { QuizService } from 'src/app/services/quiz.service';
 
 @Component({
@@ -19,9 +20,9 @@ export class QuizCreateComponent implements AfterViewInit {
   public incorrectAnswerArray: FormGroup;
   public correctAnswerArray: FormGroup;
 
-  public quizTypes = ['MULTIPLE_CHOICE', 'FINISH_SENTANCE'];
+  public quizTypes = ['MULTIPLE_CHOICE', 'FINISH_SENTENCE'];
 
-  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef, private quizService: QuizService) {
+  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef, private quizService: QuizService, private toastr: ToastrService) {
     this.incorrectAnswerArray = this.fb.group({
       incorrectAnswer: new FormControl('', [Validators.required]),
     });
@@ -35,19 +36,19 @@ export class QuizCreateComponent implements AfterViewInit {
       questionName: new FormControl('', []),
       correctAnswers: this.fb.array([]),
       incorrectAnswers: this.fb.array([]),
+      code: new FormControl('')
     });
 
     this.quizCreationForm = this.fb.group({
-      technology: new FormControl('', []),
-      title: new FormControl('', []),
-      time: new FormControl('', []),
-      questions: this.fb.array([this.questionForm]),
+      technology: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required]),
+      time: new FormControl('', [Validators.required]),
+      questions: this.fb.array([]),
     });
   }
 
   ngAfterViewInit(): void {
-    this.addCorrectAnswer(0);
-    this.addIncorrectAnswer(0);
+    this.addNewQuestion(true);
     this.ref.detectChanges();
   }
 
@@ -83,16 +84,33 @@ export class QuizCreateComponent implements AfterViewInit {
     );
   }
 
-  public addNewQuestion() {
-    this.questions.push(
-      this.fb.group({
-        type: new FormControl('', []),
-        code: new FormControl('', []),
-        questionName: new FormControl('', []),
-        correctAnswers: this.fb.array([this.correctAnswerArray]),
-        incorrectAnswers: this.fb.array([this.incorrectAnswerArray]),
-      })
-    );
+  public addNewQuestion(isFirst: boolean) {
+    if (isFirst) {
+      this.questions.push(
+        this.fb.group({
+          type: new FormControl('', [Validators.required]),
+          code: new FormControl('', []),
+          questionName: new FormControl('', [Validators.required]),
+          correctAnswers: this.fb.array([]),
+          incorrectAnswers: this.fb.array([]),
+        })
+      );
+      this.addCorrectAnswer(0);
+      this.addIncorrectAnswer(0);
+    } else {
+      this.validate();
+      this.questions.push(
+        this.fb.group({
+          type: new FormControl('', [Validators.required]),
+          code: new FormControl('', []),
+          questionName: new FormControl('', [Validators.required]),
+          correctAnswers: this.fb.array([]),
+          incorrectAnswers: this.fb.array([]),
+        })
+      );
+      // this.addCorrectAnswer(this.questions.length);
+      // this.addIncorrectAnswer(this.questions.length);
+    }
   }
 
   public removeAtIndex(
@@ -111,6 +129,38 @@ export class QuizCreateComponent implements AfterViewInit {
   }
 
   public save() {
-    this.quizService.creataQuiz(this.quizCreationForm.value).subscribe(res => console.log(res))
+    if (this.quizCreationForm.value.questions.length === 0) 
+      return this.toastr.error('Quiz musi mieć minimum jedno pytanie');
+
+    this.validate();
+    this.quizCreationForm.value.questions.forEach((question: any) => {
+      console.log(question.correctAnswers.length === 0 || question.incorrectAnswers.length === 0)
+      if(question.correctAnswers.length === 0 || question.incorrectAnswers.length === 0) return;
+    });
+
+    return this.quizService.creataQuiz(this.quizCreationForm.value).subscribe(res => console.log(res));
+  }
+
+  public validate() {
+    this.quizCreationForm.value?.questions.forEach((question: any) => {
+      let correctArray: string[] = [];
+      question.correctAnswers.forEach((answer: any) => {
+        if(answer.correctAnswer != '') correctArray.push(answer.correctAnswer);
+      });
+      question.correctAnswers = correctArray;
+
+      let incorrectArray: string[] = [];
+      question.incorrectAnswers.forEach((answer: any) => {
+        console.log(answer)
+        if(answer.incorrectAnswer != '') incorrectArray.push(answer.incorrectAnswer);
+      });
+      question.incorrectAnswers = incorrectArray;
+    });
+    this.quizCreationForm.value.questions.forEach((question: any) => {
+      console.log(question.correctAnswers.length === 0 || question.incorrectAnswers.length === 0)
+      if (question.correctAnswers.length === 0 || question.incorrectAnswers.length === 0) {
+        this.toastr.error('Każdy pytanie musi miec minimum jedną poprawną i niepoprawną odpowiedź');
+      };
+    });
   }
 }

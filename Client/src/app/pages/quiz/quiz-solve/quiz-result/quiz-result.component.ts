@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import {
   ChartConfiguration,
   ChartData,
@@ -16,10 +16,7 @@ export class QuizResultComponent implements OnInit, AfterViewInit {
   @Input() result!: QuizResult;
 
   public doughnutChartLabels: string[] = ['Niepoprawne', 'Poprawne'];
-  public doughnutChartData: ChartData<'doughnut'> = {
-    labels: this.doughnutChartLabels,
-    datasets: [{ data: [this.result.incorrectAnswer, this.result.correctAnswer] }],
-  };
+  public doughnutChartData!: ChartData<'doughnut'>;
   public doughnutChartType: ChartType = 'doughnut';
 
   public doughnutChartOptions: ChartConfiguration['options'] = {
@@ -33,9 +30,16 @@ export class QuizResultComponent implements OnInit, AfterViewInit {
     maintainAspectRatio: false,
   };
 
-  constructor() {}
+  constructor(private ref: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.doughnutChartData = {
+      labels: this.doughnutChartLabels,
+      datasets: [{ data: [this.result.incorrectAnswer, this.result.correctAnswer] }],
+    };
+
+    this.ref.detectChanges();
+  }
 }
