@@ -1,170 +1,116 @@
 import { Component } from '@angular/core';
+import { QuizService } from 'src/app/services/quiz.service';
 import { images } from 'src/app/shared/constants/constants';
-import { QuizModel } from 'src/app/shared/models/quiz.model';
+import { QuizResolve, QuizResult, QuizSolve } from 'src/app/shared/models/quiz.model';
 
 @Component({
   selector: 'app-quiz-solve',
   templateUrl: './quiz-solve.component.html',
-  styleUrls: ['./quiz-solve.component.scss']
+  styleUrls: ['./quiz-solve.component.scss'],
 })
 export class QuizSolveComponent {
-
   private areCorrectQuestions: boolean[] = [];
 
-  alpha: number = 0.7
-  alphaStrong: number = 0.5
+  alpha: number = 0.7;
+  alphaStrong: number = 0.5;
   colors: string[] = [
     `rgba(66, 133, 244, ${this.alpha})`, //blue
     `rgba(151, 71, 255, ${this.alpha})`, //purple
     `rgba(191, 42, 72, ${this.alpha})`, //red
     `rgba(251, 188, 5, ${this.alphaStrong})`, //yellow
-    'wheat', 
-    'teal', 
-    'aqua', 
-    'bisque'
+    `rgba(191, 42, 72, ${this.alpha})`, //red
+    `rgba(251, 188, 5, ${this.alphaStrong})`, //yellow
+    `rgba(66, 133, 244, ${this.alpha})`, //blue
+    `rgba(151, 71, 255, ${this.alpha})`, //purple
   ];
   backgroundImages: string[] = [
     "url('/assets/icons/logo_svg_blue.svg')",
     "url('/assets/icons/logo_svg_purple.svg')",
     "url('/assets/icons/logo_svg_red.svg')",
     "url('/assets/icons/logo_svg_yellow.svg')",
-    "url('/assets/icons/logo_svg_default.svg')",
-    "url('/assets/icons/logo_svg_default.svg')",
-    "url('/assets/icons/logo_svg_default.svg')",
-    "url('/assets/icons/logo_svg_default.svg')",
-  ]
+    "url('/assets/icons/logo_svg_red.svg')",
+    "url('/assets/icons/logo_svg_yellow.svg')",
+    "url('/assets/icons/logo_svg_blue.svg')",
+    "url('/assets/icons/logo_svg_purple.svg')",
+  ];
 
-  questionImage: string = `${images}/mock-question01.png`
+  questionImage: string = `${images}/mock-question01.png`;
 
   questionNumber: number = 0;
   startTime: Date;
   public ellapsedTime = '00:00';
   private timer: any = null;
-  public quiz!: QuizModel;
+  public quiz!: QuizSolve;
+  public quizAnsweres: QuizResolve[] = [];
+  public result!: QuizResult;
   public showResultScreen: boolean = false;
   public timeTaken: string = '00:00';
   public isLastQuestion: boolean = false;
 
-  constructor() { 
-
-
-    this.quiz = {
-      technology: "Super Techno",
-      title: "Tyteł",
-      questions: [
-        {
-          type: "multiple choice",
-          question: "Tutaj pytanie tego typa?",
-          code: "tutaj kod albop null",
-          answers: {
-              correct: [
-                  "dziabu",
-                  "dabix",
-                  "dziop",
-                  "dziop2",
-                  "dziop3"
-              ],
-              incorrect: [
-                  "smuteg",
-                  "żal",
-                  "niedowierzanie"
-              ]
-          }
-        },
-        {
-          type: "multiple choice",
-          question: "Tutaj pytanie tego typa? awd",
-          code: "tutaj kod albop null sda",
-          picture: "tutaj obrazek albo null asd",
-          film: "tutaj film albo null asd",
-          answers: {
-              correct: [
-                  "dziabu ss",
-                  "dabix dd",
-                  "dziop ww"
-              ],
-              incorrect: [
-                  "smuteg sad",
-                  "żal awds",
-                  "niedowierzanie asdw"
-              ]
-          }
-        },
-        {
-          type: "finish sentence",
-          code: "tutaj kod albop null",
-          picture: "tutaj obrazek albo null",
-          film: "tutaj film albo null",
-          sentences: [
-              {
-                  question: "Tutaj pytanie tego typa1?",
-                  answers: {
-                      correct: [
-                          "dziabu",
-                          "dabix",
-                          "dziop"
-                      ],
-                      incorrect: [
-                          "smuteg"
-                      ]
-                  }
-              },
-              {
-                  question: "Tutaj typo kończy pytanie...",
-                  answers: {
-                      correct: [
-                          "dziabu2",
-                          "dabix3",
-                          "dziop4"
-                      ],
-                      incorrect: [
-                          "smuteg5",
-                          "żal6",
-                          "niedowierzanie7"
-                      ]
-                  }
-              }
-          ]
-        },
-        {
-          type: "finish sentence",
-          code: "tutaj kod albop nullv2",
-          picture: "tutaj obrazek albo nullv2",
-          film: "tutaj film albo nullv2",
-          sentences: [
-              {
-                  question: "Tutaj pytanie tego typa1?v2",
-                  answers: {
-                      correct: [
-                          "dziabuv2",
-                          "dabixv2",
-                          "dziopv2"
-                      ],
-                      incorrect: [
-                          "smutegv2"
-                      ]
-                  }
-              },
-              {
-                  question: "Tutaj typo kończy pytanie...v2",
-                  answers: {
-                      correct: [
-                          "dziabu2v2",
-                          "dabix3v2",
-                          "dziop4v2"
-                      ],
-                      incorrect: [
-                          "smuteg5v2",
-                          "żal6v2",
-                          "niedowierzanie7v2"
-                      ]
-                  }
-              }
-          ]
-        },
-      ]
-    }
-
+  constructor(private quizService: QuizService) {
+    this.quizService.getQuiz(1).subscribe((res: QuizSolve) => this.quiz = res)
+    // this.quiz = {
+    //   quizId: 1,
+    //   technology: 'Super Techno',
+    //   title: 'Tyteł',
+    //   time: 20,
+    //   questions: [
+    //     {
+    //       questionId: 1,
+    //       type: 'multiple choice',
+    //       question: 'Tutaj pytanie tego typa?',
+    //       answers: [
+    //         'dziabu',
+    //         'dabix',
+    //         'dziop',
+    //         'dziop2',
+    //         'dziop3',
+    //         'smuteg',
+    //         'żal',
+    //         'niedowierzanie',
+    //       ],
+    //     },
+    //     {
+    //       questionId: 2,
+    //       type: 'multiple choice',
+    //       question: 'Tutaj pytanie tego typa? awd',
+    //       answers: [
+    //         'dziabu ss',
+    //         'dabix dd',
+    //         'dziop ww',
+    //         'smuteg sad',
+    //         'żal awds',
+    //         'niedowierzanie asdw',
+    //       ],
+    //     },
+    //     {
+    //       questionId: 3,
+    //       type: 'finish sentence',
+    //       question: 'Tutaj pytanie tego typa? awd',
+    //       answers: [
+    //         'dziabu ss',
+    //         'dabix dd',
+    //         'dziop ww',
+    //         'smuteg sad',
+    //         'żal awds',
+    //         'niedowierzanie asdw',
+    //       ],
+    //     },
+    //     {
+    //       questionId: 4,
+    //       type: 'finish sentence',
+    //       question: 'Tutaj pytanie tego typa? awd',
+    //       answers: [
+    //         'dziabu ss',
+    //         'dabix dd',
+    //         'dziop ww',
+    //         'smuteg sad',
+    //         'żal awds',
+    //         'niedowierzanie asdw',
+    //       ],
+    //     },
+    //   ],
+    // };
 
     this.startTime = new Date();
     this.timer = setInterval(() => {
@@ -175,9 +121,9 @@ export class QuizSolveComponent {
   private tick() {
     const now = new Date();
     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
-    // if (diff >= this.config.duration) {
-    //   // this.onSubmit();
-    // }
+    if (diff >= this.quiz.time*60) {
+      this.resultScreen(true)
+    }
     this.ellapsedTime = this.parseTime(diff);
   }
 
@@ -189,15 +135,43 @@ export class QuizSolveComponent {
     return `${mins}:${secs}`;
   }
 
-  public onQuestionChanged(incorrectQuestion: boolean) {
-    this.areCorrectQuestions.push(incorrectQuestion);
-    this.quiz.questions.length === this.questionNumber + 1 ? this.resultScreen() : this.questionNumber += 1;
-    this.isLastQuestion = this.quiz.questions.length === this.questionNumber + 1;
+  public onQuestionChanged(answeres: QuizResolve) {
+    this.quizAnsweres.push(answeres);
+
+    this.quiz.questions.length === this.questionNumber + 1
+      ? this.resultScreen(false)
+      : (this.questionNumber += 1);
+    this.isLastQuestion =
+      this.quiz.questions.length === this.questionNumber + 1;
   }
 
-  private resultScreen() {
-    this.showResultScreen = true;
-    this.timeTaken = this.ellapsedTime;
-  }
+  private resultScreen(timeLimit: boolean) {
+    clearInterval(this.timer)
 
+    if (timeLimit) {
+      console.log(this.quizAnsweres)
+      let answered = this.quizAnsweres.length;
+      let unanswered = this.quiz.questions.length - answered;
+      
+      for (let index = 0; index < unanswered; index++) {
+        this.quizAnsweres.push({
+          questionId: answered + index + 1,
+          answers: ['']
+        });
+      }
+      console.log(this.quizAnsweres)
+      this.timeTaken = String(this.quiz.time);
+      this.quizService.resolveQuiz(this.quizAnsweres).subscribe((res: QuizResult) => {
+      this.result = res;
+      this.showResultScreen = true;
+    });
+    } else {
+      this.timeTaken = this.ellapsedTime;
+      this.quizService.resolveQuiz(this.quizAnsweres).subscribe((res: QuizResult) => {
+        this.result = res;
+        this.showResultScreen = true;
+      });
+    }
+    
+  }
 }

@@ -1,20 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CompanyService } from 'src/app/services/company.service';
 import {
   platforms,
   technologies,
   tools,
 } from 'src/app/shared/constants/company-profile.constants';
 import { icons } from 'src/app/shared/constants/constants';
+import { Company } from 'src/app/shared/models/company.model';
 
 @Component({
   selector: 'app-company-edit',
   templateUrl: './company-edit.component.html',
   styleUrls: ['./company-edit.component.scss'],
 })
-export class CompanyEditComponent {
+export class CompanyEditComponent implements OnInit {
   public image: string = `${icons}/no-pfp.svg`;
   public facebook: string = `${icons}/facebook.svg`;
   public twitter: string = `${icons}/twitter.svg`;
@@ -25,26 +27,38 @@ export class CompanyEditComponent {
   public tools = tools;
   public platforms = platforms;
 
-  public companyForm: FormGroup;
+  public companyForm!: FormGroup;
   public selectedTechnology = [];
   public selectedTool = [];
   public selectedPlatform = [];
   public dummyBool: boolean = true;
+  public data!: Company;
 
-  constructor(private fb: FormBuilder, private toastrService: ToastrService, private router: Router) {
+  constructor(private fb: FormBuilder, private toastrService: ToastrService, private router: Router, private companyService: CompanyService) {
+    this.setUp();
+  }
+
+  ngOnInit(): void {
+    this.companyService.getCompany().subscribe(res => {
+      this.data = res;
+      this.setUp();
+    });
+  }
+
+  private setUp() {
     this.companyForm = this.fb.group({
-      companyName: new FormControl(''),
+      name: new FormControl(this.data ? this.data.name : ''),
       logo: new FormControl(''),
-      location: new FormControl(''),
-      personel: new FormControl(''),
-      facebook: new FormControl(''),
-      instagram: new FormControl(''),
-      twitter: new FormControl(''),
-      linkedin: new FormControl(''),
-      description: new FormControl(''),
-      technologies: new FormControl([]),
-      tools: new FormControl([]),
-      platforms: new FormControl([]),
+      localization: new FormControl(this.data ? this.data.localization : ''),
+      hiredPeople: new FormControl(this.data ? this.data.hiredPeople : ''),
+      facebookUrl: new FormControl(this.data ? this.data.facebookUrl : ''),
+      instagramUrl: new FormControl(this.data ? this.data.instagramUrl : ''),
+      twitterUrl: new FormControl(this.data ? this.data.twitterUrl : ''),
+      linkedInUrl: new FormControl(this.data ? this.data.linkedInUrl : ''),
+      description: new FormControl(this.data ? this.data.description : ''),
+      technologies: new FormControl(this.data ? this.data.technologies : []),
+      tools: new FormControl(this.data ? this.data.tools : []),
+      platforms: new FormControl(this.data ? this.data.platforms : []),
     });
   }
 
@@ -132,10 +146,20 @@ export class CompanyEditComponent {
   }
 
   cancel() {
-    this.router.navigate(['/company/1'])
+    this.router.navigate(['/company/' + this.data.userId])
   }
 
   save() {
-    console.log(this.companyForm.value);
+    if (!this.companyForm.valid) return;
+
+    this.companyService.editCompany(this.companyForm.value).subscribe(res => {
+      console.log(res)
+    }, error => {
+      console.log(error)
+      switch (error) {
+        default:
+          return this.toastrService.error('Wystąpił błąd podczas zapisywania')
+      };
+    });
   }
 }

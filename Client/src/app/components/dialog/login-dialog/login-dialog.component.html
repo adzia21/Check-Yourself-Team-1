@@ -14,11 +14,11 @@
             <div class="col-auto">
                 <mat-form-field class="input-email">
                     <mat-label>Email</mat-label>
-                    <input matInput type="email" formControlName="username">
-                    @if (loginForm.get('username')?.getError('email')) {
+                    <input matInput type="email" formControlName="mail">
+                    @if (loginForm.get('mail')?.getError('mail')) {
                         <mat-error>Please enter a valid email address</mat-error>
                     }
-                    @if (loginForm.get('username')?.getError('required') && loginForm.get('username')?.touched) {
+                    @if (loginForm.get('mail')?.getError('required') && loginForm.get('mail')?.touched) {
                         <mat-hint class="error-hint">Email is required</mat-hint>
                     }
                 </mat-form-field>

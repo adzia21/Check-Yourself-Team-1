@@ -4,6 +4,7 @@ import {
   ChartData,
   ChartType,
 } from 'chart.js/auto';
+import { QuizResult } from 'src/app/shared/models/quiz.model';
 
 @Component({
   selector: 'app-quiz-result',
@@ -11,13 +12,13 @@ import {
   styleUrls: ['./quiz-result.component.scss'],
 })
 export class QuizResultComponent implements OnInit, AfterViewInit {
-
   @Input() timeTaken: string = '00:00';
+  @Input() result!: QuizResult;
 
-  public doughnutChartLabels: string[] = ['No', 'Yes'];
+  public doughnutChartLabels: string[] = ['Niepoprawne', 'Poprawne'];
   public doughnutChartData: ChartData<'doughnut'> = {
     labels: this.doughnutChartLabels,
-    datasets: [{ data: [350, 100] }],
+    datasets: [{ data: [this.result.incorrectAnswer, this.result.correctAnswer] }],
   };
   public doughnutChartType: ChartType = 'doughnut';
 

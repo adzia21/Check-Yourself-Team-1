@@ -6,7 +6,7 @@
                 <mat-card-content>
                     <div class="row justify-content-end">
                         <div class="col-auto">
-                            @if (isCompany) {
+                            @if (!isCompany) {
                                 <button type="button" class="joboffer-apply">
                                     Aplikuj na ofertę pracy
                                 </button>
@@ -24,12 +24,12 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col joboffer-text-header-other">
-                                            Junior Fullstack Developer
+                                            {{data ? data.title : ''}}
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col joboffer-text-header">
-                                            Check Yourself sp. z o. o.
+                                            {{data ? data.companyName : ''}}
                                         </div>
                                     </div>
                                 </div>
@@ -37,150 +37,108 @@
                         </div>
                         <div class="col">
                             <div class="row justify-content-end">
-                                <div class="col-auto">
+                                <div class="col-auto" *ngIf="data?.localization">
                                     <div class="row justify-content-end">
                                         <div class="col-auto">
                                             <mat-icon>pin_drop</mat-icon>
                                         </div>
                                         <div class="col-auto joboffer-text-align joboffer-text">
-                                            Warszawa
+                                            {{data.localization}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto" *ngIf="data?.contractType">
                                     <div class="row justify-content-end">
                                         <div class="col-auto">
                                             <mat-icon>work_outline</mat-icon>
                                         </div>
                                         <div class="col-auto joboffer-text-align joboffer-text">
-                                            B2B
+                                            {{data.contractType}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row justify-content-end">
-                                <div class="col-auto">
+                                <div class="col-auto" *ngIf="data?.expirationDate">
                                     <div class="row justify-content-end">
                                         <div class="col-auto disable-mobile">
                                             <mat-icon>calendar_today</mat-icon>
                                         </div>
                                         <div class="col-auto joboffer-text-align joboffer-text">
-                                            Oferta ważna do 03.06.2024
+                                            Oferta ważna do {{data.expirationDate}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="data?.description">
                         <div class="col-12 joboffer-text-about-header">
                             Opis oferty
                         </div>
                         <div class="col-12 joboffer-text-about">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore laudantium ullam voluptatum enim veniam consectetur velit laborum magni delectus unde.
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quis ab numquam alias nesciunt obcaecati! Praesentium quae sapiente culpa ea.
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem, similique sequi. Cupiditate ipsum saepe eos amet minima esse placeat illum!
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro aliquam cupiditate voluptates molestiae necessitatibus nobis beatae excepturi itaque voluptatum eius.
+                            {{data.description}}    
                         </div>
                     </div>
-                    <div class="row separate">
+                    <div class="row separate" *ngIf="data?.technologies && data?.technologies?.length != 0">
                         <div class="col-12 joboffer-text-about-header">
                             Technologie:
                         </div>
-                        <div class="col-6 joboffer-technology">
+                        <div class="col-6 joboffer-technology" *ngFor="let technology of data.technologies">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-auto">
-                                    <img alt="technology-{{'angular.svg'}}" src="{{icons}}/technologies/{{'angular.svg'}}">
+                                    <img alt="technology-{{technology}}" src="{{icons}}/technologies/{{technology}}">
                                 </div>
                                 <div class="col-4 joboffer-technology-text">
-                                    {{getTechnologyName('angular.svg')}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 joboffer-technology">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-auto">
-                                    <div class="row align-items-center">
-                                        <img alt="technology-{{'java.svg'}}" src="{{icons}}/technologies/{{'java.svg'}}">
-                                    </div>
-                                </div>
-                                <div class="col-4 joboffer-technology-text">
-                                    {{getTechnologyName('java.svg')}}
+                                    {{getTechnologyName(technology)}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row separate">
+                    <div class="row separate" *ngIf="data?.tools && data?.tools?.length != 0">
                         <div class="col-12 joboffer-text-about-header">
                             Narzędzia:
                         </div>
-                        <div class="col-6 joboffer-technology">
+                        <div class="col-6 joboffer-technology" *ngFor="let tool of data.tools">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-auto">
-                                    <img alt="technology-{{'git.svg'}}" src="{{icons}}/tools/{{'git.svg'}}">
+                                    <img alt="technology-{{tool}}" src="{{icons}}/tools/{{tool}}">
                                 </div>
                                 <div class="col-4 joboffer-technology-text">
-                                    {{getToolName('git.svg')}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 joboffer-technology">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-auto">
-                                    <img alt="technology-{{'jira.svg'}}" src="{{icons}}/tools/{{'jira.svg'}}">
-                                </div>
-                                <div class="col-4 joboffer-technology-text">
-                                    {{getToolName('jira.svg')}}
+                                    {{getToolName(tool)}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row separate">
+                    <div class="row separate" *ngIf="data?.platforms && data?.platforms?.length != 0">
                         <div class="col-12 joboffer-text-about-header">
                             Platformy:
                         </div>
-                        <div class="col-6 joboffer-technology">
+                        <div class="col-6 joboffer-technology" *ngFor="let platform of platforms">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-auto">
-                                    <img alt="technology-{{'windows.svg'}}" src="{{icons}}/platforms/{{'windows.svg'}}">
+                                    <img alt="technology-{{platform}}" src="{{icons}}/platforms/{{platform}}">
                                 </div>
                                 <div class="col-4 joboffer-technology-text">
-                                    {{getPlatformName('windows.svg')}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 joboffer-technology">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-auto">
-                                    <img alt="technology-{{'linux.svg'}}" src="{{icons}}/platforms/{{'linux.svg'}}">
-                                </div>
-                                <div class="col-4 joboffer-technology-text">
-                                    {{getPlatformName('linux.svg')}}
+                                    {{getPlatformName(platform)}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row separate">
+                    <div class="row separate" *ngIf="data?.languages && data?.languages?.length != 0">
                         <div class="col-12 joboffer-text-about-header">
                             Języki:
                         </div>
-                        <div class="col-6 joboffer-technology">
+                        <div class="col-6 joboffer-technology" *ngFor="let language of data.languages">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-5 joboffer-technology-text">
-                                    Polski
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 joboffer-technology">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-5 joboffer-technology-text">
-                                    Angielski
+                                    {{language}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row separate">
-                        <div class="col">
+                        <div class="col" *ngIf="data?.mainTasks && data?.mainTasks?.length != 0">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
@@ -194,17 +152,14 @@
                                 </div>
                                 <div class="col-12">
                                     <ul>
-                                        <li>
-                                            awd
-                                        </li>
-                                        <li>
-                                            awd2
+                                        <li *ngFor="let task of data.mainTasks">
+                                            {{task}}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col" *ngIf="data?.desiredKnowledge && data?.desiredKnowledge?.length != 0">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
@@ -218,18 +173,15 @@
                                 </div>
                                 <div class="col-12">
                                     <ul>
-                                        <li>
-                                            aww
-                                        </li>
-                                        <li>
-                                            aww2
+                                        <li *ngFor="let item of data.desiredKnowledge">
+                                            {{item}}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row separate">
+                    <div class="row separate" *ngIf="data?.organizationOfWork && data?.organizationOfWork?.length != 0">
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-auto">
@@ -242,7 +194,7 @@
                         </div>
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-2" *ngFor="let item of array; let i = index">
+                                <div class="col-2" *ngFor="let item of data.organizationOfWork; let i = index">
                                     <span class="job-organization" 
                                         [style.background-color]="i % 2 ? '#067BC2' : '#00A993'"
                                         [style.border-color]="i % 2 ? '#067BC2' : '#00A993'"
@@ -253,7 +205,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row separate">
+                    <div class="row separate" *ngIf="data?.benefits && data?.benefits?.length != 0">
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-auto">
@@ -266,7 +218,7 @@
                         </div>
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-2" *ngFor="let item of array2; let i = index">
+                                <div class="col-2" *ngFor="let item of data.benefits; let i = index">
                                     <span class="job-organization" 
                                         [style.background-color]="i % 2 ? '#00A993' : '#067BC2'"
                                         [style.border-color]="i % 2 ? '#00A993' : '#067BC2'"
@@ -278,7 +230,7 @@
                         </div>
                     </div>
                     <div class="row separate">
-                        <div class="col">
+                        <div class="col" *ngIf="data?.whatWeOffer && data?.whatWeOffer?.length != 0">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
@@ -292,17 +244,14 @@
                                 </div>
                                 <div class="col-12">
                                     <ul>
-                                        <li>
-                                            awd
-                                        </li>
-                                        <li>
-                                            awd2
+                                        <li *ngFor="let item of data.whatWeOffer">
+                                            {{item}}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col" *ngIf="data?.additionalInformation && data?.additionalInformation?.length != 0">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
@@ -316,20 +265,20 @@
                                 </div>
                                 <div class="col-12">
                                     <ul>
-                                        <li>
-                                            aww
-                                        </li>
-                                        <li>
-                                            aww2
+                                        <li *ngFor="let item of data.additionalInformation">
+                                            {{item}}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row separate">
+                    <div class="row separate" *ngIf="jobOffers && jobOffers.length != 0">
                         <div class="col-12 joboffer-text-about-header">
                             Inne ofery tego pracodawcy:
+                        </div>
+                        <div class="col-12">
+                            <app-simplifield-job-offer [jobOffers]="jobOffers"></app-simplifield-job-offer>
                         </div>
                     </div>
                 </mat-card-content>

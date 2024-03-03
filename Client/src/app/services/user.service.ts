@@ -1,27 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { url } from '../shared/constants/constants';
+import { flowUrl, url } from '../shared/constants/constants';
 import {
-    LoginUser,
-  LoginUserResponse,
-  RegisterUser,
   UserResponse,
 } from '../shared/models/register-login.model';
+import { User } from '../shared/models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class UserService {
   constructor(private http: HttpClient) {}
 
   private get controller() {
-    return 'auth';
+    return 'api/user-details';
   }
 
-  public registerUser(model: RegisterUser): Observable<UserResponse> {
+  public getLoggedUser(): Observable<UserResponse> {
     return this.http
-      .post<UserResponse>(`${url}/${this.controller}/register`, model)
+      .get<UserResponse>(`${url}/user/details/loggedUser`)
       .pipe(
         map((response: any) => {
           return response;
@@ -29,9 +27,9 @@ export class AuthService {
       );
   }
 
-  public loginUser(model: LoginUser): Observable<LoginUserResponse> {
+  public getUser(): Observable<User> {
     return this.http
-      .post<LoginUserResponse>(`${url}/${this.controller}/login`, model)
+      .get<User>(`${flowUrl}/${this.controller}`)
       .pipe(
         map((response: any) => {
           return response;

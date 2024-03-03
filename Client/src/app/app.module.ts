@@ -21,6 +21,7 @@ import { JwtInterceptor } from './helpers/interceptors/bearer.interceprot';
 import { RegisterFormComponent } from './components/dialog/register-form/register-form.component';
 import { ToastrModule } from 'ngx-toastr';
 import { CompanyModule } from './modules/company-module/company.module';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CompanyModule } from './modules/company-module/company.module';
     FooterComponent,
     LandingPageWraperComponent,
     LoginDialogComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    MainPageComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability

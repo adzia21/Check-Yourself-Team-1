@@ -1,0 +1,48 @@
+<div class="row joboffers-tiles" *ngFor="let offer of jobOffers">
+    <div class="col" *ngIf="jobOffers">
+        <mat-card class="joboffers-tiles-card" *ngIf="jobOffers.length != 0">
+            <mat-card-content>
+                <div class="row">
+                    <div class="col-auto">
+                        <img class="offer-logo" alt="logo" [src]="image">
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div calss="col-12 offer-position-mobile" *ngIf="!offer?.title">
+                                <span class="offer-position">
+                                    {{offer.title}}
+                                </span>
+                            </div>
+                            <div calss="col-12" *ngIf="!offer?.companyName">
+                                {{offer.companyName}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto" *ngIf="offer?.technologies">
+                        <div class="row" *ngIf="offer?.technologies?.length != 0">
+                            <div class="col-auto offer-technology-align">
+                                <span class="offer-technology" *ngFor="let technology of offer.technologies">
+                                    {{technology}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col offer-end" *ngIf="offer?.localization">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-auto offer-last-row">
+                                <span class="offer-location">
+                                    {{offer.localization}}
+                                </span>
+                            </div>
+                            <div class="col-auto offer-last-row">
+                                <button type="button" class="offer-apply">
+                                    Aplikuj
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

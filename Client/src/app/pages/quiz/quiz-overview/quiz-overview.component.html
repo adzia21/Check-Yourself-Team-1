@@ -1,0 +1,79 @@
+@if (!isCompany) {
+    <main class="row quiz-main">
+        <div class="row justify-content-center">
+            <div class="col">
+                @for (quiz of quizes; track $index) {
+                <div class="row quiz-wrap">
+                    <div class="col-3">
+                        <mat-card class="card-outline quiz-card">
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col text">
+                                        {{quiz.title}}
+                                    </div>
+                                    <div class="col-auto">
+                                        <mat-icon class="material-symbols-outlined icon-edit">edit</mat-icon>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text">
+                                        {{quiz.technology}}
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                } @empty {
+                <div class="row justify-content-center quiz-wrap">
+                    <div class="col-auto text-empty">
+                        Twoja firma nie stoworzyła jeszcze żadnego quizu
+                    </div>
+                </div>
+                <div class="row justify-content-center quiz-wrap">
+                    <div class="col-auto">
+                        <button type="button" class="button" (click)="add()">Stwórz quiz</button>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </main>
+} @else {
+    <main class="row quiz-main">
+        <div class="row justify-content-center">
+            <div class="col">
+                
+                <div class="row quiz-wrap">
+                    @for (quiz of x; track $index) {
+                    <div class="col-3">
+                        <mat-card class="card-outline quiz-card">
+                            <mat-card-content>
+                                <div class="row">
+                                    <div class="col text">
+                                        User Full Name: Quiz Name
+                                    </div>
+                                    <div class="col-auto">
+                                        <mat-icon class="material-symbols-outlined icon-edit">pageview</mat-icon>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text">
+                                        Zaliczony
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                } @empty {
+                    <div class="row justify-content-center quiz-wrap">
+                        <div class="col-auto text-empty">
+                            Nie rozwiązałeś/aś jeszcze żadnego quizu
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </main>
+}

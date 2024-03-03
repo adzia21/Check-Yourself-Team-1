@@ -1,0 +1,68 @@
+@import 'variables';
+
+.joboffers {
+    font-size: $font-size-big;
+    font-weight: 500;
+
+    &-tiles {
+        margin: 20px 0 0 0;
+
+        &-card {
+            border: 1px solid $bg-light-grey;
+        }
+    }
+}
+
+.offer {
+
+    &-logo {
+        scale: 2;
+    }
+    
+    &-position {
+        font-size: $font-size-big;
+        font-weight: 500;
+    }
+
+    &-technology {
+        border: 2px solid $accent-color;
+        color: $accent-color;
+        padding: .25rem;
+        font-weight: 500;
+
+        &-align {
+            margin: 10px 0 0 0;
+        }
+    }
+
+    &-apply {
+        background-color: $accent-color;
+        color: $text-light;
+        border: 0;
+        width: 6rem;
+        height: 2rem;
+        border-radius: 5px;
+    }
+
+    &-location {
+        font-size: $font-size-big;
+        font-weight: 500;
+    }
+
+    &-last-row {
+        margin: 0 0 0 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .offer {
+
+        &-logo {
+            margin: 0 0 1rem 0;
+        }
+
+        &-end {
+            margin: 1rem 0 0 10px;
+        }
+    }
+}

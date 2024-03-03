@@ -36,7 +36,7 @@
                                         <div class="col">
                                             <mat-form-field class="input-field">
                                                 <mat-label>Nazwa Stanowisk</mat-label>
-                                                <input matInput type="text" formControlName="position">
+                                                <input matInput type="text" formControlName="title">
                                             </mat-form-field>
                                         </div>
                                         <div class="col">
@@ -57,7 +57,7 @@
                                                 <div class="col">
                                                     <mat-form-field class="input-field">
                                                         <mat-label>Lokacja firmy</mat-label>
-                                                        <input matInput type="text" formControlName="location">
+                                                        <input matInput type="text" formControlName="localization">
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -70,7 +70,7 @@
                                                 <div class="col">
                                                     <mat-form-field class="input-field">
                                                         <mat-label>Forma zatrudnienia</mat-label>
-                                                        <input matInput type="text" formControlName="employmentForm">
+                                                        <input matInput type="text" formControlName="contractType">
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -85,7 +85,7 @@
                                                         <mat-label>Data wydania</mat-label>
                                                         <input matInput id="pickerHandDate"
                                                             [matDatepicker]="pickerHandDate"
-                                                            formControlName="endDate">
+                                                            formControlName="expirationDate">
                                                         <mat-datepicker-toggle matIconSuffix
                                                             [for]="pickerHandDate"></mat-datepicker-toggle>
                                                         <mat-datepicker #pickerHandDate></mat-datepicker>

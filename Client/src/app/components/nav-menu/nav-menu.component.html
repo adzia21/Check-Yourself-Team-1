@@ -1,10 +1,10 @@
 <mat-drawer-container class="nav-container" autosize>
-    <mat-drawer #drawer class="sidenav" mode="over" position="end" opened="false">
+    <mat-drawer #drawer class="sidenav" mode="over" position="end" opened="false" (openedChange)="onDrawerToggle($event)">
       <div class="row main justify-content-center">
         <div class="col-12 row-style">
           <div class="row">
             <div class="col-auto"><mat-icon class="material-icons-outlined icon">account_circle</mat-icon></div>
-            <div class="col text" (click)="navigate('company/1/job-offer/2')">Profil</div>
+            <div class="col text" (click)="navigate(isCompany ? 'company/' + id : 'user/' + id)">Profil</div>
           </div>
         </div>
         <div class="col-12 row-style" (click)="activateDropdown()">
@@ -14,11 +14,14 @@
           </div>
           @if (this.isQuizDropdownActive) {
             <div class="row">
-              <div class="col text-dropdown" (click)="navigate('quiz')">Dodaj Quiz</div>
+              <div class="col text-dropdown" (click)="navigate('quiz')" *ngIf="isCompany">Dodaj Quiz</div>
+            </div>
+            <div class="row">
+              <div class="col text-dropdown" (click)="navigate('quiz/1/quiz-overview')">Moje Quizy</div>
             </div>
           }
         </div>
-        <div class="col-auto logout" (click)="logout()">
+        <div class="col-auto logout" (click)="logout()" id="logout">
           Wyloguj się
         </div>
       </div>

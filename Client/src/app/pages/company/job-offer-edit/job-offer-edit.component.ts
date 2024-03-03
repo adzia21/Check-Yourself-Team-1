@@ -1,20 +1,22 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { JobOfferService } from 'src/app/services/job-offer.service';
 import {
   platforms,
   technologies,
   tools,
 } from 'src/app/shared/constants/company-profile.constants';
 import { icons } from 'src/app/shared/constants/constants';
+import { FullJobOffer } from 'src/app/shared/models/job-offer.model';
 
 @Component({
   selector: 'app-job-offer-edit',
   templateUrl: './job-offer-edit.component.html',
   styleUrls: ['./job-offer-edit.component.scss'],
 })
-export class JobOfferEditComponent implements AfterViewInit {
+export class JobOfferEditComponent implements AfterViewInit, OnInit {
   public image: string = `${icons}/no-pfp.svg`;
   public facebook: string = `${icons}/facebook.svg`;
   public twitter: string = `${icons}/twitter.svg`;
@@ -31,42 +33,34 @@ export class JobOfferEditComponent implements AfterViewInit {
   public segments = ['technologies', 'tools', 'platforms', 'languages'];
   public segments2 = [
     'mainTasks',
-    'candidateSpecifications',
-    'workOrganization',
+    'desiredKnowledge',
+    'organizationOfWork',
     'benefits',
-    'workTools',
-    'additionalInfo',
+    'whatWeOffer',
+    'additionalInformation',
   ];
 
   public selectedTechnology = [];
   public selectedTool = [];
   public selectedPlatform = [];
-  public jobOfferForm: FormGroup;
+  public jobOfferForm!: FormGroup;
+  public data!: FullJobOffer;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private toastrService: ToastrService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private jobOfferService: JobOfferService
   ) {
-    this.jobOfferForm = this.fb.group({
-      logo: new FormControl(''),
-      companyName: new FormControl(''),
-      position: new FormControl(''),
-      location: new FormControl(''),
-      employmentForm: new FormControl(''),
-      endDate: new FormControl(''),
-      description: new FormControl(''),
-      technologies: this.fb.array([]),
-      tools: this.fb.array([]),
-      platforms: this.fb.array([]),
-      languages: this.fb.array([]),
-      mainTasks: this.fb.array([]),
-      candidateSpecifications: this.fb.array([]),
-      workOrganization: this.fb.array([]),
-      benefits: this.fb.array([]),
-      workTools: this.fb.array([]),
-      additionalInfo: this.fb.array([]),
+    this.setUp();
+  }
+
+  ngOnInit(): void {
+    this.jobOfferService.getJobOffer(1).subscribe(res => {
+      console.log(res)
+      this.data = res;
+      this.setUp();
     });
   }
 
@@ -76,12 +70,34 @@ export class JobOfferEditComponent implements AfterViewInit {
     this.addNew('platforms');
     this.addNew('languages');
     this.addNew('mainTasks');
-    this.addNew('candidateSpecifications');
-    this.addNew('workOrganization');
+    this.addNew('desiredKnowledge');
+    this.addNew('organizationOfWork');
     this.addNew('benefits');
-    this.addNew('workTools');
-    this.addNew('additionalInfo');
+    this.addNew('whatWeOffer');
+    this.addNew('additionalInformation');
     this.ref.detectChanges();
+  }
+
+  private setUp() {
+    this.jobOfferForm = this.fb.group({
+      logo: new FormControl(''),
+      companyName: new FormControl(this.data ? this.data.companyName : ''),
+      title: new FormControl(this.data ? this.data.title : ''),
+      localization: new FormControl(this.data ? this.data.localization : ''),
+      contractType: new FormControl(this.data ? this.data.contractType : ''),
+      expirationDate: new FormControl(this.data ? this.data.expirationDate : ''),
+      description: new FormControl(this.data ? this.data.description : ''),
+      technologies: this.fb.array(this.data ? this.data.technologies : []),
+      tools: this.fb.array(this.data ? this.data.tools : []),
+      platforms: this.fb.array(this.data ? this.data.platforms : []),
+      languages: this.fb.array(this.data ? this.data.languages : []),
+      mainTasks: this.fb.array(this.data ? this.data.mainTasks : []),
+      desiredKnowledge: this.fb.array(this.data ? this.data.desiredKnowledge : []),
+      organizationOfWork: this.fb.array(this.data ? this.data.organizationOfWork : []),
+      benefits: this.fb.array(this.data ? this.data.benefits : []),
+      whatWeOffer: this.fb.array(this.data ? this.data.whatWeOffer : []),
+      additionalInformation: this.fb.array(this.data ? this.data.additionalInformation : []),
+    });
   }
 
   //#region  get as FormArray
@@ -105,24 +121,24 @@ export class JobOfferEditComponent implements AfterViewInit {
     return this.jobOfferForm.get('mainTasks') as FormArray;
   }
 
-  public get candidateSpecifications() {
-    return this.jobOfferForm.get('candidateSpecifications') as FormArray;
+  public get desiredKnowledge() {
+    return this.jobOfferForm.get('desiredKnowledge') as FormArray;
   }
 
-  public get workOrganization() {
-    return this.jobOfferForm.get('workOrganization') as FormArray;
+  public get organizationOfWork() {
+    return this.jobOfferForm.get('organizationOfWork') as FormArray;
   }
 
   public get benefits() {
     return this.jobOfferForm.get('benefits') as FormArray;
   }
 
-  public get workTools() {
-    return this.jobOfferForm.get('workTools') as FormArray;
+  public get whatWeOffer() {
+    return this.jobOfferForm.get('whatWeOffer') as FormArray;
   }
 
-  public get additionalInfo() {
-    return this.jobOfferForm.get('additionalInfo') as FormArray;
+  public get additionalInformation() {
+    return this.jobOfferForm.get('additionalInformation') as FormArray;
   }
   //#endregion
 
@@ -198,15 +214,15 @@ export class JobOfferEditComponent implements AfterViewInit {
         return 'Języki';
       case 'mainTasks':
         return 'Główne zadania';
-      case 'candidateSpecifications':
+      case 'desiredKnowledge':
         return 'Co szczególnie cenimy w kandydacie';
-      case 'workOrganization':
+      case 'organizationOfWork':
         return 'Organizacja pracy';
       case 'benefits':
         return 'Benefity';
-      case 'workTools':
+      case 'whatWeOffer':
         return 'Narzędzia do pracy, które zapewniamy';
-      case 'additionalInfo':
+      case 'additionalInformation':
         return 'Dodatkowe infromacje';
       default:
         return '';
@@ -225,16 +241,16 @@ export class JobOfferEditComponent implements AfterViewInit {
         return this.languages.controls;
       case 'mainTasks':
         return this.mainTasks.controls;
-      case 'candidateSpecifications':
-        return this.candidateSpecifications.controls;
-      case 'workOrganization':
-        return this.workOrganization.controls;
+      case 'desiredKnowledge':
+        return this.desiredKnowledge.controls;
+      case 'organizationOfWork':
+        return this.organizationOfWork.controls;
       case 'benefits':
         return this.benefits.controls;
-      case 'workTools':
-        return this.workTools.controls;
-      case 'additionalInfo':
-        return this.additionalInfo.controls;
+      case 'whatWeOffer':
+        return this.whatWeOffer.controls;
+      case 'additionalInformation':
+        return this.additionalInformation.controls;
       default:
         return;
     }
@@ -244,15 +260,15 @@ export class JobOfferEditComponent implements AfterViewInit {
     switch (icon) {
         case 'mainTasks':
           return 'change_history';
-        case 'candidateSpecifications':
+        case 'desiredKnowledge':
           return 'card_membership';
-        case 'workOrganization':
+        case 'organizationOfWork':
           return 'trending_up';
         case 'benefits':
           return 'tag_faces';
-        case 'workTools':
+        case 'whatWeOffer':
           return 'style';
-        case 'additionalInfo':
+        case 'additionalInformation':
           return 'vignette';
         default:
           return;
@@ -265,7 +281,16 @@ export class JobOfferEditComponent implements AfterViewInit {
   }
 
   public save() {
-    console.log(this.jobOfferForm.value);
+    if (!this.jobOfferForm.valid) return;
+
+    this.jobOfferService.editJobOffer(1, this.jobOfferForm.value).subscribe(res => { // spojrzeć na next i complete zamiast res
+    }, error => {
+      console.log(error)
+      switch (error) {
+        default:
+          return this.toastrService.error('Wystąpił błąd podczas zapisywania')
+      };
+    });
   }
 
   public selectLogo(event: any) {
@@ -316,14 +341,14 @@ export class JobOfferEditComponent implements AfterViewInit {
             field: new FormControl(''),
           })
         );
-      case 'candidateSpecifications':
-        return this.candidateSpecifications.push(
+      case 'desiredKnowledge':
+        return this.desiredKnowledge.push(
           this.fb.group({
             field: new FormControl(''),
           })
         );
-      case 'workOrganization':
-        return this.workOrganization.push(
+      case 'organizationOfWork':
+        return this.organizationOfWork.push(
           this.fb.group({
             field: new FormControl(''),
           })
@@ -334,14 +359,14 @@ export class JobOfferEditComponent implements AfterViewInit {
             field: new FormControl(''),
           })
         );
-      case 'workTools':
-        return this.workTools.push(
+      case 'whatWeOffer':
+        return this.whatWeOffer.push(
           this.fb.group({
             field: new FormControl(''),
           })
         );
-      case 'additionalInfo':
-        return this.additionalInfo.push(
+      case 'additionalInformation':
+        return this.additionalInformation.push(
           this.fb.group({
             field: new FormControl(''),
           })
@@ -363,16 +388,16 @@ export class JobOfferEditComponent implements AfterViewInit {
         return this.languages.removeAt(questionIndex);
       case 'mainTasks':
         return this.mainTasks.removeAt(questionIndex);
-      case 'candidateSpecifications':
-        return this.candidateSpecifications.removeAt(questionIndex);
-      case 'workOrganization':
-        return this.workOrganization.removeAt(questionIndex);
+      case 'desiredKnowledge':
+        return this.desiredKnowledge.removeAt(questionIndex);
+      case 'organizationOfWork':
+        return this.organizationOfWork.removeAt(questionIndex);
       case 'benefits':
         return this.benefits.removeAt(questionIndex);
-      case 'workTools':
-        return this.workTools.removeAt(questionIndex);
-      case 'additionalInfo':
-        return this.additionalInfo.removeAt(questionIndex);
+      case 'whatWeOffer':
+        return this.whatWeOffer.removeAt(questionIndex);
+      case 'additionalInformation':
+        return this.additionalInformation.removeAt(questionIndex);
       default:
         return;
     }

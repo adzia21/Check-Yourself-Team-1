@@ -1,5 +1,5 @@
 <main class="row user-main">
-    <form class="form" [formGroup]="userForm">
+    <form class="form">
         <div class="row justify-content-center">
             <mat-card class="col user-card">
                 <mat-card-content>
@@ -23,43 +23,50 @@
                     <!-- Name and Surname -->
                     <div class="row justify-content-center text-name">
                         <div class="col-auto">
-                            Adam
+                            {{data ? data.name : ''}}
                         </div>
                         <div class="col-auto">
-                            Badam
+                            {{data ? data.surname : ''}}
+                        </div>
+                        <div class="col-12" *ngIf="data?.title">
+                            <div class="row justify-content-center text-name-title">
+                                <div class="col-auto">
+                                    {{data.title}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Location, Phone, Salary -->
                     <div class="row text-block">
                         <div class="col-12">
                             <div class="row justify-content-start">
-                                <div class="col-lg-4 text-field">
+                                <div class="col-lg-4 text-field" *ngIf="data?.localization">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined">pin_drop</mat-icon>
                                         </div>
                                         <div class="col-auto">
-                                            Warszawa, Mazowieckie
+                                            {{data.localization}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 text-field">
+                                <div class="col-lg-4 text-field" *ngIf="data?.phoneNumber">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined">call</mat-icon>
                                         </div>
                                         <div class="col-auto">
-                                            123 123 123
+                                            {{data.phoneNumber}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 text-field">
+                                <div class="col-lg-4 text-field" *ngIf="data?.cashRequirements">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined">payments</mat-icon>
                                         </div>
                                         <div class="col-auto">
-                                            Do Negocjacji
+                                            {{data.cashRequirements}}
                                         </div>
                                     </div>
                                 </div>
@@ -70,33 +77,33 @@
                     <div class="row text-block">
                         <div class="col-12">
                             <div class="row justify-content-start">
-                                <div class="col-lg-4 text-field">
+                                <div class="col-lg-4 text-field" *ngIf="data?.mail">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined">mail_outline</mat-icon>
                                         </div>
                                         <div class="col-auto">
-                                            {{'adam.badam@gmail.com'}}
+                                            {{data.mail}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 text-field">
+                                <div class="col-lg-4 text-field" *ngIf="data?.dateOfBirth">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined">cake</mat-icon>
                                         </div>
                                         <div class="col-auto">
-                                            10 Marca 1999
+                                            {{data.dateOfBirth}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 text-field">
+                                <div class="col-lg-4 text-field" *ngIf="data?.timeRequirements">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined">hourglass_top</mat-icon>
                                         </div>
                                         <div class="col-auto">
-                                            Pełen Etat
+                                            {{data.timeRequirements}}
                                         </div>
                                     </div>
                                 </div>
@@ -107,33 +114,33 @@
                     <div class="row text-block">
                         <div class="col-12">
                             <div class="row justify-content-start">
-                                <div class="col-lg-4 text-field">
+                                <div class="col-lg-4 text-field" *ngIf="data?.githubUrl">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined">link</mat-icon>
                                         </div>
                                         <div class="col-auto">
-                                            github.com/aambadam
+                                            {{data.githubUrl}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 text-field">
-                                    <div class="row align-items-center">
+                                    <div class="row align-items-center" *ngIf="data?.siteUrl">
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined">link</mat-icon>
                                         </div>
                                         <div class="col-auto ">
-                                            aambaam.com
+                                           {{data.siteUrl}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 text-field">
+                                <div class="col-lg-4 text-field" *ngIf="data?.typeOfContract">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined">featured_play_list</mat-icon>
                                         </div>
                                         <div class="col-auto">
-                                            Umowa o Pracę
+                                            {{data.typeOfContract}}
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +148,7 @@
                         </div>
                     </div>
                     <!-- About me -->
-                    <div class="row justify-content-start text-block">
+                    <div class="row justify-content-start text-block" *ngIf="data?.aboutMe">
                         <div class="col-12 text-header">
                             <div class="row align-items-center">
                                 <div class="col-auto">
@@ -153,7 +160,7 @@
                             </div>
                         </div>
                         <div class="col-lg-auto">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            {{data.aboutMe}}    
                         </div>
                     </div>
                     <!-- Skills -->

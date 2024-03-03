@@ -5,26 +5,24 @@
                 <div class="col-12 question-text">
                     Complete Sentence
                 </div>
-                @for (sentence of question.sentences; track $index) {
                     <mat-card-content class="row question-content">
                         <span class="col-auto question-content-text">
-                            {{sentence.question}}
+                            {{question.question}}
                         </span>
                         <span class="col-auto">
                             <mat-form-field appearance="outline">
                                 <mat-label>Odpowiedź</mat-label>
                                 <mat-select>
-                                    @for (answer of options(sentence); track $index) {
-                                        <mat-option [value]="answer" (click)="optionChosen($index, answer)">{{answer}}</mat-option>
+                                    @for (answer of question.answers; track $index) {
+                                        <mat-option [value]="answer" (click)="optionChosen(answer)">{{answer}}</mat-option>
                                     }
                                 </mat-select>
                             </mat-form-field>
                         </span>
                     </mat-card-content>
-                }
                 <div class="col-12">
                     <div class="float-end">
-                        <button type="button" class="next-question-button" (click)="nextQuestion(question)">{{isLastQuestion ? 'Finish' : 'Next Question'}}</button>
+                        <button type="button" class="next-question-button" (click)="nextQuestion(question.questionId)">{{isLastQuestion ? 'Finish' : 'Next Question'}}</button>
                     </div>
                 </div>
             </mat-card>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { quizUrl } from '../shared/constants/constants';
-import { CreateQuiz } from '../shared/models/quiz.model';
+import { CompanyQuizView, CreateQuiz, QuizResolve, QuizResult, QuizSolve } from '../shared/models/quiz.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,19 +11,58 @@ export class QuizService {
   constructor(private http: HttpClient) {}
 
   private get managementController() {
-    return 'quiz-management';
+    return 'quiz';
   }
 
-  public creataQuiz(model: CreateQuiz): Observable<any> {
+  private get resolveController() {
+    return 'resolve';
+  }
+
+  public creataQuiz(model: CreateQuiz): Observable<CreateQuiz> {
     return this.http
-      .post<any>(`${quizUrl}/${this.managementController}`, model)
+      .post<CreateQuiz>(`${quizUrl}/${this.managementController}`, model)
       .pipe(
-        map((response: any) => {
-          const user = response;
-          // if (user) {
-          //     this.setCurrentUser(user.methodResult);
-          // }
-          console.log(response);
+        map((response: CreateQuiz) => {
+          return response;
+        })
+      );
+  }
+
+  public getQuiz(id: number): Observable<QuizSolve> {
+    return this.http
+      .get<QuizSolve>(`${quizUrl}/${this.managementController}/${id}`)
+      .pipe(
+        map((response: QuizSolve) => {
+          return response;
+        })
+      );
+  }
+
+  public resolveQuiz(model: QuizResolve[]): Observable<QuizResult> {
+    return this.http
+      .post<QuizResult>(`${quizUrl}/${this.resolveController}`, model)
+      .pipe(
+        map((response: QuizResult) => {
+          return response;
+        })
+      );
+  }  
+
+  public getAllCompanyQuizes(): Observable<CompanyQuizView[]> {
+    return this.http
+      .get<CompanyQuizView[]>(`${quizUrl}/${this.managementController}/get-all`)
+      .pipe(
+        map((response: CompanyQuizView[]) => {
+          return response;
+        })
+      );
+  }
+
+  public getAllUserQuizes(): Observable<CompanyQuizView[]> {
+    return this.http
+      .get<CompanyQuizView[]>(`${quizUrl}/${this.managementController}/get-all`)
+      .pipe(
+        map((response: CompanyQuizView[]) => {
           return response;
         })
       );

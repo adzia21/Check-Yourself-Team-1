@@ -2,6 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from
 import { MatDrawer } from "@angular/material/sidenav";
 import { Route, Router } from "@angular/router";
 import { HelperService } from "src/app/services/helper.service";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
   selector: 'app-nav-menu',
@@ -19,9 +20,10 @@ export class NavMenuComponent implements AfterViewInit {
   public isQuizDropdownActive: boolean = false;
   showFiller = false;
 
-  opened: boolean = true;
+  public isCompany: boolean = true;
+  public id: number = 0;
 
-  constructor(private router: Router, private helperService: HelperService) { } //private accountService: AccountService
+  constructor(private router: Router, private helperService: HelperService, private userService: UserService) { } //private accountService: AccountService
 
   ngAfterViewInit(): void {
     let menu = document.getElementById("menu")
@@ -49,6 +51,15 @@ export class NavMenuComponent implements AfterViewInit {
 
   public closeMenu() {
     this.navMenuToggleChange.emit(false)
+  }
+
+  public onDrawerToggle(event: boolean) {
+    if (!event) return;
+    this.userService.getLoggedUser().subscribe(res => {
+      this.isCompany = res.company;
+      this.id = res.id;
+      console.log(res)
+    });
   }
 
 }

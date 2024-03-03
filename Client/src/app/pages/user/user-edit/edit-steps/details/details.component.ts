@@ -48,14 +48,14 @@ export class UserDetailsComponent implements AfterViewInit {
     });
 
     this.experienceForm = this.fb.group({
-      position: new FormControl(''),
-      startDate: new FormControl(''),
-      endDate: new FormControl(''),
+      name: new FormControl(''),
+      startedDate: new FormControl(''),
+      finishedDate: new FormControl(''),
       tasks: this.fb.array([]),
     });
 
     this.educationForm = this.fb.group({
-      major: new FormControl(''),
+      name: new FormControl(''),
       universityName: new FormControl(''),
       title: new FormControl(''),
       startDate: new FormControl(''),
@@ -170,7 +170,7 @@ export class UserDetailsComponent implements AfterViewInit {
       case 'educations':
         return this.educations.push(
           this.fb.group({
-            major: new FormControl(''),
+            name: new FormControl(''),
             universityName: new FormControl(''),
             title: new FormControl(''),
             startDate: new FormControl(''),
@@ -180,9 +180,9 @@ export class UserDetailsComponent implements AfterViewInit {
       case 'experiences':
         return this.experiences.push(
           this.fb.group({
-            position: new FormControl(''),
-            startDate: new FormControl(''),
-            endDate: new FormControl(''),
+            name: new FormControl(''),
+            startedDate: new FormControl(''),
+            finishedDate: new FormControl(''),
             tasks: this.fb.array([]),
           })
         );

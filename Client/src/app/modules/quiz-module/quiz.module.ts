@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from 'src/app/helpers/interceptors/bearer.interceprot';
 import { ToastrModule } from 'ngx-toastr';
+import { QuizOverviewComponent } from 'src/app/pages/quiz/quiz-overview/quiz-overview.component';
 
 
 
@@ -23,7 +24,8 @@ import { ToastrModule } from 'ngx-toastr';
     MultiChoiceQuestionComponent,
     CompleteSentenceQuestionComponent,
     QuizResultComponent,
-    QuizCreateComponent
+    QuizCreateComponent,
+    QuizOverviewComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability

@@ -38,7 +38,7 @@
                                                                 <mat-form-field class="question-input-field width">
                                                                     <mat-label>Nazwa stanowiska</mat-label>
                                                                     <input matInput type="text"
-                                                                        formControlName="position">
+                                                                        formControlName="name">
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
@@ -48,9 +48,9 @@
                                                             <mat-label>Data od - do</mat-label>
                                                             <mat-date-range-input class="daterange-picker"
                                                                 [rangePicker]="pickerExp">
-                                                                <input matStartDate formControlName="startDate"
+                                                                <input matStartDate formControlName="startedDate"
                                                                     placeholder="Start date">
-                                                                <input matEndDate formControlName="endDate"
+                                                                <input matEndDate formControlName="finishedDate"
                                                                     placeholder="End date">
                                                             </mat-date-range-input>
                                                             <mat-datepicker-toggle matIconSuffix
@@ -145,7 +145,7 @@
                                                             <div class="col-auto text-aligment">
                                                                 <mat-form-field class="question-input-field width">
                                                                     <mat-label>Kierunek</mat-label>
-                                                                    <input matInput type="text" formControlName="major">
+                                                                    <input matInput type="text" formControlName="name">
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>

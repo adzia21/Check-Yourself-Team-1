@@ -1,35 +1,16 @@
-export interface QuizModel {
+export interface QuizSolve {
+    quizId: number,
     technology: string,
     title: string,
+    time: number,
     questions: QuizQuestionsModel[]
 }
 
 export interface QuizQuestionsModel {
+    questionId: number,
     type: string,
-    code?: string,
-    picture?: string,
-    film?: string,
-    question?: string, // out na Options
-    answers?: QuizAnswers // out na Options
-    sentences?: Options[]
-}
-
-export interface Options {
     question: string,
-    answers: QuizAnswers
-}
-
-export interface QuizAnswers {
-    correct: string[],
-    incorrect: string[]
-}
-
-export interface QuizSentences {
-    sentences: Options[]
-}
-
-export interface QuizMatches {
-    matches: Options[]
+    answers: string[]
 }
 
 export interface CreateQuiz {
@@ -44,4 +25,25 @@ export interface QuizCreateQuestionsModel {
     questionName: string,
     correctAnswers: string[]
     incorrectAnswers: string[]
+}
+
+export interface QuizResolve {
+    questionId: number,
+    answers: string[]
+}
+
+export interface QuizResult {
+    quizId: number,
+    quizName: string,
+    userFullName: string,
+    correctAnswer: number,
+    incorrectAnswer: number,
+    isPassed: boolean,
+    percentOfCorrectAnswers: number
+}
+
+export interface CompanyQuizView {
+    id: number,
+    technology: string,
+    title: string
 }

@@ -1,15 +1,14 @@
 export interface RegisterUser {
-    username: string,
     password: string,
     name: string,
     surname: string,
     email: string,
-    roles: string, // string czy enum
     companyName?: string, // string?
-    nip?: string // string?
+    nip?: string, // string?
+    company: boolean
 }
 
-export interface RegisterUserResponse {
+export interface UserResponse {
     id: number,
     name: string,
     username: string,

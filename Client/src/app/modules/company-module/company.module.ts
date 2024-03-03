@@ -13,6 +13,7 @@ import { CompanyProfileComponent } from 'src/app/pages/company/company-profile/c
 import { CompanyEditComponent } from 'src/app/pages/company/company-edit/company-edit.component';
 import { JobOfferComponent } from 'src/app/pages/company/job-offer/job-offer.component';
 import { JobOfferEditComponent } from 'src/app/pages/company/job-offer-edit/job-offer-edit.component';
+import { SimplifieldJobOfferComponent } from 'src/app/components/simplifield-job-offer/simplifield-job-offer.component';
 
 
 
@@ -21,7 +22,8 @@ import { JobOfferEditComponent } from 'src/app/pages/company/job-offer-edit/job-
     CompanyProfileComponent,
     CompanyEditComponent,
     JobOfferComponent,
-    JobOfferEditComponent
+    JobOfferEditComponent,
+    SimplifieldJobOfferComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability

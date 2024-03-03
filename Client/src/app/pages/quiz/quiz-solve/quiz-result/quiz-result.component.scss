@@ -19,8 +19,12 @@
     line-height: 2rem;
     text-align: center;
 
-    &-color {
+    &-negative {
         color: $error;
+    }
+
+    &-positive {
+        color: $primary-color
     }
 }
 

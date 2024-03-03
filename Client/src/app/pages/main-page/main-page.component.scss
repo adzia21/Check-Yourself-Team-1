@@ -1,0 +1,30 @@
+@import 'variables';
+
+
+.page {
+
+    &-main {
+        min-height: calc(100vh - $header-height - $footer-height);
+        padding: 0;
+        background-image: url('/assets/icons/quiz-header-bg.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-color: $bg-grey;
+    }
+}
+
+.header {
+    font-size: $font-size-biger;
+    color: $text-light;
+    margin: 3rem 0 3rem 0;
+}
+
+.row-offset {
+    margin: 0 0 0 1rem;
+}
+
+.card {
+    width: 20vw;
+}

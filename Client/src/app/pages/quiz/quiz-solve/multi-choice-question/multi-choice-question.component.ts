@@ -1,40 +1,25 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { images } from 'src/app/shared/constants/constants';
-import { QuizModel } from 'src/app/shared/models/quiz.model';
+import { QuizResolve, QuizSolve } from 'src/app/shared/models/quiz.model';
 
 @Component({
   selector: 'app-multi-choice-question',
   templateUrl: './multi-choice-question.component.html',
   styleUrls: ['./multi-choice-question.component.scss']
 })
-export class MultiChoiceQuestionComponent implements OnInit, AfterViewInit {
-
+export class MultiChoiceQuestionComponent {
   @Input() colors!: string[];
   @Input() backgroundImages!: string[];
-  @Input() quiz!: QuizModel;
+  @Input() quiz!: QuizSolve;
   @Input() questionNumber!: number;
   @Input() isLastQuestion: boolean = false;
   @Input() questionImage: string = `${images}/mockQuestion.png`;
-  imgPlaceholder: string = `${images}/mockQuestion.png`;
-
-  @Output() questionChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @Output() questionChanged: EventEmitter<QuizResolve> = new EventEmitter<QuizResolve>();
   @ViewChild('scrollTo') scrollTo!: ElementRef;
 
   public pickedOptions: string[] = []
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    // this.scrollTo.nativeElement.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  public options(option: any): any[] {
-    return [...option.answers.incorrect, ...option.answers.correct];
-  }
 
   public toggleChoice(option: string) {
     this.pickedOptions.includes(option) ? this.unToggleChoice(option) : this.pickedOptions.push(option);
@@ -48,8 +33,11 @@ export class MultiChoiceQuestionComponent implements OnInit, AfterViewInit {
     return this.pickedOptions.includes(option)
   }
 
-  nextQuestion(option: any) {
-    this.questionChanged.emit(option.answers.incorrect.some((r: string) => this.pickedOptions.includes(r)));
+  nextQuestion(id: number) {
+    this.questionChanged.emit({
+      questionId: id,
+      answers: this.pickedOptions
+    })
     this.pickedOptions = [];
   }
 

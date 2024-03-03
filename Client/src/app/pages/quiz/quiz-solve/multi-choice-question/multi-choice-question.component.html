@@ -7,19 +7,10 @@
                 </div>
                 <mat-card-content class="col-12 question-content">
                         <h2>{{question.question}}</h2>
-                    <div>
-                        {{question?.code}}
-                    </div>
-                    <div>
-                        {{question?.picture}}
-                    </div>
-                    <div>
-                        {{question?.film}}
-                    </div>
                 </mat-card-content>
                 <mat-card-content>
                     <div class="row list">
-                        @for (choice of options(question); track $index) {
+                        @for (choice of question.answers; track $index) {
                             <div class="col-xl-3">
                                 <mat-card class="card" (click)="toggleChoice(choice)" [class.card-selected]="isSelected(choice)">
                                     <mat-card-content 
@@ -35,7 +26,7 @@
                     </div>
                     <div class="col-12">
                         <div class="float-end">
-                            <button type="button" class="next-question-button" (click)="nextQuestion(question)">{{isLastQuestion ? 'Finish' : 'Next Question'}}</button>
+                            <button type="button" class="next-question-button" (click)="nextQuestion(question.questionId)">{{isLastQuestion ? 'Finish' : 'Next Question'}}</button>
                         </div>
                     </div>
                 </mat-card-content>

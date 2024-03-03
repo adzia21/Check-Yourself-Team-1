@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { JobOfferService } from 'src/app/services/job-offer.service';
 import { platforms, technologies, tools } from 'src/app/shared/constants/company-profile.constants';
 import { icons } from 'src/app/shared/constants/constants';
+import { FullJobOffer, SimplifiedJobOffer } from 'src/app/shared/models/job-offer.model';
 
 @Component({
   selector: 'app-job-offer',
   templateUrl: './job-offer.component.html',
   styleUrls: ['./job-offer.component.scss'],
 })
-export class JobOfferComponent {
+export class JobOfferComponent implements OnInit {
   public image: string = `${icons}/logo_black.svg`;
   public facebook: string = `${icons}/facebook.svg`;
   public twitter: string = `${icons}/twitter.svg`;
@@ -17,12 +19,27 @@ export class JobOfferComponent {
   public technologies = technologies;
   public tools = tools;
   public platforms = platforms;
-  public isCompany = false;
+  public isCompany = true;
 
-  public array = ['scrum', 'agile', 'jira', 'code review', 'clean code'];
-  public array2 = ['scrum123', 'agile123', 'jira123', 'code review123', 'clean code123'];
+  public data!: FullJobOffer;
+  public jobOffers:  SimplifiedJobOffer[] = [];
 
-  constructor() {}
+  constructor(private jobOfferService: JobOfferService) {}
+
+  ngOnInit(): void {
+    this.jobOfferService.getLoggedUser().subscribe(res => {
+      this.isCompany = res.company;
+    });
+
+    this.jobOfferService.getJobOffer(1).subscribe(res => {
+      console.log(res)
+      this.data = res;
+    });
+
+    this.jobOfferService.getCompanyOtherJobOffers(5).subscribe(res => {
+      this.jobOffers = res;
+    });
+  }
 
   public getTechnologyName(technology: string) {
     switch (technology) {

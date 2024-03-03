@@ -1,0 +1,15 @@
+export interface Company {
+    id: number,
+    userId: number,
+    name: string,
+    description: string,
+    localization: string,
+    hiredPeople: number,
+    facebookUrl: string,
+    twitterUrl: string,
+    instagramUrl: string,
+    linkedInUrl: string,
+    technologies: string[],
+    tools: string[],
+    platforms: string[],
+  }

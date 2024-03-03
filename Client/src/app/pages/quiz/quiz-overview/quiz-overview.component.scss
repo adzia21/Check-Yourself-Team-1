@@ -1,0 +1,47 @@
+@import 'variables';
+
+.quiz {
+
+    &-main {
+        min-height: calc(100vh - $header-height - $footer-height);
+        padding: 0;
+        background-image: url('/assets/icons/quiz-header-bg.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-color: $bg-grey;
+    }
+
+    &-wrap {
+        margin: 10vh 5vw 5vh 5vw;
+        height: fit-content;
+        min-width: 400px;
+        max-width: 1300px;
+    }
+}
+
+.text {
+    font-size: $font-size-big;
+
+    &-empty {
+        font-size: $font-size-biger;
+        color: $text-light;
+    }
+}
+
+.card-outline {
+    outline: 1px solid $bg-light-grey;
+    margin: 30px 0;
+}
+
+.button {
+    background-color: $primary-color;
+    color: $text-light;
+    border: 0;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 5px;
+    margin: 0 0 20px 0;
+}
+
