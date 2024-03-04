@@ -5,8 +5,8 @@ import java.util.List;
 
 public record EducationDTO(
         String name,
-        String localization,
+        String title,
+        String schoolName,
         LocalDate startedDate,
-        LocalDate finishedDate,
-        List<String> tasks
+        LocalDate finishedDate
 ) {}

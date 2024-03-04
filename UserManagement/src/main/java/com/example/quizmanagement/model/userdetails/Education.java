@@ -19,9 +19,8 @@ public class Education {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String localization;
+    private String title;
+    private String schoolName;
     private LocalDate startedDate;
     private LocalDate finishedDate;
-    @ElementCollection
-    private List<String> tasks;
 }

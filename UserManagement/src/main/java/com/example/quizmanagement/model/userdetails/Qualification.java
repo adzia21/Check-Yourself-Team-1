@@ -20,5 +20,7 @@ public class Qualification {
     private Long id;
     private String name;
     private String certificateName;
+    private String certificateNumber;
+    private String companyName;
     private LocalDate date;
 }
