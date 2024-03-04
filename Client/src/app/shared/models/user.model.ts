@@ -17,7 +17,7 @@ export interface User {
   experience?: Experience[];
   education?: Education[];
   qualification?: Qualification[];
-  skills?: string;
+  skills?: any;
   organizations?: string[];
   softSkills?: string[];
   hobbies?: string[];
@@ -32,6 +32,7 @@ export interface Experience {
 
 export interface Education {
   name: string;
+  schoolName: string;
   localization: string;
   startedDate: Date;
   finishedDate: Date;

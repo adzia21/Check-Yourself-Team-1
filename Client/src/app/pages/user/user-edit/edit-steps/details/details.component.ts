@@ -77,9 +77,17 @@ export class UserDetailsComponent implements AfterViewInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data']) {
-      
+      let num = 0;
       this.data?.experience!.forEach(exp => {
+        
         this.addNewDetail('experiences', exp);
+        console.log(exp.tasks)
+        let num2 = 0;
+        exp.tasks.forEach(task => {
+          this.removeAtIndex('task', num, num2)
+          this.addTask(num, task);
+        })
+        num++;
       });
       this.data?.education!.forEach(exp => {
         this.addNewDetail('educations', exp);
@@ -188,10 +196,10 @@ export class UserDetailsComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  public addTask(questionIndex: number) {
-    this.tasks(questionIndex).push(
+  public addTask(index: number, data?: string) {
+    this.tasks(index).push(
       this.fb.group({
-        task: new FormControl(''),
+        task: new FormControl(data ? data : ''),
       })
     );
   }
@@ -202,8 +210,8 @@ export class UserDetailsComponent implements AfterViewInit, OnChanges {
         return this.educations.push(
           this.fb.group({
             name: new FormControl(data ? data.name : ''),
-            universityName: new FormControl(data ? data.localization : ''),
-            title: new FormControl(''),
+            universityName: new FormControl(data ? data.schoolName : ''),
+            title: new FormControl(data ? data.title : ''),
             startDate: new FormControl(data ? data.startedDate : ''),
             endDate: new FormControl(data ? data.finishedDate : ''),
           })
@@ -221,27 +229,27 @@ export class UserDetailsComponent implements AfterViewInit, OnChanges {
         return this.certyficates.push(
           this.fb.group({
             certName: new FormControl(data ? data.certificateName : ''),
-            certNumber: new FormControl(''),
-            organization: new FormControl(data ? data.name : ''),
+            certNumber: new FormControl(data ? data.certificateNumber : ''),
+            organization: new FormControl(data ? data.companyName : ''),
             date: new FormControl(data ? data.date : ''),
           })
         );
       case 'softSkills':
         return this.softSkills.push(
           this.fb.group({
-            field: new FormControl(data ? data.softSkills : ''),
+            field: new FormControl(data ? data : ''),
           })
         );
       case 'hobbies':
         return this.hobbies.push(
           this.fb.group({
-            field: new FormControl(data ? data.hobbies : ''),
+            field: new FormControl(data ? data : ''),
           })
         );
       case 'organizations':
         return this.organizations.push(
           this.fb.group({
-            field: new FormControl(data ? data.organizations : ''),
+            field: new FormControl(data ? data : ''),
           })
         );
       default:

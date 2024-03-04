@@ -25,7 +25,6 @@ export class NavMenuComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     let menu = document.getElementById("menu");
-    console.log(menu)
     menu?.addEventListener("click", () => {
       this.drawer.toggle();
     });

@@ -15,6 +15,10 @@ export class UserProfileComponent implements OnInit {
   public image: string = `${icons}/no-pfp.svg`;
   public data!: User;
   public isUsersProfile: boolean = false;
+  public skillFE: any = [];
+  public skillBE: any = [];
+  public language: any = [];
+  public skillOther: any = [];
 
   constructor(private fb: FormBuilder, private userService: UserService, private route: ActivatedRoute) { }
 
@@ -26,7 +30,24 @@ export class UserProfileComponent implements OnInit {
     this.userService.getUser().subscribe(res => {
       console.log(res)
       this.data = res;
+      
+      let fe = this.data?.skills.fe.skill;
+      let be = this.data?.skills.be.skill;
+      let lng = this.data?.skills.lng.skill;
+      let other = this.data?.skills.other.skill;
+
+      this.skillFE = Object.keys(fe).map(key => ({type: key, value: fe[key]}));
+      this.skillBE = Object.keys(be).map(key => ({type: key, value: be[key]}));
+      this.language = Object.keys(lng).map(key => ({type: key, value: lng[key]}));
+      this.skillOther = Object.keys(other).map(key => ({type: key, value: other[key]}));
     });
+  }
+
+  public getColor(value: number) {
+    if (value < 35) return 'warn';
+    if (value < 35 && value > 85) return 'accent';
+    if (value > 85) return 'primary';
+    return 'accent';
   }
 
 }

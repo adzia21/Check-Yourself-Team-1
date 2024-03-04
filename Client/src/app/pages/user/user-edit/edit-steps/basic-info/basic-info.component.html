@@ -11,15 +11,15 @@
                     <!-- Name and Surname -->
                     <div class="row justify-content-center text-name">
                         <div class="col-auto">
-                            <mat-form-field class="input-field">
+                            <mat-form-field class="input-field" *ngIf="data?.name">
                                 <mat-label>Imię</mat-label>
-                                <input matInput type="text" formControlName="name">
+                                <input matInput type="text" [value]="data.name" disabled>
                             </mat-form-field>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto" *ngIf="data?.surname">
                             <mat-form-field class="input-field">
                                 <mat-label>Nazwisko</mat-label>
-                                <input matInput type="text" formControlName="surname">
+                                <input matInput type="text" [value]="data.surname" disabled>
                             </mat-form-field>
                         </div>
                         <div class="col-auto">
@@ -84,10 +84,10 @@
                                         <div class="col-auto">
                                             <mat-icon class="material-icons-outlined icon-align">mail_outline</mat-icon>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-auto" *ngIf="data?.mail">
                                             <mat-form-field class="input-field">
                                                 <mat-label>Email</mat-label>
-                                                <input matInput type="text" formControlName="email">
+                                                <input matInput type="text" [value]="data.mail" disabled>
                                             </mat-form-field>
                                         </div>
                                     </div>

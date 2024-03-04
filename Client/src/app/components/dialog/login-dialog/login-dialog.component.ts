@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { HelperService } from 'src/app/services/helper.service';
 import { icons } from 'src/app/shared/constants/constants';
 
 @Component({
@@ -24,7 +25,8 @@ export class LoginDialogComponent implements AfterViewInit {
     private dialogRef: MatDialogRef<LoginDialogComponent>,
     private authService: AuthService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private helperService: HelperService
   ) {}
 
   ngAfterViewInit(): void {}
@@ -36,6 +38,7 @@ export class LoginDialogComponent implements AfterViewInit {
       (res) => {
         localStorage.setItem('token', res.token);
         this.router.navigate(['main-page']);
+        this.helperService.loggedIn();
         this.dialogRef.close(true);
       },
       (error) => {

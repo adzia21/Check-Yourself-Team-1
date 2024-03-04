@@ -36,11 +36,11 @@ export class UserAboutSkillsComponent implements AfterViewInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data']) {
-      console.log(this.data)
-      this.addNewSkill('skillsFE');
-      this.addNewSkill('skillsBE');
-      this.addNewSkill('skillsLanguage');
-      this.addNewSkill('skillsOther');
+      console.log(this.data?.skills)
+      this.addNewSkill('skillsFE', this.data?.skills.fe.skill);
+      this.addNewSkill('skillsBE', this.data?.skills.be.skill);
+      this.addNewSkill('skillsLanguage', this.data?.skills.lng.skill);
+      this.addNewSkill('skillsOther', this.data?.skills.other.skill);
       this.userAboutSkillsFormChange.emit(this.userAboutSkillsForm)
     }
   }
@@ -126,36 +126,96 @@ export class UserAboutSkillsComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  public addNewSkill(skillType: string) {
+  public addNewSkill(skillType: string, data?: any) {
+    let mapped: any;
+    if (data) {
+      mapped = Object.keys(data).map(key => ({type: key, value: data[key]}));
+    }
     switch (skillType) {
       case 'skillsFE':
-        return this.skillsFE.push(
-          this.fb.group({
-            skill: new FormControl(''),
-            level: new FormControl(0),
-          })
-        );
+        if(!data) {
+          return this.skillsFE.push(
+            this.fb.group({
+              skill: new FormControl(''),
+              level: new FormControl(0),
+            })
+          );
+        };
+        if (mapped?.length != 0) {
+          mapped?.forEach((element: any) => {
+            this.skillsFE.push(
+              this.fb.group({
+                skill: new FormControl(element.type),
+                level: new FormControl(element.value),
+              })
+            );
+          });
+          return;
+        }
+        return;
       case 'skillsBE':
-        return this.skillsBE.push(
-          this.fb.group({
-            skill: new FormControl(''),
-            level: new FormControl(0),
-          })
-        );
+        if(!data) {
+          return this.skillsBE.push(
+            this.fb.group({
+              skill: new FormControl(''),
+              level: new FormControl(0),
+            })
+          );
+        };
+        if (mapped?.length != 0) {
+          mapped?.forEach((element: any) => {
+            this.skillsBE.push(
+              this.fb.group({
+                skill: new FormControl(element.type),
+                level: new FormControl(element.value),
+              })
+            );
+          });
+          return;
+        };
+        return;
       case 'skillsLanguage':
-        return this.skillsLanguage.push(
-          this.fb.group({
-            skill: new FormControl(''),
-            level: new FormControl(0),
-          })
-        );
+        if(!data) {
+          return this.skillsLanguage.push(
+            this.fb.group({
+              skill: new FormControl(''),
+              level: new FormControl(0),
+            })
+          );
+        }
+        if (mapped?.length != 0) {
+          mapped?.forEach((element: any) => {
+            this.skillsLanguage.push(
+              this.fb.group({
+                skill: new FormControl(element.type),
+                level: new FormControl(element.value),
+              })
+            );
+          });
+          return;
+        };
+        return;
       case 'skillsOther':
-        return this.skillsOther.push(
-          this.fb.group({
-            skill: new FormControl(''),
-            level: new FormControl(0),
-          })
-        );
+        if(!data) {
+          return this.skillsOther.push(
+            this.fb.group({
+              skill: new FormControl(''),
+              level: new FormControl(0),
+            })
+          );
+        };
+        if (mapped?.length != 0) {
+          mapped?.forEach((element: any) => {
+            this.skillsOther.push(
+              this.fb.group({
+                skill: new FormControl(element.type),
+                level: new FormControl(element.value),
+              })
+            );
+          });
+          return;
+        };
+        return;
       default:
         return;
     }

@@ -86,6 +86,7 @@ export class UserEditComponent implements OnInit {
       surname: basic['surname'],
       mail: basic['email'],
       title: basic['title'],
+      cashRequirements: basic['pay'],
       localization: basic['localization'],
       githubUrl: basic['socialMedia'],
       phoneNumber: basic['phone'],
@@ -104,7 +105,7 @@ export class UserEditComponent implements OnInit {
     }
 
     console.log(model)
-    this.userService.saveUser(model).subscribe(res => console.log(res))
+    this.userService.saveUser(model).subscribe(res => this.cancel())
   }
 
   private formatData(field: string) {
@@ -112,7 +113,6 @@ export class UserEditComponent implements OnInit {
     switch (field) {
       case 'experience': {
         this.userDetailsForm.value.experiences.forEach((element: any) => {
-          console.log(element)
           let y: any = [];
           element.tasks.forEach((element: any) => {
             console.log(element.task)
@@ -120,8 +120,8 @@ export class UserEditComponent implements OnInit {
           });
           let x = {
             name: element.name,
-            startedDate: element.startDate,
-            finishedDate: element.endDate,
+            startedDate: element.startedDate,
+            finishedDate: element.finishedDate,
             tasks: y
           }
           
@@ -133,7 +133,7 @@ export class UserEditComponent implements OnInit {
         this.userDetailsForm.value.educations.forEach((element: any) => {
           let x = {
             name: element.name,
-            localization: element.universityName,
+            schoolName: element.universityName,
             startedDate: element.startDate,
             finishedDate: element.endDate,
             title: element.title
@@ -158,6 +158,7 @@ export class UserEditComponent implements OnInit {
       };
       case 'organization': {
         this.userDetailsForm.value.organizations.forEach((element: any) => {
+          console.log(element)
           let x = element.field;
           arr.push(x)
         });
@@ -188,38 +189,31 @@ export class UserEditComponent implements OnInit {
   private skillSet() {
     let skills: any = {
       fe: {
-        frontend: {
-          skill: {}
-        }
+        skill: {}
       },
       be: {
-        backend: {
-          skill: {}
-        }
+        skill: {}
       },
       lng: {
-        language: {
-          skill: {}
-        }
+        skill: {}
       },
       other: {
-        other: {
-          skill: {}
-        }
+        skill: {}
       }
     }
 
     this.userAboutSkillsForm.value.skillsFE.forEach((element: any) => {
-      skills.fe.frontend.skill[element.skill] = element.level;
+      console.log(element)
+      skills.fe.skill[element.skill] = element.level;
     });
     this.userAboutSkillsForm.value.skillsBE.forEach((element: any) => {
-      skills.be.backend.skill[element.skill] = element.level;
+      skills.be.skill[element.skill] = element.level;
     });
     this.userAboutSkillsForm.value.skillsLanguage.forEach((element: any) => {
-      skills.lng.language.skill[element.skill] = element.level;
+      skills.lng.skill[element.skill] = element.level;
     });
     this.userAboutSkillsForm.value.skillsOther.forEach((element: any) => {
-      skills.other.other.skill[element.skill] = element.level
+      skills.other.skill[element.skill] = element.level
     });
     return skills;
   }

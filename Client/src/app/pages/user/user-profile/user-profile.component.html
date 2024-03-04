@@ -163,136 +163,91 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-about-me-body">
+                        <div class="col-lg-6 text-about-me-body" *ngIf="skillFE[0]?.value != ''">
                             <div class="row justify-content-start">
                                 <div class="col-12 text-header">
                                     Technologie Frontend:
                                 </div>
-                                <div class="col-12 text-header">
+                                <div class="col-12 text-header" *ngFor="let fe of skillFE">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            JavaScript
+                                            {{fe?.type}}
                                         </div>
                                         <div class="col-6">
-                                            <mat-progress-bar class="progress-bar" mode="determinate" value="63" color="accent"></mat-progress-bar>
+                                            <mat-progress-bar class="progress-bar" mode="determinate" [value]="fe?.value" [color]="getColor(fe?.value)"></mat-progress-bar>
                                         </div>
                                         <div class="col-auto">
-                                            63%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 text-header">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            HTML
-                                        </div>
-                                        <div class="col-6">
-                                            <mat-progress-bar class="progress-bar" mode="determinate" value="12" color="warn"></mat-progress-bar>
-                                        </div>
-                                        <div class="col-auto">
-                                            12%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 text-header">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            CSS
-                                        </div>
-                                        <div class="col-6">
-                                            <mat-progress-bar class="progress-bar" mode="determinate" value="90" color="primary"></mat-progress-bar>
-                                        </div>
-                                        <div class="col-auto">
-                                            90%
+                                            {{fe?.value}}%
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-about-me-body">
+                        <div class="col-lg-6 text-about-me-body" *ngIf="skillBE[0]?.value != ''">
                             <div class="row justify-content-start">
                                 <div class="col-12 text-header">
                                     Technologie Backend:
                                 </div>
-                                <div class="col-12 text-header">
+                                <div class="col-12 text-header" *ngFor="let be of skillBE">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            Java
+                                            {{be?.type}}
                                         </div>
                                         <div class="col-6">
-                                            <mat-progress-bar class="progress-bar" mode="determinate" value="60" color="accent"></mat-progress-bar>
+                                            <mat-progress-bar class="progress-bar" mode="determinate" [value]="be?.value" [color]="getColor(be?.value)"></mat-progress-bar>
                                         </div>
                                         <div class="col-auto">
-                                            60%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 text-header">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            Spring
-                                        </div>
-                                        <div class="col-6">
-                                            <mat-progress-bar class="progress-bar" mode="determinate" value="20" color="warn"></mat-progress-bar>
-                                        </div>
-                                        <div class="col-auto">
-                                            20%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 text-header">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            Python
-                                        </div>
-                                        <div class="col-6">
-                                            <mat-progress-bar class="progress-bar" mode="determinate" value="60" color="primary"></mat-progress-bar>
-                                        </div>
-                                        <div class="col-auto">
-                                            80%
+                                            {{be?.value}}%
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Foreign Languages -->
+                    <!-- Foreign Languages and Other -->
                     <div class="row justify-content-start text-block">
-                        <div class="col-12 text-header">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <mat-icon class="material-symbols-outlined">translate</mat-icon>
-                                </div>
-                                <div class="col-auto text-main">
-                                    Języki obce:
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 text-about-me-body">
+                        <div class="col-lg-6 text-about-me-body" *ngIf="language[0]?.value != ''">
                             <div class="row justify-content-start">
                                 <div class="col-12 text-header">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <mat-icon class="material-symbols-outlined">translate</mat-icon>
+                                        </div>
+                                        <div class="col-auto text-main">
+                                            Języki obce:
+                                        </div>
+                                    </div>        
+                                </div>
+                                <div class="col-12 text-header" *ngFor="let lang of language">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            Polski
+                                            {{lang?.type}}
                                         </div>
                                         <div class="col-6">
-                                            <mat-progress-bar class="progress-bar" mode="determinate" value="100" color="primary"></mat-progress-bar>
+                                            <mat-progress-bar class="progress-bar" mode="determinate" [value]="lang?.value" [color]="getColor(lang?.value)"></mat-progress-bar>
                                         </div>
                                         <div class="col-auto">
-                                            100% (ojczysty)
+                                            {{lang?.value}}%
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-about-me-body" *ngIf="skillOther[0]?.value != ''">
+                            <div class="row justify-content-start">
                                 <div class="col-12 text-header">
+                                    Inne:
+                                </div>
+                                <div class="col-12 text-header" *ngFor="let other of skillOther">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            Angielski
+                                            {{other?.type}}
                                         </div>
                                         <div class="col-6">
-                                            <mat-progress-bar class="progress-bar" mode="determinate" value="80" color="warn"></mat-progress-bar>
+                                            <mat-progress-bar class="progress-bar" mode="determinate" [value]="other?.value" [color]="getColor(other?.value)"></mat-progress-bar>
                                         </div>
                                         <div class="col-auto">
-                                            80% (B2)
+                                            {{other?.value}}%
                                         </div>
                                     </div>
                                 </div>
@@ -301,7 +256,7 @@
                     </div>
                     <!-- Experiance, education, certyficates -->
                     <div class="row justify-content-start text-block">
-                        <div class="col-md-4 text-header">
+                        <div class="col-md-4 text-header" *ngIf="data?.experience && data?.experience?.length != 0">
                             <div class="row">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">work_outline</mat-icon>
@@ -310,24 +265,24 @@
                                     Doświadczenie:
                                 </div>
                             </div>
-                            <div class="row text-exp-edu-cert">
+                            <div class="row text-exp-edu-cert" *ngFor="let exp of data.experience">
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-auto">
                                             <mat-icon class="material-symbols-outlined">toll</mat-icon>
                                         </div>
                                         <div class="col-auto text-aligment">
-                                            Tester Manualny
+                                            {{exp.name}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 vertical-line">
+                                    od {{exp.startedDate}} do {{exp.finishedDate}}
+                                </div>
+                                <div class="col-12 vertical-line" *ngIf="exp?.tasks && exp?.tasks?.length != 0">
                                     <ul>
-                                        <li>
-                                            awdawd awdas
-                                        </li>
-                                        <li>
-                                            awidmninni
+                                        <li *ngFor="let task of exp.tasks">
+                                            {{task}}
                                         </li>
                                     </ul>
                                 </div>
@@ -336,7 +291,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 text-header">
+                        <div class="col-md-4 text-header" *ngIf="data?.education && data?.education?.length != 0">
                             <div class="row">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">school</mat-icon>
@@ -345,23 +300,26 @@
                                     Wykształcenie:
                                 </div>
                             </div>
-                            <div class="row text-exp-edu-cert">
+                            <div class="row text-exp-edu-cert" *ngFor="let edu of data.education">
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-auto">
                                             <mat-icon class="material-symbols-outlined">toll</mat-icon>
                                         </div>
                                         <div class="col-auto text-aligment">
-                                            Informatyk-Inż.
+                                            {{edu.name}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row vertical-line">
                                     <div class="col-12">
-                                        2019-2024
+                                       od {{edu.startedDate}} do {{edu.finishedDate}}
                                     </div>
                                     <div class="col-12">
-                                        Uniwersytet im. Adama Mickiewicza
+                                        {{edu.schoolName}}
+                                    </div>
+                                    <div class="col-12">
+                                       {{edu.title}}
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -369,7 +327,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 text-header">
+                        <div class="col-md-4 text-header" *ngIf="data?.qualification && data?.qualification?.length != 0">
                             <div class="row">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">insert_drive_file</mat-icon>
@@ -378,23 +336,23 @@
                                     Kursy i certyfikaty:
                                 </div>
                             </div>
-                            <div class="row text-exp-edu-cert">
+                            <div class="row text-exp-edu-cert" *ngFor="let cert of data.qualification">
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-auto">
                                             <mat-icon class="material-symbols-outlined">toll</mat-icon>
                                         </div>
                                         <div class="col-auto text-aligment">
-                                            Murarz. rynkarz, akrobata
+                                            {{cert.certificateName}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row vertical-line">
                                     <div class="col-12">
-                                        numer certyfikatu: 213sd
+                                        {{cert.certificateNumber}}
                                     </div>
                                     <div class="col-12">
-                                        18 czerwca 2023, Udemy Sp. z o. o.
+                                        {{cert.date}}, {{cert.companyName}}
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -405,7 +363,7 @@
                     </div>
                     <!-- Hobby, Soft Skills, organizations -->
                     <div class="row justify-content-start text-block">
-                        <div class="col-md-4 text-header">
+                        <div class="col-md-4 text-header" *ngIf="data?.organizations && data?.organizations?.length != 0">
                             <div class="row">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">hourglass_empty</mat-icon>
@@ -417,17 +375,14 @@
                             <div class="row text-exp-edu-cert">
                                 <div class="col-12">
                                     <ul>
-                                        <li>
-                                            awdawd awdas
-                                        </li>
-                                        <li>
-                                            awidmninni
+                                        <li *ngFor="let org of data.organizations">
+                                            {{org}}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 text-header">
+                        <div class="col-md-4 text-header" *ngIf="data?.softSkills && data?.softSkills?.length != 0">
                             <div class="row">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">tag_faces</mat-icon>
@@ -439,17 +394,14 @@
                             <div class="row text-exp-edu-cert">
                                 <div class="col-12">
                                     <ul>
-                                        <li>
-                                            awdawd awdas
-                                        </li>
-                                        <li>
-                                            awidmninni
+                                        <li *ngFor="let skill of data.softSkills">
+                                            {{skill}}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 text-header">
+                        <div class="col-md-4 text-header" *ngIf="data?.hobbies && data?.hobbies?.length != 0">
                             <div class="row">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">fitness_center</mat-icon>
@@ -461,11 +413,8 @@
                             <div class="row text-exp-edu-cert">
                                 <div class="col-12">
                                     <ul>
-                                        <li>
-                                            awdawd awdas
-                                        </li>
-                                        <li>
-                                            awidmninni
+                                        <li *ngFor="let hobby of data.hobbies">
+                                           {{hobby}}
                                         </li>
                                     </ul>
                                 </div>

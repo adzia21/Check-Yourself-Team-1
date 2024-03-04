@@ -15,4 +15,8 @@ export class HelperService {
   public isLoggedUser() {
     return this.isLoggedIn;
   }
+
+  public loggedIn() {
+    this.isLoggedIn = true;
+  }
 }
