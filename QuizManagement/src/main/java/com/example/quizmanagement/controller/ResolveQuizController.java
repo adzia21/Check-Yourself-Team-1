@@ -1,30 +1,28 @@
 package com.example.quizmanagement.controller;
 
-import com.example.quizmanagement.model.Result;
-import com.example.quizmanagement.model.result.QuizAnswers;
+import com.example.quizmanagement.dto.request.ResultFromUserRequest;
+import com.example.quizmanagement.dto.response.ResultForUserResponse;
+import com.example.quizmanagement.dto.response.SimpleQuizResponse;
 import com.example.quizmanagement.service.ResultService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/resolve")
 public class ResolveQuizController {
-    private ResultService resultService;
+    private final ResultService resultService;
 
-    @PostMapping
-    public ResponseEntity<Result> getResult(@Valid @RequestBody QuizAnswers answers) {
-        return new ResponseEntity<>(resultService.calculateResults(answers), HttpStatus.CREATED);
+    @PostMapping("/{quizId}")
+    public ResultForUserResponse getResult(@Valid @RequestBody List<ResultFromUserRequest> request, @PathVariable Long quizId) {
+        return resultService.calculateResultsForUser(request, quizId);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Result>> getUserResults(@PathVariable Long userId) {
-        return new ResponseEntity<>(resultService.findByUser(userId), HttpStatus.CREATED);
+    @GetMapping("/get-all")
+    public List<ResultForUserResponse> getAllQuizByCompany() {
+        return resultService.getAllQuizByCompany();
     }
-
 }
