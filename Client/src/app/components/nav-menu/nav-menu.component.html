@@ -1,12 +1,31 @@
 <mat-drawer-container class="nav-container" autosize>
-    <mat-drawer #drawer class="sidenav" mode="over" position="end" opened="false">
-      <p>Auto-resizing sidenav</p>
-      @if (showFiller) {
-        <p>Lorem, ipsum dolor sit amet consectetur.</p>
-      }
-      <button (click)="showFiller = !showFiller" mat-raised-button>
-        Toggle extra text
-      </button>
+    <mat-drawer #drawer class="sidenav" mode="over" position="end" opened="false" (openedChange)="onDrawerToggle($event)">
+      <div class="row main justify-content-center">
+        <div class="col-12 row-style">
+          <div class="row">
+            <div class="col-auto"><mat-icon class="material-icons-outlined icon">account_circle</mat-icon></div>
+            <div class="col text" (click)="navigate(isCompany ? 'company/' + id : 'user/' + id)">Profil</div>
+          </div>
+        </div>
+        <div class="col-12 row-style" (click)="activateDropdown()">
+          <div class="row">
+            <div class="col-auto"><mat-icon class="material-icons-outlined icon">{{getArrow()}}</mat-icon></div>
+            <div class="col text">Quiz</div>
+          </div>
+          @if (this.isQuizDropdownActive) {
+            <div class="row">
+              <div class="col text-dropdown" (click)="navigate('quiz')" *ngIf="isCompany">Dodaj Quiz</div>
+            </div>
+            <div class="row">
+              <div class="col text-dropdown" (click)="navigate('quiz/1/quiz-overview')">Moje Quizy</div>
+            </div>
+          }
+        </div>
+        <div class="col-auto logout" (click)="logout()" id="logout">
+          Wyloguj się
+        </div>
+      </div>
+      
     </mat-drawer>
 
     <mat-drawer-content>

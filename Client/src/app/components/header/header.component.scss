@@ -7,25 +7,26 @@
 }
 
 .logo-main {
+    cursor: pointer;
     margin: .3rem 0 -.3rem 0;
 }
 
 .logo-sub {
-    cursor: pointer;
     font-weight: 300;
+    color: $primary-color;
+    padding: 0 0.75rem 0 0;
 }
 
 .icon {
     cursor: pointer;
-
+    margin: 20px 5px 0 0;
+    
     &-1 {
         transform: scale(1.5);
-        margin: 15px 5px 0 0;
     }
     
     &-2 {
         transform: scale(2);
-        margin: 15px 10px 0 0;
     }
 }
 

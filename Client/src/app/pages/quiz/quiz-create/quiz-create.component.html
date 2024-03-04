@@ -1,0 +1,196 @@
+<main class="row quiz-main">
+    <form [formGroup]="quizCreationForm" (ngSubmit)="save()">
+        <div class="row justify-content-center">
+            <mat-card class="col quiz-card">
+                <mat-card-content class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <mat-form-field class="input-field">
+                                    <mat-label>Technologia</mat-label>
+                                    <input matInput type="text" formControlName="technology">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md">
+                                <mat-form-field class="input-field-title">
+                                    <mat-label>Tytuł</mat-label>
+                                    <input matInput type="text" formControlName="title">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-auto">
+                                <mat-form-field class="input-field">
+                                    <mat-label>Czas w minutach</mat-label>
+                                    <input matInput type="number" formControlName="time">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div formArrayName="questions" *ngFor="let question of questions.controls | keyvalue; let i = index">
+                            <div class="row" [formGroupName]="i">
+                                <div class="col-md-12 question-text">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            #Pytanie {{i + 1}}
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <mat-icon
+                                                class="material-symbols-outlined question-icon" (click)="removeAtIndex('question', i)">delete_outline</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <hr class="question-separator">
+                                </div>
+                                <div class="col-md-12">
+                                    <mat-form-field class="question-input-field">
+                                        <mat-label>Typ pytania</mat-label>
+                                        <mat-select formControlName="type">
+                                            <mat-option value="MULTIPLE_CHOICE">Wielokrotny wybór</mat-option>
+                                            <mat-option value="FINISH_SENTENCE">Dokończ zdanie</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                @if (questions.value[i].type === 'MULTIPLE_CHOICE') {
+                                    <div class="col-md-12">
+                                        <mat-form-field class="question-field">
+                                            <mat-label>Treść Pytania</mat-label>
+                                            <input matInput type="text" formControlName="questionName">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Fałszywe odpowiedzi:
+                                        <div formArrayName="incorrectAnswers" *ngFor="let item of incorrectAnswers(i).controls | keyvalue; let ii = index">
+                                            <mat-card class="question-false" [formGroupName]="ii">
+                                                <mat-card-content>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="question-false-input" formControlName="incorrectAnswer">
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <mat-icon
+                                                                class="material-symbols-outlined question-icon" (click)="removeAtIndex('incorrectAnswer', i, ii)">delete_outline</mat-icon>
+                                                        </div>
+                                                    </div>
+                                                </mat-card-content>
+                                            </mat-card>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-auto">
+                                                <mat-icon
+                                                    class="material-symbols-outlined question-icon" (click)="addIncorrectAnswer(i)">add_circle_outline</mat-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Poprawne odpowiedzi:
+                                        <div *ngFor="let item of correctAnswers(i).controls | keyvalue; let iii = index" formArrayName="correctAnswers">
+                                            <mat-card class="question-true" [formGroupName]="iii">
+                                                <mat-card-content>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="question-true-input" formControlName="correctAnswer">
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <mat-icon
+                                                                class="material-symbols-outlined question-icon" (click)="removeAtIndex('correctAnswer', i, iii)">delete_outline</mat-icon>
+                                                        </div>
+                                                    </div>
+                                                </mat-card-content>
+                                            </mat-card>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-auto">
+                                                <mat-icon
+                                                    class="material-symbols-outlined question-icon" (click)="addCorrectAnswer(i)">add_circle_outline</mat-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                } @else if (questions.value[i].type === 'FINISH_SENTENCE') {
+                                    <div class="col-md-12">
+                                        <mat-form-field class="question-field">
+                                            <mat-label>Treść Pytania</mat-label>
+                                            <input matInput type="text" formControlName="questionName">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Fałszywe odpowiedzi:
+                                        <div formArrayName="incorrectAnswers" *ngFor="let item of incorrectAnswers(i).controls | keyvalue; let jj = index">
+                                            <mat-card class="question-false" [formGroupName]="jj">
+                                                <mat-card-content>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="question-false-input" formControlName="incorrectAnswer">
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <mat-icon
+                                                                class="material-symbols-outlined question-icon" (click)="removeAtIndex('incorrectAnswer', i, jj)">delete_outline</mat-icon>
+                                                        </div>
+                                                    </div>
+                                                </mat-card-content>
+                                            </mat-card>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-auto">
+                                                <mat-icon
+                                                    class="material-symbols-outlined question-icon" (click)="addIncorrectAnswer(i)">add_circle_outline</mat-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Poprawna odpowiedź:
+                                        <div *ngFor="let item of correctAnswers(i).controls; let jjj = index" formArrayName="correctAnswers">
+                                            <mat-card class="question-true" [formGroupName]="jjj">
+                                                <mat-card-content>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="question-true-input" formControlName="correctAnswer">
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <mat-icon
+                                                                class="material-symbols-outlined question-icon" (click)="removeAtIndex('correctAnswer', i, jjj)">delete_outline</mat-icon>
+                                                        </div>
+                                                    </div>
+                                                </mat-card-content>
+                                            </mat-card>
+                                        </div>
+                                        @if (correctAnswers(i).value.length < 1) {
+                                            <div class="row justify-content-center">
+                                                <div class="col-auto">
+                                                    <mat-icon
+                                                        class="material-symbols-outlined question-icon" (click)="addCorrectAnswer(i)">add_circle_outline</mat-icon>
+                                                </div>
+                                            </div>
+                                        } @else if (correctAnswers(i).value.length > 1) {
+                                            <div class="row justify-content-center">
+                                                <div class="col-auto error">
+                                                    Pytanie typu dokończ zdanie może mieć tylko jedną odpowiedź poprawną
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                } @else {
+                                    <div class="row justify-content-center">
+                                        <div class="col-auto question-text">
+                                            Wybierz typ pytania
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-auto">
+                            <button type="button" class="question-button" (click)="addNewQuestion(false)">Dodaj nowe pytanie</button>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-md-auto">
+                            <button type="submit" class="question-button">Zapisz</button>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>

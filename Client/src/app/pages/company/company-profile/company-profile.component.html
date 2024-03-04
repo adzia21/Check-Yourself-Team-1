@@ -1,0 +1,114 @@
+<main class="row company-main">
+    <!-- [formGroup]="userForm" -->
+    <form class="form">
+        <div class="row justify-content-center">
+            <mat-card class="col company-card">
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-auto">
+                            <img class="company-logo" alt="logo" [src]="image">
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-auto company-name">{{data ? data.name : ''}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto" *ngIf="data?.facebookUrl">
+                                    <a [href]="data.facebookUrl">
+                                        <img alt="facebook" [src]="facebook">
+                                    </a>
+                                </div>
+                                <div class="col-auto" *ngIf="data?.twitterUrl">
+                                    <a [href]="data.twitterUrl">
+                                        <img alt="twitter" [src]="twitter">
+                                    </a>
+                                </div>
+                                <div class="col-auto" *ngIf="data?.instagramUrl">
+                                    <a [href]="data.instagramUrl">
+                                        <img alt="instagram" [src]="instagram">
+                                    </a>
+                                </div>
+                                <div class="col-auto" *ngIf="data?.linkedInUrl">
+                                    <a [href]="data.linkedInUrl">
+                                        <img alt="linkedin" [src]="linkedin">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto" *ngIf="data?.localization">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-icons-outlined">pin_drop</mat-icon>
+                                </div>
+                                <div class="col company-location">
+                                    {{data.localization}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col-auto" *ngIf="data?.hiredPeople">
+                                    <mat-icon class="material-icons-outlined person-icon">person</mat-icon>
+                                </div>
+                                <div class="col company-personel" *ngIf="data?.hiredPeople">
+                                    {{data.hiredPeople}}+
+                                </div>
+                                <div class="col" *ngIf="isCompany">
+                                    <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit">edit</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row company-description" *ngIf="data?.description">
+                        <div class="col">
+                            {{data.description}}
+                        </div>
+                    </div>
+                    <div class="row company-details" *ngIf="data?.technologies">
+                        <div class="col-12" *ngIf="data?.technologies?.length != 0">
+                            Technologie:
+                        </div>
+                        <div class="col-1 company-details-item" *ngFor="let technology of data.technologies">
+                            <img alt="technology-{{technology}}" src="{{icons}}/technologies/{{technology}}">
+                        </div>
+                    </div>
+                    <div class="row company-details" *ngIf="data?.tools">
+                        <div class="col-12" *ngIf="data?.tools?.length != 0">
+                            Narzędzia:
+                        </div>
+                        <div class="col-auto company-details-item" *ngFor="let tool of data.tools">
+                            <img alt="tool-{{tool}}" src="{{icons}}/tools/{{tool}}">
+                        </div>
+                    </div>
+                    <div class="row company-details" *ngIf="data?.platforms">
+                        <div class="col-12" *ngIf="data?.platforms?.length != 0">
+                            Platformy:
+                        </div>
+                        <div class="col-auto company-details-item" *ngFor="let platrofm of data.platforms">
+                            <img alt="tool-{{platrofm}}" src="{{icons}}/platforms/{{platrofm}}">
+                        </div>
+                    </div>
+                    <div class="row company-details">
+                        <div class="col company-joboffers">
+                            Oferty pracy
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="button" routerLink="job-offer">
+                                Dodaj ofertę
+                            </button>
+                        </div>
+                    </div>
+                    @if (jobOffers.length != 0) {
+                        <app-simplifield-job-offer [jobOffers]="jobOffers" [isPorfile]="true" [companyId]="data.userId"></app-simplifield-job-offer>
+                    } @else {
+                        <div class="row justify-content-center">
+                            <div class="col-auto company-joboffers">
+                                Twoja firma nie posiada jeszcze żadnej oferty pracy
+                            </div>
+                        </div>
+                    }
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>

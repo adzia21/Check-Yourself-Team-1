@@ -1,0 +1,288 @@
+<main class="row joboffer-main">
+    <!-- [formGroup]="userForm" -->
+    <form class="form">
+        <div class="row justify-content-center">
+            <mat-card class="col joboffer-card">
+                <mat-card-content>
+                    <div class="row justify-content-end">
+                        <div class="col-auto">
+                            @if (!isCompany) {
+                                <button type="button" class="joboffer-apply">
+                                    Aplikuj na ofertę pracy
+                                </button>
+                            } @else {
+                                <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit">edit</mat-icon>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-auto joboffer-logo-align">
+                                    <img class="joboffer-logo" alt="logo" [src]="image">
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col joboffer-text-header-other">
+                                            {{data ? data.title : ''}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col joboffer-text-header">
+                                            {{data ? data.companyName : ''}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row justify-content-end">
+                                <div class="col-auto" *ngIf="data?.localization">
+                                    <div class="row justify-content-end">
+                                        <div class="col-auto">
+                                            <mat-icon>pin_drop</mat-icon>
+                                        </div>
+                                        <div class="col-auto joboffer-text-align joboffer-text">
+                                            {{data.localization}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto" *ngIf="data?.contractType">
+                                    <div class="row justify-content-end">
+                                        <div class="col-auto">
+                                            <mat-icon>work_outline</mat-icon>
+                                        </div>
+                                        <div class="col-auto joboffer-text-align joboffer-text">
+                                            {{data.contractType}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-auto" *ngIf="data?.expirationDate">
+                                    <div class="row justify-content-end">
+                                        <div class="col-auto disable-mobile">
+                                            <mat-icon>calendar_today</mat-icon>
+                                        </div>
+                                        <div class="col-auto joboffer-text-align joboffer-text">
+                                            Oferta ważna do {{data.expirationDate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="data?.description">
+                        <div class="col-12 joboffer-text-about-header">
+                            Opis oferty
+                        </div>
+                        <div class="col-12 joboffer-text-about">
+                            {{data.description}}    
+                        </div>
+                    </div>
+                    <div class="row separate" *ngIf="data?.technologies && data?.technologies?.length != 0">
+                        <div class="col-12 joboffer-text-about-header">
+                            Technologie:
+                        </div>
+                        <div class="col-6 joboffer-technology" *ngFor="let technology of data.technologies">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-auto icon-align">
+                                    <img alt="technology-{{technology}}" src="{{icons}}/technologies/{{technology}}">
+                                </div>
+                                <div class="col-4 joboffer-technology-text">
+                                    {{getTechnologyName(technology)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate" *ngIf="data?.tools && data?.tools?.length != 0">
+                        <div class="col-12 joboffer-text-about-header">
+                            Narzędzia:
+                        </div>
+                        <div class="col-6 joboffer-technology" *ngFor="let tool of data.tools">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-auto icon-align">
+                                    <img alt="technology-{{tool}}" src="{{icons}}/tools/{{tool}}">
+                                </div>
+                                <div class="col-4 joboffer-technology-text">
+                                    {{getToolName(tool)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate" *ngIf="data?.platforms && data?.platforms?.length != 0">
+                        <div class="col-12 joboffer-text-about-header">
+                            Platformy:
+                        </div>
+                        <div class="col-6 joboffer-technology" *ngFor="let platform of platforms">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-auto icon-align">
+                                    <img alt="technology-{{platform}}" src="{{icons}}/platforms/{{platform}}">
+                                </div>
+                                <div class="col-4 joboffer-technology-text">
+                                    {{getPlatformName(platform)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate" *ngIf="data?.languages && data?.languages?.length != 0">
+                        <div class="col-12 joboffer-text-about-header">
+                            Języki:
+                        </div>
+                        <div class="col-6 joboffer-technology" *ngFor="let language of data.languages">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-5 joboffer-technology-text">
+                                    {{language}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col" *ngIf="data?.mainTasks && data?.mainTasks?.length != 0">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon>change_history</mat-icon>
+                                        </div>
+                                        <div class="col joboffer-text-align joboffer-text">
+                                            Główne zadania:
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li *ngFor="let task of data.mainTasks">
+                                            {{task}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" *ngIf="data?.desiredKnowledge && data?.desiredKnowledge?.length != 0">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon>card_membership</mat-icon>
+                                        </div>
+                                        <div class="col joboffer-text-align joboffer-text">
+                                            Co szczególnie cenimy w kandydacie?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li *ngFor="let item of data.desiredKnowledge">
+                                            {{item}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate" *ngIf="data?.organizationOfWork && data?.organizationOfWork?.length != 0">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon>trending_up</mat-icon>
+                                </div>
+                                <div class="col joboffer-text joboffer-text-align header">
+                                    Organizacja pracy:
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-2" *ngFor="let item of data.organizationOfWork; let i = index">
+                                    <span class="job-organization" 
+                                        [style.background-color]="i % 2 ? '#067BC2' : '#00A993'"
+                                        [style.border-color]="i % 2 ? '#067BC2' : '#00A993'"
+                                        >
+                                        {{item | titlecase}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate" *ngIf="data?.benefits && data?.benefits?.length != 0">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon>tag_faces</mat-icon>
+                                </div>
+                                <div class="col joboffer-text joboffer-text-align header">
+                                    Benefity
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-2" *ngFor="let item of data.benefits; let i = index">
+                                    <span class="job-organization" [ngClass]="i != 0 ? 'job-organization-mob' : ''"
+                                        [style.background-color]="i % 2 ? '#00A993' : '#067BC2'"
+                                        [style.border-color]="i % 2 ? '#00A993' : '#067BC2'"
+                                        >
+                                        {{item | titlecase}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate">
+                        <div class="col" *ngIf="data?.whatWeOffer && data?.whatWeOffer?.length != 0">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon>style</mat-icon>
+                                        </div>
+                                        <div class="col joboffer-text-align joboffer-text">
+                                            Narzędzia do pracy, które zapewniamy:
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li *ngFor="let item of data.whatWeOffer">
+                                            {{item}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" *ngIf="data?.additionalInformation && data?.additionalInformation?.length != 0">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <mat-icon>vignette</mat-icon>
+                                        </div>
+                                        <div class="col joboffer-text-align joboffer-text">
+                                            Dodatkowe informację:
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li *ngFor="let item of data.additionalInformation">
+                                            {{item}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row separate" *ngIf="jobOffers && jobOffers.length != 0">
+                        <div class="col-12 joboffer-text-about-header">
+                            Inne ofery tego pracodawcy:
+                        </div>
+                        <div class="col-12">
+                            <app-simplifield-job-offer [jobOffers]="jobOffers"></app-simplifield-job-offer>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>

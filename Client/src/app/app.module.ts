@@ -11,6 +11,17 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LandingPageWraperComponent } from './components/landing-page-wraper/landing-page-wraper.component';
+import { QuizModule } from './modules/quiz-module/quiz.module';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoginDialogComponent } from './components/dialog/login-dialog/login-dialog.component';
+import { UserModule } from './modules/user-module/user.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './helpers/interceptors/bearer.interceprot';
+import { RegisterFormComponent } from './components/dialog/register-form/register-form.component';
+import { ToastrModule } from 'ngx-toastr';
+import { CompanyModule } from './modules/company-module/company.module';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -19,16 +30,30 @@ import { LandingPageWraperComponent } from './components/landing-page-wraper/lan
     NavMenuComponent,
     HeaderComponent,
     FooterComponent,
-    LandingPageWraperComponent
+    LandingPageWraperComponent,
+    LoginDialogComponent,
+    RegisterFormComponent,
+    MainPageComponent
   ],
   imports: [
     AngularMaterialModule, // all angular material modules in one place for readability
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    QuizModule,
+    UserModule,
+    CompanyModule,
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

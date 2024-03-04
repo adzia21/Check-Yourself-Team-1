@@ -1,0 +1,23 @@
+@import 'variables';
+
+.icon-add {
+    cursor: pointer;
+}
+
+.text-align {
+    margin: 3px 0 0 0;
+}
+
+.main-text {
+    margin: 2px 0 0 0;
+    font-size: $font-size-big;
+    font-weight: 500;
+}
+
+.slider {
+    width: 120px;
+
+    &-align {
+        margin-bottom: -10px;
+    }
+}

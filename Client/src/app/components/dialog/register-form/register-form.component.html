@@ -1,0 +1,128 @@
+<form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
+    <div class="row justify-content-center">
+        <div class="col-auto top-text">
+            <h1>Check <img [src]="logo" alt="Logo" class="image"/> Yourself</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <div class="row">
+                <div class="col">
+                    <mat-radio-group aria-label="Select an account type">
+                        <mat-radio-button value="false" checked="true" (change)="radioChange($event)">Użytkownik</mat-radio-button>
+                        <mat-radio-button value="true" (change)="radioChange($event)">Firma</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (isCompany) {
+        <div class="row justify-content-center input-first">
+            <div class="col-auto">
+                <mat-form-field>
+                    <mat-label>Nazwa firmy</mat-label>
+                    <input matInput formControlName="companyName" type="text">
+                    @if (registerForm.get('companyName')?.getError('required') && registerForm.get('companyName')?.touched) {
+                        <mat-hint class="error-hint">Nazwa firmy jest wymagana</mat-hint>
+                    }
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <mat-form-field>
+                    <mat-label>NIP</mat-label>
+                    <input matInput formControlName="nip" type="text">
+                    @if (registerForm.get('nip')?.getError('required') && registerForm.get('nip')?.touched) {
+                        <mat-hint class="error-hint">NIP jest wymagany</mat-hint>
+                    }
+                </mat-form-field>
+            </div>
+        </div>
+    } @else {
+        <div class="row justify-content-center input-first">
+            <div class="col-auto">
+                <mat-form-field>
+                    <mat-label>Imie</mat-label>
+                    <input matInput formControlName="name" type="text">
+                    @if (registerForm.get('name')?.getError('required') && registerForm.get('name')?.touched) {
+                        <mat-hint class="error-hint">Imię jest wymagane</mat-hint>
+                    }
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <mat-form-field>
+                    <mat-label>Nazwisko</mat-label>
+                    <input matInput formControlName="surname" type="text">
+                    @if (registerForm.get('surname')?.getError('required') && registerForm.get('surname')?.touched) {
+                        <mat-hint class="error-hint">Nazwisko jest wymagane</mat-hint>
+                    }
+                </mat-form-field>
+            </div>
+        </div>
+    }
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="Ex. pat@example.com">
+                @if (registerForm.get('email')?.getError('email')) {
+                    <mat-error>Niepoprawny format emaila</mat-error>
+                }
+                @if (registerForm.get('email')?.getError('required') && registerForm.get('email')?.touched) {
+                    <mat-hint class="error-hint">Email jest wymagany</mat-hint>
+                }
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto" [ngClass]="registerForm.get('password')?.getError('pattern') && registerForm.get('password')?.touched ? 'invalid' : ''">
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" type="password">
+                @if (registerForm.get('password')?.getError('required') && registerForm.get('password')?.touched) {
+                    <mat-hint class="error-hint">Hasło jest wymagane</mat-hint>
+                }
+                @else if (registerForm.get('password')?.getError('pattern') && registerForm.get('password')?.touched) {
+                    <mat-hint class="error-hint">min 8 znaków, duża, mała litera, cyfra, znak specjalny</mat-hint>
+                }
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <mat-form-field>
+                <mat-label>Confirm Password</mat-label>
+                <input matInput formControlName="passwordConfirm" type="password">
+                @if (registerForm.get('passwordConfirm')?.getError('required') && registerForm.get('passwordConfirm')?.touched) {
+                    <mat-hint class="error-hint">Hasło jest wymagane</mat-hint>
+                }
+                @if (passwordMatchError) {
+                    <mat-hint class="error-hint">Hasła nie są identyczne</mat-hint>
+                }
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto input-checkbox">
+            <mat-checkbox formControlName="checkbox">Akceptuję <span class="login-text-color">regulamin</span> 
+                wraz z <span class="login-text-color">polityką ochrony danych osobowych</span>
+                @if (registerForm.get('checkbox')?.value === false && registerForm.get('checkbox')?.touched) {
+                    <mat-hint class="error-hint">Zgoda jest wymagana</mat-hint>
+                }
+            </mat-checkbox>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto register">
+            <button type="submit" class="btn btn-success register-button">Zarejestruj się</button>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto login-text">
+            Posiadasz już konto? <span class="login-text-color" (click)="openLoginDialog()">Zaloguj się</span> 
+        </div>
+    </div>
+</form>

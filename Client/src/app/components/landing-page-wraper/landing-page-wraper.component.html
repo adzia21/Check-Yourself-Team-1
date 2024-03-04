@@ -3,28 +3,39 @@
     </div>
     <div class="col-xl-6 card-palcement">
         <mat-card class="card">
-            <mat-card-header class="header">
-                <div class="row text-center">
-                    <div class="col-4">
-                        <div><img [src]="vectorIcon" alt="VectorIcon" /></div>
-                        <div class="header-text-alt">Zwiększ ilość odpowiedzi na CV</div>
-                    </div>
-                    <div class="col-4">
-                        <div><mat-icon class="icon">quiz</mat-icon></div>
-                        <div class="header-text">Sprawdź siebie</div>
-                    </div>
-                    <div class="col-4">
-                        <div>
-                            <mat-icon class="icon">search</mat-icon>
+            @if(!showRegisterForm) {
+                <mat-card-header class="header">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div><img [src]="vectorIcon" alt="VectorIcon" /></div>
+                            <div class="header-text-alt">Zwiększ ilość odpowiedzi na CV</div>
                         </div>
-                        <div class="header-text">Znajdź pracownika</div>
+                        <div class="col-4">
+                            <div><mat-icon class="icon">quiz</mat-icon></div>
+                            <div class="header-text">Sprawdź siebie</div>
+                        </div>
+                        <div class="col-4">
+                            <div>
+                                <mat-icon class="icon">search</mat-icon>
+                            </div>
+                            <div class="header-text">Znajdź pracownika</div>
+                        </div>
                     </div>
-                </div>
-            </mat-card-header>
-            <hr class="divider" />
-            <mat-card-content class="content">
-                <ng-content></ng-content>
-            </mat-card-content>
+                </mat-card-header>
+                <hr class="divider" />
+                <mat-card-content class="content">
+                    <ng-content></ng-content>
+                </mat-card-content>
+            } @else {
+                <app-register-form [showRegisterForm]="showRegisterForm"></app-register-form>
+            }
+            <div class="row justify-content-center">
+                @if (!showRegisterForm) {
+                    <div class="col-auto register">
+                        <button type="button" class="btn btn-success register-button" (click)="showRegisterForm = true">Zarejestruj się</button>
+                    </div>
+                }
+            </div>
         </mat-card>
     </div>
 </div>

@@ -1,0 +1,88 @@
+@import 'variables';
+
+.company {
+
+    &-main {
+        min-height: calc(100vh - $header-height - $footer-height);
+        padding: 0;
+        background-image: url('/assets/icons/quiz-header-bg.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-color: $bg-grey;
+    }
+
+    &-card {
+        margin: 5vh 5vw 5vh 5vw;
+        min-width: 400px;
+        max-width: 1300px;
+    }
+
+    &-logo-empty {
+        border-radius: 90px;
+        width: 100px;
+        height: 100px;
+        background-color: $bg-light-grey;
+    }
+
+    &-logo {
+        scale: 2;
+    }
+
+    &-description {
+        margin: 4rem 0 0 0;
+    }
+
+    &-details {
+        margin: 2rem 0 0 0;
+
+        &-item {
+            margin: 20px 0 0 10px;
+        }
+    }
+
+    &-joboffers {
+        font-size: $font-size-big;
+        font-weight: 500;
+    }
+
+    &-personel {
+        font-size: $font-size-big;
+        font-weight: 500;
+        margin: 1px 0 0 -1rem;
+    }
+    
+    &-location {
+        font-size: $font-size-big;
+        font-weight: 500;
+        margin: 1px 0 0 -1rem;
+    }
+
+    &-name {
+        font-size: $font-size-big;
+        font-weight: 500;
+    }
+}
+
+.button {
+    background-color: $accent-color;
+    color: $text-light;
+    border: 0;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+}
+
+.icon-edit {
+    cursor: pointer;
+}
+
+.person-icon {
+    margin: 0 0 0 0;
+}
+
+@media screen and (max-width: 500px) {
+    
+}

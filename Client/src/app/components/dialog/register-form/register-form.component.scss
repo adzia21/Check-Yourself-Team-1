@@ -1,0 +1,47 @@
+@import 'variables';
+
+.register {
+    &-button {
+        background-color: $primary-color;
+        color: $text-light;
+        border: 0;
+        border-radius: .3rem;
+        height: 2.75rem;
+        width: 9rem;
+        margin: 1rem 0 .75rem 0;
+    }
+}
+
+.input {
+    &-first {
+        margin: 6px 0 0 0;
+    }
+    &-checkbox {
+        font-size: $font-size-medium;
+        width: 22rem;
+    }
+}
+
+.login-text {
+    font-size: $font-size-medium;
+    &-color {
+        color: $primary-color;
+        cursor: pointer;
+    }
+}
+
+.image {
+    scale: (1.5)
+}
+
+.top-text {
+    margin: 1rem 0 -1.25rem 0;
+}
+
+.error-hint {
+    color: $error;
+}
+
+.invalid {
+    margin: 0 0 1.25rem 0;
+}

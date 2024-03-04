@@ -1,0 +1,189 @@
+<main class="row company-main">
+    <form class="form" [formGroup]="companyForm">
+        <div class="row justify-content-center">
+            <mat-card class="col company-card">
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col">
+                            <button mat-button class="button" (click)="cancel()">Anuluj</button>
+                        </div>
+                        <div class="col-auto">
+                            <button mat-button class="button" (click)="save()">Zapisz</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="row">
+                                <div class="col-12">
+                                    @if (dummyBool) {
+                                    <div class="row company-logo-empty">
+                                        <img class="company-logo" alt="logo" [src]="image">
+                                    </div>
+                                    } @else {
+                                    <img class="company-logo" alt="logo" [src]="image">
+                                    }
+                                </div>
+                                <div class="col-12">
+                                    <input class="company-logo-input" type="file" accept=".jpg, .png"
+                                        (change)="selectLogo($event)" formControlName="logo" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="row">
+                                <div class="col-auto company-name">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Nazwa Firmy</mat-label>
+                                        <input matInput type="text" formControlName="name">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="row">
+                                <div class="col-auto icon-align">
+                                    <mat-icon class="material-icons-outlined">pin_drop</mat-icon>
+                                </div>
+                                <div class="col company-location">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Lokacja firmy</mat-label>
+                                        <input matInput type="text" formControlName="localization">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <mat-icon class="material-icons-outlined icon-align">person</mat-icon>
+                                </div>
+                                <div class="col company-personel">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Wielkość firmy</mat-label>
+                                        <input matInput type="number" formControlName="hiredPeople">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-auto icon-align">
+                                    <img alt="facebook" [src]="facebook">
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Facebook link</mat-label>
+                                        <input matInput type="text" formControlName="facebookUrl">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto icon-align">
+                                    <img alt="linkedin" [src]="linkedin">
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>LinkedIn link</mat-label>
+                                        <input matInput type="text" formControlName="linkedInUrl">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-auto icon-align">
+                                    <img alt="twitter" [src]="twitter">
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Twitter link</mat-label>
+                                        <input matInput type="text" formControlName="twitterUrl">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto icon-align">
+                                    <img alt="instagram" [src]="instagram">
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="input-field">
+                                        <mat-label>Instagram link</mat-label>
+                                        <input matInput type="text" formControlName="instagramUrl">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row company-description">
+                        <div class="col">
+                            <mat-form-field class="company-description-field">
+                                <mat-label>Opisz swoją firmę...</mat-label>
+                                <textarea matInput #description type="text" maxlength="1000"
+                                    formControlName="description" class="deep" rows="8" cols="50"></textarea>
+                                <mat-hint align="end">{{description.value.length}}/1000</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row company-details">
+                        <div class="col-12">
+                            Technologie:
+                        </div>
+                        <div class="col-auto company-details-item">
+                            <mat-form-field>
+                                <mat-label>Technologie</mat-label>
+                                <mat-select multiple formControlName="technologies"
+                                    (selectionChange)="technologyChange()">
+                                    @for (technology of technologies; track technology) {
+                                    <mat-option [value]="technology">{{getTechnologyName(technology)}}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-1 company-details-item" *ngFor="let technology of selectedTechnology">
+                            <img alt="technology-{{technology}}" src="{{icons}}/technologies/{{technology}}">
+                        </div>
+                    </div>
+                    <div class="row company-details">
+                        <div class="col-12">
+                            Narzędzia:
+                        </div>
+                        <div class="col-auto company-details-item">
+                            <mat-form-field>
+                                <mat-label>Narzędzia</mat-label>
+                                <mat-select multiple formControlName="tools" (selectionChange)="toolChange()">
+                                    @for (tool of tools; track tool) {
+                                    <mat-option [value]="tool">{{getToolName(tool)}}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-1 company-details-item" *ngFor="let tool of selectedTool">
+                            <img alt="tool-{{tool}}" src="{{icons}}/tools/{{tool}}">
+                        </div>
+                    </div>
+                    <div class="row company-details">
+                        <div class="col-12">
+                            Platformy:
+                        </div>
+                        <div class="col-auto company-details-item">
+                            <mat-form-field>
+                                <mat-label>Narzędzia</mat-label>
+                                <mat-select multiple formControlName="platforms" (selectionChange)="platformChange()">
+                                    @for (platform of platforms; track platform) {
+                                    <mat-option [value]="platform">{{getPlatformName(platform)}}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-auto company-details-item" *ngFor="let platform of selectedPlatform">
+                            <img alt="tool-{{platform}}" src="{{icons}}/platforms/{{platform}}">
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</main>

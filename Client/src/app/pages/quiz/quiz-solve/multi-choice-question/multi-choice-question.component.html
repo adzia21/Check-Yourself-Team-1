@@ -1,0 +1,38 @@
+<div class="row quiz-main" #scrollTo>
+    <form>
+        @for (question of quiz.questions; track $index;) {
+            <mat-card *ngIf="question.type === 'MULTIPLE_CHOICE' && $index === questionNumber" class="main-card">
+                <div class="col-12 question-text">
+                    Question
+                </div>
+                <mat-card-content class="col-12 question-content">
+                        <h2>{{question.question}}</h2>
+                </mat-card-content>
+                <mat-card-content>
+                    <div class="row list">
+                        @for (choice of question.answers; track $index) {
+                            <div class="col-xl-3">
+                                <mat-card class="card" (click)="toggleChoice(choice)" [class.card-selected]="isSelected(choice)">
+                                    <mat-card-content 
+                                        class="card-content" 
+                                        [style.background-color]="colors[$index % colors.length]"
+                                        [style.background-image]="backgroundImages[($index % colors.length) % 8]"
+                                    >
+                                        {{choice}}
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-12">
+                        <div class="float-end">
+                            <button type="button" class="next-question-button" (click)="nextQuestion(question.questionId)">{{isLastQuestion ? 'Finish' : 'Next Question'}}</button>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+          } @empty {
+            Problem with questions
+          }
+    </form>
+</div>

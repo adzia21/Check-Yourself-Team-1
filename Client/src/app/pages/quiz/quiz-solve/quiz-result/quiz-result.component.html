@@ -1,0 +1,39 @@
+<div class="row result-main" *ngIf="result">
+    <mat-card class="col-12 main-card">
+        <mat-card-content class="card-content">
+            <div class="row justify-content-center align-items-center">
+                <div class="col chart-block">
+                    <canvas
+                    baseChart
+                    [data]="doughnutChartData"
+                    [type]="doughnutChartType"
+                    [options]="doughnutChartOptions"
+                    >
+                    </canvas>
+                </div>
+                <div class="col text-block">
+                    @if (result.isPassed) {
+                        <div class="result-text">Wynik testu: <span class="result-text-positive">Zaliczony</span></div>
+                    } @else {
+                        <div class="result-text">Wynik testu: <span class="result-text-negative">Niezaliczony</span></div>
+                    }
+                    <div class="text-center text-bold text-style-last">Twój czas:</div>
+                    <div class="text-center text-style">{{timeTaken}}</div>
+                    <div class="text-center text-style-last">Opowiedziałeś/aś poprawnie na 
+                        <span class="text-bold">{{result.correctAnswer}}</span> z 
+                        <span class="text-bold">{{result.correctAnswer + result.incorrectAnswer}}
+                        </span> pytań uzyskując wynik <span class="text-bold">{{result.percentOfCorrectAnswers}}%</span></div>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-footer>
+            <div class="row">
+                <div class="col-12">
+                    <div class="float-end">
+                        <button type="button" class="return-button">Powrót</button>
+                    </div>
+                </div>
+            </div>
+        </mat-card-footer>
+    </mat-card>
+</div> 
