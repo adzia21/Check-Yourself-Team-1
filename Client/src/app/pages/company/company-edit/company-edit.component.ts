@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CompanyService } from 'src/app/services/company.service';
@@ -47,7 +47,7 @@ export class CompanyEditComponent implements OnInit {
 
   private setUp() {
     this.companyForm = this.fb.group({
-      name: new FormControl(this.data ? this.data.name : ''),
+      name: new FormControl(this.data ? this.data.name : '', [Validators.required]),
       logo: new FormControl(''),
       localization: new FormControl(this.data ? this.data.localization : ''),
       hiredPeople: new FormControl(this.data ? this.data.hiredPeople : ''),

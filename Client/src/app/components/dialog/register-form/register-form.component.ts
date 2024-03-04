@@ -2,7 +2,9 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
+  Output,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
@@ -19,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterFormComponent implements AfterViewInit {
   @Input() showRegisterForm: boolean = false;
+  @Output() showRegisterFormChange = new EventEmitter<boolean>();
   public passwordMatchError: boolean = false;
   public isCompany: boolean = false;
   public passwordRegEx: RegExp =
@@ -57,10 +60,12 @@ export class RegisterFormComponent implements AfterViewInit {
     if (this.registerForm.get('checkbox')?.value === false) return;
     model.value['company'] = this.isCompany;
     this.authService.registerUser(model.value).subscribe((res) => {
+      this.toastr.success('Zarejestrowano pomyślnie');
+      this.showRegisterForm = false;
+      this.showRegisterFormChange.emit(this.showRegisterForm);
+      this.openLoginDialog();
     }, error => {
         switch(error.status) {
-            case 200:
-                return this.toastr.success('Zarejestrowano pomyślnie');
             default:
                 return this.toastr.error('Wystąpił błąd przy rejestracji')
         }

@@ -36,4 +36,14 @@ export class UserService {
         })
       );
   }
+
+  public saveUser(model: User): Observable<User> {
+    return this.http
+      .put<User>(`${flowUrl}/${this.controller}`, model)
+      .pipe(
+        map((response: any) => {
+          return response;
+        })
+      );
+  }
 }

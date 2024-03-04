@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -8,18 +8,20 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { icons } from 'src/app/shared/constants/constants';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss', '../../user-edit.component.scss'],
 })
-export class UserDetailsComponent implements AfterViewInit {
+export class UserDetailsComponent implements AfterViewInit, OnChanges {
   @Output() saveEvent = new EventEmitter<null>();
   @Output() cancelEvent = new EventEmitter<null>();
+  @Output() userDetailsFormChange = new EventEmitter<any>();
   @Input() userDetailsForm!: FormGroup;
+  @Input() data!: User;
 
-  //public userDetailsForm: FormGroup;
   public experienceForm: FormGroup;
   public tasksArray: FormGroup;
   public educationForm: FormGroup;
@@ -72,34 +74,63 @@ export class UserDetailsComponent implements AfterViewInit {
     this.additionalArray = this.fb.group({
       field: new FormControl(''),
     });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data']) {
+      
+      this.data?.experience!.forEach(exp => {
+        this.addNewDetail('experiences', exp);
+      });
+      this.data?.education!.forEach(exp => {
+        this.addNewDetail('educations', exp);
+      });
+      this.data?.qualification!.forEach(exp => {
+        this.addNewDetail('certyficates', exp);
+      });
+      this.data?.organizations!.forEach(exp => {
+        this.addNewDetail('organizations', exp);
+      });
+      this.data?.softSkills!.forEach(exp => {
+        this.addNewDetail('softSkills', exp);
+      });
+      this.data?.hobbies!.forEach(exp => {
+        this.addNewDetail('hobbies', exp);
+      });
 
-    // this.userDetailsForm = this.fb.group({
-    //   experiences: this.fb.array([this.experienceForm]),
-    //   educations: this.fb.array([this.educationForm]),
-    //   certyficates: this.fb.array([this.certForm]),
-    //   organizations: this.fb.array([this.additionalArray]),
-    //   softSkills: this.fb.array([this.additionalArray]),
-    //   hobbies: this.fb.array([this.additionalArray]),
-    // });
+      if (this.data?.experience!.length === 0) {
+        this.addNewDetail('experiences');
+        this.addTask(0);
+      }
+      if (this.data?.education!.length === 0) 
+        this.addNewDetail('educations');
+      if (this.data?.qualification!.length === 0) 
+        this.addNewDetail('certyficates');
+      if (this.data?.organizations!.length === 0) 
+        this.addNewDetail('organizations');
+      if (this.data?.softSkills!.length === 0) 
+        this.addNewDetail('softSkills');
+      if (this.data?.hobbies!.length === 0) 
+        this.addNewDetail('hobbies');
+
+      this.userDetailsFormChange.emit(this.userDetailsForm)
+    }
   }
 
   ngAfterViewInit(): void {
-    this.addNewDetail('experiences');
-    this.addNewDetail('educations');
-    this.addNewDetail('certyficates');
-    this.addNewDetail('organizations');
-    this.addNewDetail('softSkills');
-    this.addNewDetail('hobbies');
-    this.addTask(0);
     this.ref.detectChanges();
   }
 
   public save() {
+    this.userDetailsFormChange.emit(this.userDetailsForm)
     this.saveEvent.emit();
   }
 
   public cancel() {
     this.cancelEvent.emit();
+  }
+
+  public nextPrevious() {
+    this.userDetailsFormChange.emit(this.userDetailsForm)
   }
 
   //#region
@@ -165,52 +196,52 @@ export class UserDetailsComponent implements AfterViewInit {
     );
   }
 
-  public addNewDetail(detail: string) {
+  public addNewDetail(detail: string, data?: any) {
     switch (detail) {
       case 'educations':
         return this.educations.push(
           this.fb.group({
-            name: new FormControl(''),
-            universityName: new FormControl(''),
+            name: new FormControl(data ? data.name : ''),
+            universityName: new FormControl(data ? data.localization : ''),
             title: new FormControl(''),
-            startDate: new FormControl(''),
-            endDate: new FormControl(''),
+            startDate: new FormControl(data ? data.startedDate : ''),
+            endDate: new FormControl(data ? data.finishedDate : ''),
           })
         );
       case 'experiences':
         return this.experiences.push(
           this.fb.group({
-            name: new FormControl(''),
-            startedDate: new FormControl(''),
-            finishedDate: new FormControl(''),
-            tasks: this.fb.array([]),
+            name: new FormControl(data ? data.name : ''),
+            startedDate: new FormControl(data ? data.startedDate : ''),
+            finishedDate: new FormControl(data ? data.finishedDate : ''),
+            tasks: this.fb.array(data ? data.tasks : []),
           })
         );
       case 'certyficates':
         return this.certyficates.push(
           this.fb.group({
-            certName: new FormControl(''),
+            certName: new FormControl(data ? data.certificateName : ''),
             certNumber: new FormControl(''),
-            organization: new FormControl(''),
-            date: new FormControl(''),
+            organization: new FormControl(data ? data.name : ''),
+            date: new FormControl(data ? data.date : ''),
           })
         );
       case 'softSkills':
         return this.softSkills.push(
           this.fb.group({
-            field: new FormControl(''),
+            field: new FormControl(data ? data.softSkills : ''),
           })
         );
       case 'hobbies':
         return this.hobbies.push(
           this.fb.group({
-            field: new FormControl(''),
+            field: new FormControl(data ? data.hobbies : ''),
           })
         );
       case 'organizations':
         return this.organizations.push(
           this.fb.group({
-            field: new FormControl(''),
+            field: new FormControl(data ? data.organizations : ''),
           })
         );
       default:

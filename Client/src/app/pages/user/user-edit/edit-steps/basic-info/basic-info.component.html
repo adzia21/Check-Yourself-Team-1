@@ -8,21 +8,6 @@
                             <button mat-button matStepperNext class="button-top">Następny</button>
                         </div>
                     </div>
-                    <!-- Profile picture -->
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            @if (dummyBool) {
-                                <div class="row user-avatar-empty">
-                                    <img class="user-avatar" alt="avatar" [src]="image">
-                                </div>
-                            } @else {
-                                <img class="user-avatar" alt="avatar" [src]="image">
-                            }
-                        </div>
-                        <div class="col-12 input-file">
-                            <input type="file" accept=".jpg, .png" (change)="selectAvatar($event)"  formControlName="profilePic"/>
-                        </div>
-                    </div>
                     <!-- Name and Surname -->
                     <div class="row justify-content-center text-name">
                         <div class="col-auto">

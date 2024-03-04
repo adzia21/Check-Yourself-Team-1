@@ -48,7 +48,7 @@ export class QuizService {
       );
   }  
 
-  public getAllCompanyQuizes(): Observable<CompanyQuizView[]> {
+  public getAllUserQuizes(): Observable<CompanyQuizView[]> {
     return this.http
       .get<CompanyQuizView[]>(`${quizUrl}/${this.managementController}/get-all`)
       .pipe(
@@ -58,7 +58,7 @@ export class QuizService {
       );
   }
 
-  public getAllUserQuizes(): Observable<CompanyQuizView[]> {
+  public getAllCompanyQuizes(): Observable<CompanyQuizView[]> {
     return this.http
       .get<CompanyQuizView[]>(`${quizUrl}/${this.managementController}/get-all`)
       .pipe(

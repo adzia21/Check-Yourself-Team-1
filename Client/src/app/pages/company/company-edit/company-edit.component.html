@@ -11,30 +11,19 @@
                             <button mat-button class="button" (click)="save()">Zapisz</button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-2">
-                            <div class="row">
-                                <div class="col-12">
-                                    @if (dummyBool) {
-                                    <div class="row company-logo-empty">
-                                        <img class="company-logo" alt="logo" [src]="image">
-                                    </div>
-                                    } @else {
-                                    <img class="company-logo" alt="logo" [src]="image">
-                                    }
-                                </div>
-                                <div class="col-12">
-                                    <input class="company-logo-input" type="file" accept=".jpg, .png"
-                                        (change)="selectLogo($event)" formControlName="logo" />
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row justify-content-center">
                         <div class="col-md-auto">
                             <div class="row">
                                 <div class="col-auto company-name">
                                     <mat-form-field class="input-field">
                                         <mat-label>Nazwa Firmy</mat-label>
                                         <input matInput type="text" formControlName="name">
+                                        <!-- @if (companyForm.get('mail')?.getError('mail')) {
+                                            <mat-error>Please enter a valid email address</mat-error>
+                                        } -->
+                                        @if (companyForm.get('name')?.getError('required') && companyForm.get('name')?.touched) {
+                                            <mat-hint class="error-hint">Nazwa firmy jest wymagana</mat-hint>
+                                        }
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -121,9 +110,9 @@
                         <div class="col">
                             <mat-form-field class="company-description-field">
                                 <mat-label>Opisz swoją firmę...</mat-label>
-                                <textarea matInput #description type="text" maxlength="1000"
-                                    formControlName="description" class="deep" rows="8" cols="50"></textarea>
-                                <mat-hint align="end">{{description.value.length}}/1000</mat-hint>
+                                <textarea matInput #description type="text" maxlength="250"
+                                    formControlName="description" class="deep" rows="3" cols="25"></textarea>
+                                <mat-hint align="end">{{description.value.length}}/250</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>

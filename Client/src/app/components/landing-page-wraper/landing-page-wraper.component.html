@@ -27,7 +27,7 @@
                     <ng-content></ng-content>
                 </mat-card-content>
             } @else {
-                <app-register-form [showRegisterForm]="showRegisterForm"></app-register-form>
+                <app-register-form [(showRegisterForm)]="showRegisterForm"></app-register-form>
             }
             <div class="row justify-content-center">
                 @if (!showRegisterForm) {

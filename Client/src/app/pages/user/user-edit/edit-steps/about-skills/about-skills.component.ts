@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { icons } from 'src/app/shared/constants/constants';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-about-skills',
@@ -17,12 +18,13 @@ import { icons } from 'src/app/shared/constants/constants';
     '../../user-edit.component.scss',
   ],
 })
-export class UserAboutSkillsComponent implements AfterViewInit {
+export class UserAboutSkillsComponent implements AfterViewInit, OnChanges {
   @Output() saveEvent = new EventEmitter<null>();
   @Output() cancelEvent = new EventEmitter<null>();
+  @Output() userAboutSkillsFormChange = new EventEmitter<any>();
   @Input() userAboutSkillsForm!: FormGroup;
+  @Input() data!: User;
 
-  // public userAboutSkillsForm: FormGroup;
   public skillArray: FormGroup;
   public skillTypes = ['skillsFE', 'skillsBE', 'skillsLanguage', 'skillsOther']
 
@@ -31,21 +33,20 @@ export class UserAboutSkillsComponent implements AfterViewInit {
       skill: new FormControl(''),
       level: new FormControl(0),
     });
-
-    // this.userAboutSkillsForm = this.fb.group({
-    //   aboutMe: new FormControl('', []),
-    //   skillsFE: this.fb.array([]),
-    //   skillsBE: this.fb.array([]),
-    //   skillsLanguage: this.fb.array([]),
-    //   skillsOther: this.fb.array([]),
-    // });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data']) {
+      console.log(this.data)
+      this.addNewSkill('skillsFE');
+      this.addNewSkill('skillsBE');
+      this.addNewSkill('skillsLanguage');
+      this.addNewSkill('skillsOther');
+      this.userAboutSkillsFormChange.emit(this.userAboutSkillsForm)
+    }
   }
 
   ngAfterViewInit(): void {
-    this.addNewSkill('skillsFE');
-    this.addNewSkill('skillsBE');
-    this.addNewSkill('skillsLanguage');
-    this.addNewSkill('skillsOther');
+    
     this.ref.detectChanges();
   }
 
@@ -185,68 +186,3 @@ export class UserAboutSkillsComponent implements AfterViewInit {
 }
 
 
-// {
-//   "title": "Senior Software Developer",
-//   "localization": "Warszawa, Polska",
-//   "githubUrl": "https://github.com/exampleuser",
-//   "phoneNumber": "+48 123 456 789",
-//   "dateOfBirth": "1990-05-15",
-//   "siteUrl": "https://www.example.com",
-//   "cashRequirements": "Do negocjacji",
-//   "timeRequirements": "Pełny etat",
-//   "typeOfContract": "Umowa o pracę",
-//   "aboutMe": "Jestem doświadczonym programistą z ponad 7-letnim doświadczeniem w branży IT. Posiadam umiejętności w zakresie Java, Python i JavaScript. Jestem zdeterminowany, aby doskonalić swoje umiejętności i przyczyniać się do sukcesu projektów, w których uczestniczę.",
-//   "experience": {
-//       "name": "Software House XYZ",
-//       "startedDate": "2017-01-01",
-//       "finishedDate": null,
-//       "tasks": [
-//           "Rozwój i utrzymanie aplikacji internetowych w technologii Java Spring",
-//           "Współpraca z zespołem w celu zapewnienia wysokiej jakości oprogramowania",
-//           "Optymalizacja wydajności i skalowalności aplikacji"
-//       ]
-//   },
-//   "education": {
-//       "name": "Politechnika Warszawska",
-//       "localization": "Warszawa, Polska",
-//       "startedDate": "2010-09-01",
-//       "finishedDate": "2015-06-30",
-//       "tasks": [
-//           "Studia magisterskie na kierunku Informatyka",
-//           "Specjalizacja: Inżynieria Oprogramowania"
-//       ]
-//   },
-//   "qualification": {
-//       "name": "Oracle Certified Professional, Java SE 8 Programmer",
-//       "certificateName": "OCPJP",
-//       "date": "2016-07-15"
-//   },
-//   "skills": {
-//       "Technologie frontend": {
-//           "JavaScript": 80,
-//           "React": 100
-//       },
-//       "Technologie backend": {
-//           "Java": 40,
-//           "C++": 10
-//       },
-//       "DevOps": {
-//           "Docker": 4,
-//           "Linux": 44
-//       }
-//   },
-//   "organizations": [
-//       "IEEE Student Branch",
-//       "Stowarzyszenie Programistów Polskich"
-//   ],
-//   "softSkills": [
-//       "Komunikatywność",
-//       "Umiejętność pracy w zespole",
-//       "Kreatywność"
-//   ],
-//   "hobbies": [
-//       "Gra na gitarze",
-//       "Podróże",
-//       "Sporty ekstremalne"
-//   ]
-// }

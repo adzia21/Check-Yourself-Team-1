@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { UserService } from "src/app/services/user.service";
 import { icons } from "src/app/shared/constants/constants";
-import { User } from "src/app/shared/models/user.model";
+import { Experience, User } from "src/app/shared/models/user.model";
 
 @Component({
   selector: 'app-user-edit',
@@ -28,6 +28,7 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUser().subscribe(res => {
+      console.log(res)
       this.data = res;
       this.setUp();
     });
@@ -76,9 +77,151 @@ export class UserEditComponent implements OnInit {
   }
 
   public save() {
-    console.log(this.userBasicInfoForm.value)
-    console.log(this.userAboutSkillsForm.value)
-    console.log(this.userDetailsForm.value)
+    let basic = this.userBasicInfoForm.value;
+    let about = this.userAboutSkillsForm.value;
+    let details = this.userDetailsForm.value
+    console.log(details)
+    let model: User = {
+      name: basic['name'],
+      surname: basic['surname'],
+      mail: basic['email'],
+      title: basic['title'],
+      localization: basic['localization'],
+      githubUrl: basic['socialMedia'],
+      phoneNumber: basic['phone'],
+      dateOfBirth: basic['dateOfBirth'],
+      siteUrl: basic['page'],
+      timeRequirements: basic['workTime'],
+      typeOfContract: basic['contractType'],
+      aboutMe: about['aboutMe'],
+      experience: this.formatData('experience'),
+      education:  this.formatData('education'),
+      qualification: this.formatData('qualification'),
+      skills: this.formatData('skill'),
+      organizations: this.formatData('organization'),
+      softSkills: this.formatData('softSkill'),
+      hobbies: this.formatData('hobbie')
+    }
+
+    console.log(model)
+    this.userService.saveUser(model).subscribe(res => console.log(res))
+  }
+
+  private formatData(field: string) {
+    let arr: any[] = []
+    switch (field) {
+      case 'experience': {
+        this.userDetailsForm.value.experiences.forEach((element: any) => {
+          console.log(element)
+          let y: any = [];
+          element.tasks.forEach((element: any) => {
+            console.log(element.task)
+            y.push(element.task)
+          });
+          let x = {
+            name: element.name,
+            startedDate: element.startDate,
+            finishedDate: element.endDate,
+            tasks: y
+          }
+          
+          arr.push(x)
+        });
+        return arr;
+      };
+      case 'education': {
+        this.userDetailsForm.value.educations.forEach((element: any) => {
+          let x = {
+            name: element.name,
+            localization: element.universityName,
+            startedDate: element.startDate,
+            finishedDate: element.endDate,
+            title: element.title
+          }
+          arr.push(x)
+        });
+        return arr;
+      };
+      case 'qualification': {
+        this.userDetailsForm.value.certyficates.forEach((element: any) => {
+          console.log(element)
+          let x = {
+            name: '',
+            certificateName: element.certName,
+            date: element.date,
+            certificateNumber: element.certNumber,
+            companyName: element.organization
+          }
+          arr.push(x)
+        });
+        return arr;
+      };
+      case 'organization': {
+        this.userDetailsForm.value.organizations.forEach((element: any) => {
+          let x = element.field;
+          arr.push(x)
+        });
+        return arr;
+      };
+      case 'softSkill': {
+        this.userDetailsForm.value.softSkills.forEach((element: any) => {
+          let x = element.field;
+          arr.push(x)
+        });
+        return arr;
+      };
+      case 'hobbie': {
+        this.userDetailsForm.value.hobbies.forEach((element: any) => {
+          let x = element.field;
+          arr.push(x)
+        });
+        return arr;
+      };
+      case 'skill': {
+        return this.skillSet();
+      };
+      default:
+        return;
+    }
+  }
+
+  private skillSet() {
+    let skills: any = {
+      fe: {
+        frontend: {
+          skill: {}
+        }
+      },
+      be: {
+        backend: {
+          skill: {}
+        }
+      },
+      lng: {
+        language: {
+          skill: {}
+        }
+      },
+      other: {
+        other: {
+          skill: {}
+        }
+      }
+    }
+
+    this.userAboutSkillsForm.value.skillsFE.forEach((element: any) => {
+      skills.fe.frontend.skill[element.skill] = element.level;
+    });
+    this.userAboutSkillsForm.value.skillsBE.forEach((element: any) => {
+      skills.be.backend.skill[element.skill] = element.level;
+    });
+    this.userAboutSkillsForm.value.skillsLanguage.forEach((element: any) => {
+      skills.lng.language.skill[element.skill] = element.level;
+    });
+    this.userAboutSkillsForm.value.skillsOther.forEach((element: any) => {
+      skills.other.other.skill[element.skill] = element.level
+    });
+    return skills;
   }
 
   public cancel() {

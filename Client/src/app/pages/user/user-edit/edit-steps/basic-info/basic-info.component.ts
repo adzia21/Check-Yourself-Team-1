@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { icons } from 'src/app/shared/constants/constants';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-basic-info',
@@ -16,7 +17,9 @@ import { icons } from 'src/app/shared/constants/constants';
 export class UserBasicInfoComponent {
   @Output() saveEvent = new EventEmitter<null>();
   @Output() cancelEvent = new EventEmitter<null>();
+  @Output() userBasicInfoFormChange = new EventEmitter<any>();
   @Input() userBasicInfoForm!: FormGroup;
+  @Input() data!: User;
 
   public image: string = `${icons}/no-pfp.svg`;
   public dummyBool: boolean = true;

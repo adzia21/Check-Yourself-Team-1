@@ -5,19 +5,7 @@
                 <mat-card-content>
                     <div class="row justify-content-end">
                         <div class="col-auto">
-                            <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit">edit</mat-icon>
-                        </div>
-                    </div>
-                    <!-- Profile picture -->
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            @if (true) {
-                                <div class="row user-avatar-empty">
-                                    <img class="user-avatar" alt="avatar" [src]="image">
-                                </div>
-                            } @else {
-                                <img class="user-avatar" alt="avatar" [src]="image">
-                            }
+                            <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit" *ngIf="isUsersProfile">edit</mat-icon>
                         </div>
                     </div>
                     <!-- Name and Surname -->

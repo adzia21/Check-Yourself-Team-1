@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { JobOfferService } from 'src/app/services/job-offer.service';
 import { platforms, technologies, tools } from 'src/app/shared/constants/company-profile.constants';
@@ -27,12 +27,15 @@ export class CompanyProfileComponent implements OnInit {
   public jobOffers: SimplifiedJobOffer[] = [];
   public isCompany: boolean = false;
   public id: number = 0;
+  public isCompanysProfile: boolean = false;
 
-  constructor(private companyService: CompanyService, private jobOfferService: JobOfferService, private router: Router) {}
+  constructor(private companyService: CompanyService, private jobOfferService: JobOfferService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.companyService.getLoggedCompany().subscribe(res => {
       this.isCompany = res.company
+      
+      this.isCompanysProfile = res.id === Number(this.route.snapshot.paramMap.get('id'))
 
       if(this.isCompany) {
         this.companyService.getCompany().subscribe(res => {

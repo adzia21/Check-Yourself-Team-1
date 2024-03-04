@@ -53,7 +53,7 @@
                                 <div class="col company-personel" *ngIf="data?.hiredPeople">
                                     {{data.hiredPeople}}+
                                 </div>
-                                <div class="col" *ngIf="isCompany">
+                                <div class="col" *ngIf="isCompanysProfile">
                                     <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit">edit</mat-icon>
                                 </div>
                             </div>
@@ -92,14 +92,14 @@
                         <div class="col company-joboffers">
                             Oferty pracy
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto" *ngIf="isCompanysProfile">
                             <button type="button" class="button" routerLink="job-offer">
                                 Dodaj ofertę
                             </button>
                         </div>
                     </div>
                     @if (jobOffers.length != 0) {
-                        <app-simplifield-job-offer [jobOffers]="jobOffers" [isPorfile]="true" [companyId]="data.userId"></app-simplifield-job-offer>
+                        <app-simplifield-job-offer [jobOffers]="jobOffers" [isPorfile]="isCompanysProfile" [companyId]="data.userId"></app-simplifield-job-offer>
                     } @else {
                         <div class="row justify-content-center">
                             <div class="col-auto company-joboffers">
