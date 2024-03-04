@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -65,7 +66,8 @@ public class QuizManagementService {
         List<Question> questions = quiz.getQuestions();
 
         List<QuestionResponse> questionResponses = questions.stream().map(question -> {
-            List<String> answers = question.getCorrectAnswers();
+            List<String> answers = new ArrayList<>();
+            answers.addAll(question.getCorrectAnswers());
             answers.addAll(question.getIncorrectAnswers());
             return quizManagementMapper.toResponseWithoutAnswers(question, answers);
         }).toList();
@@ -111,6 +113,13 @@ public class QuizManagementService {
                 .getAuthentication().getPrincipal();
 
         List<Quiz> allByCreatorId = quizRepository.findAllByCreatorId(loggedUser.getId());
+
+        return allByCreatorId.stream().map(quizManagementMapper::toSimpleResponse).toList();
+    }
+
+    public List<SimpleQuizResponse> getAllQuizByCompanyId(Long id) {
+
+        List<Quiz> allByCreatorId = quizRepository.findAllByCreatorId(id);
 
         return allByCreatorId.stream().map(quizManagementMapper::toSimpleResponse).toList();
     }

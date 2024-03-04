@@ -38,8 +38,17 @@ public interface QuizManagementMapper {
     @Mapping(source = "userResult.incorrectAnswer", target = "incorrectAnswer")
     @Mapping(source = "userResult.passed", target = "isPassed")
     @Mapping(source = "userResult.percentOfCorrectAnswers", target = "percentOfCorrectAnswers")
+    @Mapping(target = "userFullName", ignore = true)
     ResultForUserResponse toResponseWithResult(Quiz quiz, UserResult userResult);
 
     SimpleQuizResponse toSimpleResponse(Quiz quiz);
 
+    @Mapping(source = "quiz.id", target = "quizId")
+    @Mapping(source = "quiz.title", target = "quizName")
+    @Mapping(source = "userResult.correctAnswer", target = "correctAnswer")
+    @Mapping(source = "userResult.incorrectAnswer", target = "incorrectAnswer")
+    @Mapping(source = "userResult.passed", target = "isPassed")
+    @Mapping(source = "userResult.percentOfCorrectAnswers", target = "percentOfCorrectAnswers")
+    @Mapping(source = "userData", target = "userFullName")
+    ResultForUserResponse toResponseWithResult(Quiz quiz, UserResult userResult, String userData);
 }

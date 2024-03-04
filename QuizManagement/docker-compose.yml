@@ -1,15 +1,32 @@
 version: '3.8'
 services:
+  app:
+    build: .
+    ports:
+      - "8181:8181"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres  # Use the default database name
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    networks:
+      - proxynet
+    depends_on:
+      - db
+
   db:
     image: postgres:14.1-alpine
     restart: always
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=postgres  # This is the default, but specified for clarity
+      - POSTGRES_PASSWORD=postgres  # Required environment variable
+      - POSTGRES_DB=postgres  # This is the default, but specified for clarity
     ports:
-      - '6665:5432'
+      - '5433:5433'
     volumes:
       - db:/var/lib/postgresql/data
 volumes:
   db:
-    driver: local
+
+networks:
+  proxynet:
+    name: custom_network

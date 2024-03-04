@@ -2,6 +2,7 @@ package com.example.quizmanagement.service;
 
 import com.example.quizmanagement.dto.request.ResultFromUserRequest;
 import com.example.quizmanagement.dto.response.ResultForUserResponse;
+import com.example.quizmanagement.dto.response.SimpleQuizResponse;
 import com.example.quizmanagement.exceptions.BadRequestException;
 import com.example.quizmanagement.jwt.UserDetailsImpl;
 import com.example.quizmanagement.mapper.QuizManagementMapper;
@@ -17,6 +18,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Locale;
@@ -31,6 +33,7 @@ public class ResultService {
     private final ResultRepository resultRepository;
     private final MessageSource messageSource;
     private final QuizManagementMapper mapper;
+    private final RestTemplate restTemplate;
 
 
     @Transactional
@@ -80,6 +83,21 @@ public class ResultService {
         UserResult savedEntity = resultRepository.save(userResult);
 
         return mapper.toResponseWithResult(quiz, savedEntity);
+    }
+
+    public List<ResultForUserResponse> getAllQuizByCompany() {
+        UserDetailsImpl loggedUser = (UserDetailsImpl) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+
+        List<UserResult> allResultsByCreatorId = resultRepository.findAllByQuizCreatorId(loggedUser.getId());
+
+        return allResultsByCreatorId.stream()
+                .map( r -> {
+                    String url = "http://localhost:8080/user/details/" + r.getUserId();
+                    String userData = restTemplate.getForObject(url, String.class);
+
+                    return mapper.toResponseWithResult(r.getQuiz(), r, userData);
+                }).toList();
     }
 }
 

@@ -1,0 +1,17 @@
+# Use an official base image with Java (e.g., OpenJDK)
+FROM openjdk:21-jdk-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the Maven dependencies
+#COPY target/lib/ /app/lib
+
+# Copy the jar file into the container
+COPY target/CheckYourselfLogin-0.0.1-SNAPSHOT.jar /app/CheckYourselfLogin-0.0.1-SNAPSHOT.jar
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Command to run the application
+CMD ["java", "-jar", "/app/CheckYourselfLogin-0.0.1-SNAPSHOT.jar"]

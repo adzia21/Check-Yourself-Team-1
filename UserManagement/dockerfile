@@ -1,0 +1,17 @@
+# Use an official base image with Java (e.g., OpenJDK)
+FROM openjdk:17-jdk-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the Maven dependencies
+#COPY target/lib/ /app/lib
+
+# Copy the jar file into the container
+COPY target/UserManagement.jar /app/UserManagement.jar
+
+# Expose the port the app runs on
+EXPOSE 8282
+
+# Command to run the application
+CMD ["java", "-jar", "/app/UserManagement.jar"]

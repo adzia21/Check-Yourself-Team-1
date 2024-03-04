@@ -4,9 +4,12 @@ import com.example.quizmanagement.dto.request.QuizRequest;
 import com.example.quizmanagement.dto.response.QuizResponse;
 import com.example.quizmanagement.dto.response.QuizResponseWithAnswers;
 import com.example.quizmanagement.dto.response.SimpleQuizResponse;
+import com.example.quizmanagement.mapper.QuizManagementMapper;
+import com.example.quizmanagement.repository.QuizRepository;
 import com.example.quizmanagement.service.QuizManagementService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +48,11 @@ public class QuizManagementController {
     @GetMapping("/get-all")
     public List<SimpleQuizResponse> getAllQuizByCompany() {
         return quizManagementService.getAllQuizByCompany();
+    }
+
+    @GetMapping("/get-all/{id}")
+    public List<SimpleQuizResponse> getAllQuizByCompanyId(@PathVariable Long id) {
+        return quizManagementService.getAllQuizByCompanyId(id);
     }
 
 }
