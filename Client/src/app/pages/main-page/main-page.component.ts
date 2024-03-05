@@ -23,24 +23,24 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.offerService.getAllJobOffer().subscribe((res) => {
-      let len = res.length;
-      let val1, val2, val3;
-      if (res.length > 5) {
-        val1 = res[Math.floor(len * Math.random())];
-        do {
-          val2 = res[Math.floor(len * Math.random())];
-        } while (res.indexOf(val1) === res.indexOf(val2));
-        do {
-          val3 = res[Math.floor(len * Math.random())];
-        } while (
-          res.indexOf(val1) === res.indexOf(val3) ||
-          res.indexOf(val2) === res.indexOf(val3)
-        );
-        let arr = [val1, val2, val3];
-        this.jobOffers = arr;
-      } else {
+      // let len = res.length;
+      // let val1, val2, val3;
+      // if (res.length > 5) {
+      //   val1 = res[Math.floor(len * Math.random())];
+      //   do {
+      //     val2 = res[Math.floor(len * Math.random())];
+      //   } while (res.indexOf(val1) === res.indexOf(val2));
+      //   do {
+      //     val3 = res[Math.floor(len * Math.random())];
+      //   } while (
+      //     res.indexOf(val1) === res.indexOf(val3) ||
+      //     res.indexOf(val2) === res.indexOf(val3)
+      //   );
+      //   let arr = [val1, val2, val3];
+      //   this.jobOffers = arr;
+      // } else {
         this.jobOffers = res;
-      }
+      // }
     });
   }
 
