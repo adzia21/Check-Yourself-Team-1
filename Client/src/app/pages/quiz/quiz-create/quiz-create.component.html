@@ -9,18 +9,27 @@
                                 <mat-form-field class="input-field">
                                     <mat-label>Technologia</mat-label>
                                     <input matInput type="text" formControlName="technology">
+                                    @if (quizCreationForm.get('technology')?.getError('required') && quizCreationForm.get('technology')?.touched) {
+                                        <mat-error class="error-hint">Technologia jest wymagana</mat-error>
+                                    }
                                 </mat-form-field>
                             </div>
                             <div class="col-md">
                                 <mat-form-field class="input-field-title">
                                     <mat-label>Tytuł</mat-label>
                                     <input matInput type="text" formControlName="title">
+                                    @if (quizCreationForm.get('title')?.getError('required') && quizCreationForm.get('title')?.touched) {
+                                        <mat-error class="error-hint">Tytuł jest wymagany</mat-error>
+                                    }
                                 </mat-form-field>
                             </div>
                             <div class="col-md-auto">
                                 <mat-form-field class="input-field">
                                     <mat-label>Czas w minutach</mat-label>
                                     <input matInput type="number" formControlName="time">
+                                    @if (quizCreationForm.get('time')?.getError('required') && quizCreationForm.get('time')?.touched) {
+                                        <mat-error class="error-hint">Czas jest wymagany</mat-error>
+                                    }
                                 </mat-form-field>
                             </div>
                         </div>

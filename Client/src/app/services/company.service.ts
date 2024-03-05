@@ -47,4 +47,24 @@ export class CompanyService {
         })
       );
   }
+
+  public getAllCompany(): Observable<Company> {
+    return this.http
+      .get<Company>(`${flowUrl}/${this.controller}/all`)
+      .pipe(
+        map((response: Company) => {
+          return response;
+        })
+      );
+  }
+
+  public getCompanyByID(id: number): Observable<Company> {
+    return this.http
+      .get<Company>(`${flowUrl}/${this.controller}/${id}`)
+      .pipe(
+        map((response: Company) => {
+          return response;
+        })
+      );
+  }
 }

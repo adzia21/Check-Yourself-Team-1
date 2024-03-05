@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { AuthGuard } from './helpers/guards/auth.guard';
+import { RedirectLoggedGuard } from './helpers/guards/redirect-logged.guard';
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent,
+    path: '', component: HomeComponent, canActivate:[RedirectLoggedGuard]
   },
   {
     path: 'main-page', component: MainPageComponent, canActivate:[AuthGuard]

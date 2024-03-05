@@ -34,6 +34,9 @@ import { SimplifieldJobOfferComponent } from 'src/app/components/simplifield-job
     ReactiveFormsModule,
     ToastrModule.forRoot()
   ],
+  exports: [
+    SimplifieldJobOfferComponent
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true

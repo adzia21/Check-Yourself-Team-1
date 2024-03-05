@@ -28,7 +28,6 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUser().subscribe(res => {
-      console.log(res)
       this.data = res;
       this.setUp();
     });
@@ -80,7 +79,6 @@ export class UserEditComponent implements OnInit {
     let basic = this.userBasicInfoForm.value;
     let about = this.userAboutSkillsForm.value;
     let details = this.userDetailsForm.value
-    console.log(details)
     let model: User = {
       name: basic['name'],
       surname: basic['surname'],
@@ -104,7 +102,6 @@ export class UserEditComponent implements OnInit {
       hobbies: this.formatData('hobbie')
     }
 
-    console.log(model)
     this.userService.saveUser(model).subscribe(res => this.cancel())
   }
 
@@ -115,7 +112,6 @@ export class UserEditComponent implements OnInit {
         this.userDetailsForm.value.experiences.forEach((element: any) => {
           let y: any = [];
           element.tasks.forEach((element: any) => {
-            console.log(element.task)
             y.push(element.task)
           });
           let x = {
@@ -144,7 +140,6 @@ export class UserEditComponent implements OnInit {
       };
       case 'qualification': {
         this.userDetailsForm.value.certyficates.forEach((element: any) => {
-          console.log(element)
           let x = {
             name: '',
             certificateName: element.certName,
@@ -158,7 +153,6 @@ export class UserEditComponent implements OnInit {
       };
       case 'organization': {
         this.userDetailsForm.value.organizations.forEach((element: any) => {
-          console.log(element)
           let x = element.field;
           arr.push(x)
         });
@@ -203,7 +197,6 @@ export class UserEditComponent implements OnInit {
     }
 
     this.userAboutSkillsForm.value.skillsFE.forEach((element: any) => {
-      console.log(element)
       skills.fe.skill[element.skill] = element.level;
     });
     this.userAboutSkillsForm.value.skillsBE.forEach((element: any) => {

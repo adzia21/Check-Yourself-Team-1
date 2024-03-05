@@ -20,6 +20,13 @@ export interface CreateQuiz {
     questions: QuizCreateQuestionsModel[]
 }
 
+export interface CreateQuizResponse {
+    id: number,
+    technology: string,
+    title: string,
+    questions: QuizCreateQuestionsModel[]
+}
+
 export interface QuizCreateQuestionsModel {
     type: string,
     questionName: string,
@@ -42,8 +49,18 @@ export interface QuizResult {
     percentOfCorrectAnswers: number
 }
 
-export interface CompanyQuizView {
+export interface UserQuizView {
     id: number,
     technology: string,
     title: string
+}
+
+export interface CompanyQuizView {
+    correctAnswer: number; 
+    incorrectAnswer: number;
+    isPassed: boolean;
+    percentOfCorrectAnswers: number;
+    quizId: number;
+    quizName: string;
+    userFullName: string;
 }

@@ -7,11 +7,11 @@
                     <div class="row justify-content-end">
                         <div class="col-auto">
                             @if (!isCompany) {
-                                <button type="button" class="joboffer-apply">
-                                    Aplikuj na ofertę pracy
-                                </button>
+                            <button type="button" class="joboffer-apply">
+                                Aplikuj na ofertę pracy
+                            </button>
                             } @else {
-                                <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit">edit</mat-icon>
+                            <mat-icon class="material-symbols-outlined icon-edit" routerLink="edit">edit</mat-icon>
                             }
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                             Opis oferty
                         </div>
                         <div class="col-12 joboffer-text-about">
-                            {{data.description}}    
+                            {{data.description}}
                         </div>
                     </div>
                     <div class="row separate" *ngIf="data?.technologies && data?.technologies?.length != 0">
@@ -195,10 +195,9 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-2" *ngFor="let item of data.organizationOfWork; let i = index">
-                                    <span class="job-organization" 
+                                    <span class="job-organization"
                                         [style.background-color]="i % 2 ? '#067BC2' : '#00A993'"
-                                        [style.border-color]="i % 2 ? '#067BC2' : '#00A993'"
-                                        >
+                                        [style.border-color]="i % 2 ? '#067BC2' : '#00A993'">
                                         {{item | titlecase}}
                                     </span>
                                 </div>
@@ -221,8 +220,7 @@
                                 <div class="col-2" *ngFor="let item of data.benefits; let i = index">
                                     <span class="job-organization" [ngClass]="i != 0 ? 'job-organization-mob' : ''"
                                         [style.background-color]="i % 2 ? '#00A993' : '#067BC2'"
-                                        [style.border-color]="i % 2 ? '#00A993' : '#067BC2'"
-                                        >
+                                        [style.border-color]="i % 2 ? '#00A993' : '#067BC2'">
                                         {{item | titlecase}}
                                     </span>
                                 </div>
@@ -251,7 +249,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col" *ngIf="data?.additionalInformation && data?.additionalInformation?.length != 0">
+                        <div class="col"
+                            *ngIf="data?.additionalInformation && data?.additionalInformation?.length != 0">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
@@ -275,10 +274,12 @@
                     </div>
                     <div class="row separate" *ngIf="jobOffers && jobOffers.length != 0">
                         <div class="col-12 joboffer-text-about-header">
-                            Inne ofery tego pracodawcy:
+                            Inne ofery twojej firmy:
                         </div>
                         <div class="col-12">
-                            <app-simplifield-job-offer [jobOffers]="jobOffers"></app-simplifield-job-offer>
+                            <app-simplifield-job-offer [jobOffers]="jobOffers" [isPorfile]="true"
+                                (offerNavigate)="offerNavigate($event)"
+                                [companyId]="companyID"></app-simplifield-job-offer>
                         </div>
                     </div>
                 </mat-card-content>

@@ -81,7 +81,6 @@ export class UserDetailsComponent implements AfterViewInit, OnChanges {
       this.data?.experience!.forEach(exp => {
         
         this.addNewDetail('experiences', exp);
-        console.log(exp.tasks)
         let num2 = 0;
         exp.tasks.forEach(task => {
           this.removeAtIndex('task', num, num2)

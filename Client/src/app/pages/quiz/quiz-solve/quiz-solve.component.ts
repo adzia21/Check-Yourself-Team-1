@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from 'src/app/services/quiz.service';
 import { images } from 'src/app/shared/constants/constants';
@@ -9,7 +9,7 @@ import { QuizResolve, QuizResult, QuizSolve } from 'src/app/shared/models/quiz.m
   templateUrl: './quiz-solve.component.html',
   styleUrls: ['./quiz-solve.component.scss'],
 })
-export class QuizSolveComponent {
+export class QuizSolveComponent implements OnDestroy {
   private areCorrectQuestions: boolean[] = [];
 
   alpha: number = 0.7;
@@ -120,6 +120,10 @@ export class QuizSolveComponent {
       this.tick();
     }, 1000);
   }
+  
+  ngOnDestroy(): void {
+    clearInterval(this.timer)
+  }
 
   private tick() {
     const now = new Date();
@@ -152,7 +156,6 @@ export class QuizSolveComponent {
     clearInterval(this.timer)
 
     if (timeLimit) {
-      console.log(this.quizAnsweres)
       let answered = this.quizAnsweres.length;
       let unanswered = this.quiz.questions.length - answered;
       
@@ -162,7 +165,6 @@ export class QuizSolveComponent {
           answers: ['']
         });
       }
-      console.log(this.quizAnsweres)
       this.timeTaken = String(this.quiz.time);
       this.quizService.resolveQuiz(this.urlID, this.quizAnsweres).subscribe((res: QuizResult) => {
       this.result = res;

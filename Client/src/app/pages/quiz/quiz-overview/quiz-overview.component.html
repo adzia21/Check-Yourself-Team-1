@@ -2,33 +2,37 @@
     <main class="row quiz-main">
         <div class="row justify-content-center">
             <div class="col">
-                @for (quiz of quizes; track $index) {
                 <div class="row quiz-wrap">
-                    <div class="col-3">
+                    @for (quiz of userQuizes; track $index) {
+                    <div class="col-4">
                         <mat-card class="card-outline quiz-card">
                             <mat-card-content>
                                 <div class="row">
-                                    <div class="col text">
-                                        {{quiz.title}}
+                                    <div class="col-12 text">
+                                        <div class="row">
+                                            <div class="col">
+                                                Technologia: {{quiz.technology}}
+                                            </div>
+                                            <div class="col-auto">
+                                                <mat-icon class="material-symbols-outlined icon" (click)="goToQuiz(quiz.id)">pageview</mat-icon>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col text">
-                                        {{quiz.technology}}
+                                    <div class="col-12 text">
+                                        Quiz: {{quiz.title}}
                                     </div>
                                 </div>
                             </mat-card-content>
                         </mat-card>
                     </div>
-                </div>
                 } @empty {
-                
-                <div class="row justify-content-center quiz-wrap">
-                    <div class="col-auto text-empty">
-                        Nie rozwiązałeś/aś jeszcze żadnego quizu
+                    <div class="row justify-content-center quiz-wrap">
+                        <div class="col-auto text-empty">
+                            Nie rozwiązałeś jeszcze żadnego quizu
+                        </div>
                     </div>
+                    }
                 </div>
-                }
             </div>
         </div>
     </main>
@@ -38,21 +42,41 @@
             <div class="col">
                 
                 <div class="row quiz-wrap">
-                    @for (quiz of x; track $index) {
-                    <div class="col-3">
+                    @for (quiz of companyQuizes; track $index) {
+                    <div class="col-4">
                         <mat-card class="card-outline quiz-card">
                             <mat-card-content>
                                 <div class="row">
-                                    <div class="col text">
-                                        User Full Name: Quiz Name
+                                    <div class="col-12 text">
+                                        <div class="row">
+                                            <div class="col">
+                                                Imię: {{quiz.userFullName}}
+                                            </div>
+                                            <!-- <div class="col-auto">
+                                                <mat-icon class="material-symbols-outlined icon-edit">pageview</mat-icon>
+                                            </div> -->
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <mat-icon class="material-symbols-outlined icon-edit">pageview</mat-icon>
+                                    <div class="col-12 text">
+                                        Quiz: {{quiz.quizName}}
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col text">
-                                        Zaliczony
+                                    <div class="col-12 text">
+                                        Odpowiedzi <span class="good">poprawne</span>: {{quiz.correctAnswer}}
+                                    </div>
+                                    <div class="col-12 text">
+                                        Odpowiedzi <span class="bad">niepoprawne</span>: {{quiz.incorrectAnswer}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text">
+                                        Dając: {{quiz.percentOfCorrectAnswers}}%
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text" [ngClass]="quiz.isPassed ? 'good' : 'bad'">
+                                        {{quiz.isPassed ? 'Zaliczony' : 'Niezaliczony'}}
                                     </div>
                                 </div>
                             </mat-card-content>

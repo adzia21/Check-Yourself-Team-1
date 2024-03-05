@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizService } from 'src/app/services/quiz.service';
 import { UserService } from 'src/app/services/user.service';
-import { CompanyQuizView } from 'src/app/shared/models/quiz.model';
+import { CompanyQuizView, UserQuizView } from 'src/app/shared/models/quiz.model';
 
 @Component({
   selector: 'app-quiz-overview',
@@ -10,7 +10,8 @@ import { CompanyQuizView } from 'src/app/shared/models/quiz.model';
   styleUrls: ['./quiz-overview.component.scss'],
 })
 export class QuizOverviewComponent implements OnInit {
-  public quizes: CompanyQuizView[] = [];
+  public userQuizes: UserQuizView[] = [];
+  public companyQuizes: CompanyQuizView[] = [];
   public isCompany: boolean = false;
   public x = ['', '', '', '', '']
 
@@ -19,20 +20,23 @@ export class QuizOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getLoggedUser().subscribe(res => {
       this.isCompany = res.company;
-      if(res.company) {
+
+        this.quizService.getAllUserQuizes().subscribe((res: UserQuizView[]) => {
+          this.userQuizes = res;
+        });
+
         this.quizService.getAllCompanyQuizes().subscribe((res: CompanyQuizView[]) => {
-          this.quizes = res;
+          this.companyQuizes = res;
         });
-      } else {
-        this.quizService.getAllUserQuizes().subscribe((res: CompanyQuizView[]) => {
-          this.quizes = res;
-        });
-      }
     })
     
   }
 
   public add() {
     this.router.navigate(['quiz'])
+  }
+
+  public goToQuiz(id: number) {
+    this.router.navigate([`quiz/${id}`])
   }
 }

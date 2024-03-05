@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { QuizService } from 'src/app/services/quiz.service';
 
@@ -19,10 +20,12 @@ export class QuizCreateComponent implements AfterViewInit {
   public questionForm: FormGroup;
   public incorrectAnswerArray: FormGroup;
   public correctAnswerArray: FormGroup;
+  public correctArray: string[] = [];
+  public incorrectArray: string[] = [];
 
   public quizTypes = ['MULTIPLE_CHOICE', 'FINISH_SENTENCE'];
 
-  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef, private quizService: QuizService, private toastr: ToastrService) {
+  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef, private quizService: QuizService, private toastr: ToastrService, private router: Router) {
     this.incorrectAnswerArray = this.fb.group({
       incorrectAnswer: new FormControl('', [Validators.required]),
     });
@@ -129,38 +132,58 @@ export class QuizCreateComponent implements AfterViewInit {
   }
 
   public save() {
+
     if (this.quizCreationForm.value.questions.length === 0) 
       return this.toastr.error('Quiz musi mieć minimum jedno pytanie');
 
-    this.validate();
+      this.validate();
     this.quizCreationForm.value.questions.forEach((question: any) => {
-      console.log(question.correctAnswers.length === 0 || question.incorrectAnswers.length === 0)
-      if(question.correctAnswers.length === 0 || question.incorrectAnswers.length === 0) return;
+      if(question.correctAnswers.length === 0 || question.incorrectAnswers.length === 0) {
+        return this.quizCreationForm.markAllAsTouched();
+      };
     });
 
-    return this.quizService.creataQuiz(this.quizCreationForm.value).subscribe(res => console.log(res));
+    if(!this.quizCreationForm.valid) return this.quizCreationForm.markAllAsTouched();
+
+    this.quizCreationForm.value?.questions.forEach((question: any) => {
+
+      let arr1: any = [];
+      question.correctAnswers.forEach((answer: any) => {
+        if(answer.correctAnswer?.trim() != '' && answer.correctAnswer != undefined) arr1.push(answer.correctAnswer);
+      });
+      question.correctAnswers =  arr1;
+
+      let arr2: any = [];
+      question.incorrectAnswers.forEach((answer: any) => {
+        if(answer.incorrectAnswer?.trim() != '' && answer.incorrectAnswer != undefined) arr2.push(answer.incorrectAnswer);
+      });
+      question.incorrectAnswers = arr2;
+    });
+
+    
+
+    return this.quizService.creataQuiz(this.quizCreationForm.value).subscribe(res => {
+      this.router.navigate([`quiz/${res.id}`])
+    });
   }
 
   public validate() {
     this.quizCreationForm.value?.questions.forEach((question: any) => {
-      let correctArray: string[] = [];
+      this.correctArray = [];
       question.correctAnswers.forEach((answer: any) => {
-        if(answer.correctAnswer != '') correctArray.push(answer.correctAnswer);
+        if(answer.correctAnswer?.trim() != '' && answer.correctAnswer != undefined) this.correctArray.push(answer.correctAnswer);
       });
-      question.correctAnswers = correctArray;
 
-      let incorrectArray: string[] = [];
+      this.incorrectArray = [];
       question.incorrectAnswers.forEach((answer: any) => {
-        console.log(answer)
-        if(answer.incorrectAnswer != '') incorrectArray.push(answer.incorrectAnswer);
+        if(answer.incorrectAnswer?.trim() != '' && answer.incorrectAnswer != undefined) this.incorrectArray.push(answer.incorrectAnswer);
       });
-      question.incorrectAnswers = incorrectArray;
     });
-    this.quizCreationForm.value.questions.forEach((question: any) => {
-      console.log(question.correctAnswers.length === 0 || question.incorrectAnswers.length === 0)
-      if (question.correctAnswers.length === 0 || question.incorrectAnswers.length === 0) {
-        this.toastr.error('Każdy pytanie musi miec minimum jedną poprawną i niepoprawną odpowiedź');
+    
+      if (this.correctArray.length === 0 || this.incorrectArray.length === 0) {
+        return this.toastr.error('Każdy pytanie musi miec minimum jedną poprawną i niepoprawną odpowiedź');
       };
-    });
+
+      return;
   }
 }

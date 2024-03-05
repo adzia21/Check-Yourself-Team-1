@@ -44,6 +44,16 @@ export class JobOfferService {
     );
   }
 
+  public getAllJobOffer(): Observable<SimplifiedJobOffer[]> {
+    return this.http
+      .get<SimplifiedJobOffer[]>(`${flowUrl}/${this.controller}`)
+      .pipe(
+        map((response: SimplifiedJobOffer[]) => {
+          return response;
+        })
+    );
+  }
+
   public editJobOffer(id: number, model: FullJobOffer): Observable<FullJobOffer> {
     return this.http
       .put<FullJobOffer>(`${flowUrl}/${this.controller}/${id}`, model)

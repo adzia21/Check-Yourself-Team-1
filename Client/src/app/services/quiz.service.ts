@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { quizUrl } from '../shared/constants/constants';
-import { CompanyQuizView, CreateQuiz, QuizResolve, QuizResult, QuizSolve } from '../shared/models/quiz.model';
+import { CompanyQuizView, CreateQuiz, CreateQuizResponse, QuizResolve, QuizResult, QuizSolve, UserQuizView } from '../shared/models/quiz.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +18,11 @@ export class QuizService {
     return 'resolve';
   }
 
-  public creataQuiz(model: CreateQuiz): Observable<CreateQuiz> {
+  public creataQuiz(model: CreateQuiz): Observable<CreateQuizResponse> {
     return this.http
-      .post<CreateQuiz>(`${quizUrl}/${this.managementController}`, model)
+      .post<CreateQuizResponse>(`${quizUrl}/${this.managementController}`, model)
       .pipe(
-        map((response: CreateQuiz) => {
+        map((response: CreateQuizResponse) => {
           return response;
         })
       );
@@ -48,11 +48,11 @@ export class QuizService {
       );
   }  
 
-  public getAllUserQuizes(): Observable<CompanyQuizView[]> {
+  public getAllUserQuizes(): Observable<UserQuizView[]> {
     return this.http
-      .get<CompanyQuizView[]>(`${quizUrl}/${this.managementController}/get-all`)
+      .get<UserQuizView[]>(`${quizUrl}/${this.managementController}/get-all`)
       .pipe(
-        map((response: CompanyQuizView[]) => {
+        map((response: UserQuizView[]) => {
           return response;
         })
       );
@@ -60,7 +60,7 @@ export class QuizService {
 
   public getAllCompanyQuizes(): Observable<CompanyQuizView[]> {
     return this.http
-      .get<CompanyQuizView[]>(`${quizUrl}/${this.managementController}/get-all`)
+      .get<CompanyQuizView[]>(`${quizUrl}/${this.resolveController}/get-all`)
       .pipe(
         map((response: CompanyQuizView[]) => {
           return response;

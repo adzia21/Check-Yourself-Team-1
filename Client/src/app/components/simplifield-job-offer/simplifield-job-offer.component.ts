@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { icons } from 'src/app/shared/constants/constants';
 import { SimplifiedJobOffer } from 'src/app/shared/models/job-offer.model';
@@ -12,6 +12,7 @@ export class SimplifieldJobOfferComponent implements OnInit {
   @Input() jobOffers: SimplifiedJobOffer[] = [];
   @Input() isPorfile: boolean = false;
   @Input() companyId: number = 0;
+  @Output() offerNavigate = new EventEmitter<any>();
 
   public image: string = `${icons}/logo_black.svg`;
 
@@ -60,6 +61,7 @@ export class SimplifieldJobOfferComponent implements OnInit {
   }
 
   public apply(index: number) {
+    this.offerNavigate.emit(this.jobOffers[index].id);
     this.router.navigate([`company/${this.companyId}/job-offer/${this.jobOffers[index].id}`]);
   }
 }

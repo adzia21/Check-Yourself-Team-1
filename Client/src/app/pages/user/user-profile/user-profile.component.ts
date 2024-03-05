@@ -28,18 +28,19 @@ export class UserProfileComponent implements OnInit {
     });
 
     this.userService.getUser().subscribe(res => {
-      console.log(res)
       this.data = res;
       
-      let fe = this.data?.skills.fe.skill;
-      let be = this.data?.skills.be.skill;
-      let lng = this.data?.skills.lng.skill;
-      let other = this.data?.skills.other.skill;
+      let fe = this.data?.skills.fe?.skill;
+      let be = this.data?.skills.be?.skill;
+      let lng = this.data?.skills.lng?.skill;
+      let other = this.data?.skills.other?.skill;
 
-      this.skillFE = Object.keys(fe).map(key => ({type: key, value: fe[key]}));
-      this.skillBE = Object.keys(be).map(key => ({type: key, value: be[key]}));
-      this.language = Object.keys(lng).map(key => ({type: key, value: lng[key]}));
-      this.skillOther = Object.keys(other).map(key => ({type: key, value: other[key]}));
+      if(fe) this.skillFE = Object.keys(fe).map(key => ({type: key, value: fe[key]}));
+      if(be) this.skillBE = Object.keys(be).map(key => ({type: key, value: be[key]}));
+      if(lng) this.language = Object.keys(lng).map(key => ({type: key, value: lng[key]}));
+      if(other) this.skillOther = Object.keys(other).map(key => ({type: key, value: other[key]}));
+      
+      
     });
   }
 

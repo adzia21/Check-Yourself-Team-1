@@ -12,42 +12,37 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-auto">
-                            <div class="row">
-                                <div class="col-12">
-                                    @if (dummyBool) {
-                                    <div class="row joboffer-logo-empty">
-                                        <img class="joboffer-logo" alt="logo" [src]="image">
-                                    </div>
-                                    } @else {
-                                    <img class="joboffer-logo" alt="logo" [src]="image">
-                                    }
-                                </div>
-                                <div class="col-12">
-                                    <input class="joboffer-logo-input" type="file" accept=".jpg, .png"
-                                        (change)="selectLogo($event)" formControlName="logo" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">
+                        <div class="col-12">
+                            <div class="row justify-content-center">
+                                <div class="col-auto">
                                     <div class="row">
                                         <div class="col">
                                             <mat-form-field class="input-field">
                                                 <mat-label>Nazwa Stanowisk</mat-label>
                                                 <input matInput type="text" formControlName="title">
+                                                @if(jobOfferForm.get('title')?.getError('required') 
+                                                && jobOfferForm.get('title')?.touched) {
+                                                    <mat-error>
+                                                        Stanowisko jest wymagane
+                                                    </mat-error>
+                                                }
                                             </mat-form-field>
                                         </div>
                                         <div class="col">
                                             <mat-form-field class="input-field">
                                                 <mat-label>Nazwa firmy</mat-label>
                                                 <input matInput type="text" formControlName="companyName">
+                                                @if(jobOfferForm.get('companyName')?.getError('required') 
+                                                && jobOfferForm.get('companyName')?.touched) {
+                                                    <mat-error>
+                                                        Nazwa firmy jest wymagana
+                                                    </mat-error>
+                                                }
                                             </mat-form-field>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-12">
                                     <div class="row">
                                         <div class="col">
                                             <div class="row">
@@ -58,6 +53,12 @@
                                                     <mat-form-field class="input-field">
                                                         <mat-label>Lokacja firmy</mat-label>
                                                         <input matInput type="text" formControlName="localization">
+                                                        @if(jobOfferForm.get('localization')?.getError('required') 
+                                                        && jobOfferForm.get('localization')?.touched) {
+                                                            <mat-error>
+                                                                Lokacja firmy jest wymagana
+                                                            </mat-error>
+                                                        }
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -71,6 +72,12 @@
                                                     <mat-form-field class="input-field">
                                                         <mat-label>Forma zatrudnienia</mat-label>
                                                         <input matInput type="text" formControlName="contractType">
+                                                        @if(jobOfferForm.get('contractType')?.getError('required') 
+                                                        && jobOfferForm.get('contractType')?.touched) {
+                                                            <mat-error>
+                                                                Forma zatrudnienia jest wymagana
+                                                            </mat-error>
+                                                        }
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -105,9 +112,15 @@
                         <div class="col-12 joboffer-text-about">
                             <mat-form-field class="joboffer-text-about-field">
                                 <mat-label>Opisz ofertę...</mat-label>
-                                <textarea matInput #description type="text" maxlength="1000"
-                                    formControlName="description" class="deep" rows="8" cols="50"></textarea>
-                                <mat-hint align="end">{{description.value.length}}/1000</mat-hint>
+                                <textarea matInput #description type="text" maxlength="250"
+                                    formControlName="description" class="deep" rows="3" cols="25"></textarea>
+                                <mat-hint align="end">{{description.value.length}}/250</mat-hint>
+                                @if(jobOfferForm.get('description')?.getError('required') 
+                                && jobOfferForm.get('description')?.touched) {
+                                    <mat-error>
+                                        Opis oferty jest wymagany
+                                    </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>

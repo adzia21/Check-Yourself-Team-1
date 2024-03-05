@@ -153,12 +153,12 @@ export class CompanyEditComponent implements OnInit {
     if (!this.companyForm.valid) return;
 
     this.companyService.editCompany(this.companyForm.value).subscribe(res => {
-      console.log(res)
+      this.toastrService.success('Zapisano pomyślnie');
+      this.cancel();
     }, error => {
-      console.log(error)
       switch (error) {
         default:
-          return this.toastrService.error('Wystąpił błąd podczas zapisywania')
+          return this.toastrService.error('Wystąpił błąd podczas zapisywania');
       };
     });
   }

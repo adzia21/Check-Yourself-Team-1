@@ -56,7 +56,6 @@ export class NavMenuComponent implements AfterViewInit {
     this.userService.getLoggedUser().subscribe(res => {
       this.isCompany = res.company;
       this.id = res.id;
-      console.log(res)
     });
   }
 

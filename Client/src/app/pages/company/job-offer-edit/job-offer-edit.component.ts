@@ -4,7 +4,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { JobOfferService } from 'src/app/services/job-offer.service';
@@ -33,6 +33,7 @@ export class JobOfferEditComponent implements AfterViewInit, OnInit {
   public platformsArray = platforms;
   public isCompany = false;
   public dummyBool = false;
+  public technologyRequired = false;
 
   public levels = ['początkujący', 'średniozaawansowany', 'zaawansowany'];
   public segments = ['technologies', 'tools', 'platforms', 'languages'];
@@ -107,14 +108,14 @@ export class JobOfferEditComponent implements AfterViewInit, OnInit {
   private setUp() {
     this.jobOfferForm = this.fb.group({
       logo: new FormControl(''),
-      companyName: new FormControl(this.data ? this.data.companyName : ''),
-      title: new FormControl(this.data ? this.data.title : ''),
-      localization: new FormControl(this.data ? this.data.localization : ''),
-      contractType: new FormControl(this.data ? this.data.contractType : ''),
+      companyName: new FormControl(this.data ? this.data.companyName : '', [Validators.required]),
+      title: new FormControl(this.data ? this.data.title : '', [Validators.required]),
+      localization: new FormControl(this.data ? this.data.localization : '', [Validators.required]),
+      contractType: new FormControl(this.data ? this.data.contractType : '', [Validators.required]),
       expirationDate: new FormControl(
         this.data ? this.data.expirationDate : ''
       ),
-      description: new FormControl(this.data ? this.data.description : ''),
+      description: new FormControl(this.data ? this.data.description : '', [Validators.required]),
       technologies: this.fb.array([]),
       tools: this.fb.array([]),
       platforms: this.fb.array([]),
@@ -315,7 +316,7 @@ export class JobOfferEditComponent implements AfterViewInit, OnInit {
   }
 
   public save() {
-    if (!this.jobOfferForm.valid) return;
+    if (!this.jobOfferForm.valid) return this.jobOfferForm.markAllAsTouched();
 
     let form: FullJobOffer = {
       companyName: this.jobOfferForm.value['companyName'],
@@ -351,7 +352,6 @@ export class JobOfferEditComponent implements AfterViewInit, OnInit {
           return this.message('Oferta zedytowana pomyślnie', res.id);
         },
         (error) => {
-          console.log(error);
           switch (error) {
             default:
               return this.toastrService.error(
@@ -363,10 +363,10 @@ export class JobOfferEditComponent implements AfterViewInit, OnInit {
     } else {
       this.jobOfferService.createJobOffer(form).subscribe(
         (res) => {
+          this.cancel();
           return this.message('Oferta stworzona pomyślnie', res.id);
         },
         (error) => {
-          console.log(error);
           switch (error) {
             default:
               return this.toastrService.error(

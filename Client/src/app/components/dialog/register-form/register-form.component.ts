@@ -63,7 +63,9 @@ export class RegisterFormComponent implements AfterViewInit {
       this.toastr.success('Zarejestrowano pomyślnie');
       this.showRegisterForm = false;
       this.showRegisterFormChange.emit(this.showRegisterForm);
-      this.openLoginDialog();
+      setTimeout(() => {
+        this.openLoginDialog();
+      }, 1000);
     }, error => {
         switch(error.status) {
             default:
@@ -103,8 +105,14 @@ export class RegisterFormComponent implements AfterViewInit {
   }
 
   public openLoginDialog(): void {
-    this.dialog.open(LoginDialogComponent, {
-      backdropClass: 'userLoginDialog',
+    const dialogRef = this.dialog.open(LoginDialogComponent, {
+      backdropClass: 'userLoginDialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        window.location.reload();
+      }
     });
   }
 }

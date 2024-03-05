@@ -36,7 +36,6 @@ export class UserAboutSkillsComponent implements AfterViewInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data']) {
-      console.log(this.data?.skills)
       this.addNewSkill('skillsFE', this.data?.skills.fe.skill);
       this.addNewSkill('skillsBE', this.data?.skills.be.skill);
       this.addNewSkill('skillsLanguage', this.data?.skills.lng.skill);

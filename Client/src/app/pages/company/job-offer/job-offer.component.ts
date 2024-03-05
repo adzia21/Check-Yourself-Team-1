@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { JobOfferService } from 'src/app/services/job-offer.service';
-import { platforms, technologies, tools } from 'src/app/shared/constants/company-profile.constants';
+import {
+  platforms,
+  technologies,
+  tools,
+} from 'src/app/shared/constants/company-profile.constants';
 import { icons } from 'src/app/shared/constants/constants';
-import { FullJobOffer, SimplifiedJobOffer } from 'src/app/shared/models/job-offer.model';
+import {
+  FullJobOffer,
+  SimplifiedJobOffer,
+} from 'src/app/shared/models/job-offer.model';
 
 @Component({
   selector: 'app-job-offer',
@@ -26,15 +33,24 @@ export class JobOfferComponent implements OnInit {
   public companyID: number = 0;
 
   public data!: FullJobOffer;
-  public jobOffers:  SimplifiedJobOffer[] = [];
+  public jobOffers: SimplifiedJobOffer[] = [];
 
-  constructor(private jobOfferService: JobOfferService, private route: ActivatedRoute, private companyService: CompanyService) {}
+  constructor(
+    private jobOfferService: JobOfferService,
+    private route: ActivatedRoute,
+    private companyService: CompanyService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  private getData() {
     this.companyID = Number(this.route.snapshot.paramMap.get('id'));
     this.offerID = Number(this.route.snapshot.paramMap.get('offerId'));
 
-    this.jobOfferService.getLoggedUser().subscribe(res => {
+    this.jobOfferService.getLoggedUser().subscribe((res) => {
       this.isCompany = res.company;
 
       if (this.isCompany) {
@@ -46,11 +62,11 @@ export class JobOfferComponent implements OnInit {
         });
       }
     });
+    
 
-    this.jobOfferService.getJobOffer(this.offerID).subscribe(res => {
+    this.jobOfferService.getJobOffer(this.offerID).subscribe((res) => {
       this.data = res;
     });
-    
   }
 
   public getTechnologyName(technology: string) {
@@ -110,5 +126,13 @@ export class JobOfferComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  public offerNavigate(offerID: number) {
+    this.jobOfferService.getJobOffer(offerID).subscribe((res) => {
+      this.data = res;
+      window.location.reload()
+    });
+    
   }
 }

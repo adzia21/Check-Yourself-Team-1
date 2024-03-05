@@ -153,7 +153,7 @@
                     </div>
                     <!-- Skills -->
                     <div class="row justify-content-start text-block">
-                        <div class="col-12 text-header">
+                        <div class="col-12 text-header" *ngIf="(skillFE[0]?.value != '' && skillFE.length != 0) || (skillBE[0]?.value != '' && skillBE.length != 0)">
                             <div class="row align-items-center">
                                 <div class="col-auto">
                                     <mat-icon class="material-symbols-outlined">stay_current_landscape</mat-icon>
@@ -163,7 +163,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-about-me-body" *ngIf="skillFE[0]?.value != ''">
+                        <div class="col-lg-6 text-about-me-body" *ngIf="skillFE[0]?.value != '' && skillFE.length != 0">
                             <div class="row justify-content-start">
                                 <div class="col-12 text-header">
                                     Technologie Frontend:
@@ -183,7 +183,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-about-me-body" *ngIf="skillBE[0]?.value != ''">
+                        <div class="col-lg-6 text-about-me-body" *ngIf="skillBE[0]?.value != '' && skillBE.length != 0">
                             <div class="row justify-content-start">
                                 <div class="col-12 text-header">
                                     Technologie Backend:
@@ -206,7 +206,7 @@
                     </div>
                     <!-- Foreign Languages and Other -->
                     <div class="row justify-content-start text-block">
-                        <div class="col-lg-6 text-about-me-body" *ngIf="language[0]?.value != ''">
+                        <div class="col-lg-6 text-about-me-body" *ngIf="language[0]?.value != '' && language.length != 0">
                             <div class="row justify-content-start">
                                 <div class="col-12 text-header">
                                     <div class="row align-items-center">
@@ -233,7 +233,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-about-me-body" *ngIf="skillOther[0]?.value != ''">
+                        <div class="col-lg-6 text-about-me-body" *ngIf="skillOther[0]?.value != '' && skillOther.length != 0">
                             <div class="row justify-content-start">
                                 <div class="col-12 text-header">
                                     Inne:

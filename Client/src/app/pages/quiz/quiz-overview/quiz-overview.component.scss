@@ -23,6 +23,7 @@
 
 .text {
     font-size: $font-size-big;
+    margin: .5rem 0 0 0;
 
     &-empty {
         font-size: $font-size-biger;
@@ -45,3 +46,14 @@
     margin: 0 0 20px 0;
 }
 
+.good {
+    color: $accent-color
+}
+
+.bad {
+    color: $error
+}
+
+.icon {
+    cursor: pointer;
+}
